@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyVista Q1 2026 Engagement Timeline</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e8e8e8;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            color: #a0a0a0;
+        }
+        
+        .deadline-banner {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: linear-gradient(90deg, #f093fb, #f5576c);
+            border-radius: 30px;
+            font-weight: 600;
+            color: white;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.2);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .stat-label {
+            color: #a0a0a0;
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+        
+        section {
+            margin-bottom: 50px;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        h2::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(180deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+        
+        h3 {
+            font-size: 1.3rem;
+            margin: 24px 0 16px;
+            color: #b8b8b8;
+        }
+        
+        .card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .mermaid {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+        }
+        
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        th {
+            background: rgba(102, 126, 234, 0.2);
+            font-weight: 600;
+            color: #667eea;
+        }
+        
+        tr:hover {
+            background: rgba(255,255,255,0.03);
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .status-complete { background: rgba(46, 204, 113, 0.2); color: #2ecc71; }
+        .status-active { background: rgba(52, 152, 219, 0.2); color: #3498db; }
+        .status-pending { background: rgba(241, 196, 15, 0.2); color: #f1c40f; }
+        .status-risk { background: rgba(231, 76, 60, 0.2); color: #e74c3c; }
+        
+        .workstream-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .workstream-meta {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .meta-item {
+            background: rgba(255,255,255,0.05);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .meta-label {
+            color: #888;
+            margin-right: 8px;
+        }
+        
+        .timeline-phase {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-phase::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #667eea, #764ba2);
+        }
+        
+        .timeline-phase::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 18px;
+            height: 18px;
+            background: #667eea;
+            border-radius: 50%;
+            border: 3px solid #1a1a2e;
+        }
+        
+        .phase-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 12px;
+        }
+        
+        .phase-dates {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 12px;
+        }
+        
+        .milestone-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 20px 0;
+        }
+        
+        .milestone {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 0.9rem;
+        }
+        
+        .milestone-date {
+            font-weight: 600;
+            color: #667eea;
+        }
+        
+        .risk-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+        }
+        
+        .risk-card {
+            background: rgba(231, 76, 60, 0.1);
+            border: 1px solid rgba(231, 76, 60, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        
+        .risk-title {
+            font-weight: 600;
+            color: #e74c3c;
+            margin-bottom: 8px;
+        }
+        
+        .risk-mitigation {
+            font-size: 0.9rem;
+            color: #a0a0a0;
+        }
+        
+        .question-list {
+            list-style: none;
+        }
+        
+        .question-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-left: 24px;
+            position: relative;
+        }
+        
+        .question-list li::before {
+            content: '?';
+            position: absolute;
+            left: 0;
+            color: #f1c40f;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8rem; }
+            .container { padding: 20px; }
+            .stat-number { font-size: 2rem; }
+        }
+        
+        .print-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+            transition: transform 0.2s;
+        }
+        
+        .print-button:hover {
+            transform: scale(1.05);
+        }
+        
+        @media print {
+            body { background: white; color: black; }
+            .print-button { display: none; }
+            .card { border: 1px solid #ddd; }
+            .mermaid { background: white; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>EasyVista Q1 2026 Engagement Timeline</h1>
+            <p class="subtitle">Internal Review Document | Mike Duncan & Henry Yelin</p>
+            <div class="deadline-banner">🎯 Q1 Deadline: March 31, 2026 (~70 days remaining)</div>
+        </header>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">2</div>
+                <div class="stat-label">Primary Workstreams</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">12</div>
+                <div class="stat-label">Key Stakeholders</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">$15K</div>
+                <div class="stat-label">Budget Cap</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Active Risks</div>
+            </div>
+        </div>
+        
+        <section>
+            <h2>Project Gantt Chart</h2>
+            <div class="card">
+                <div class="mermaid">
+gantt
+    title EasyVista Q1 2026 Timeline
+    dateFormat YYYY-MM-DD
+    
+    section Discovery
+    Leadership Discovery       :done, disc1, 2026-01-04, 2026-01-19
+    
+    section Dripify
+    Stakeholder Outreach      :active, drip1, 2026-01-21, 3d
+    Validation Calls          :drip2, 2026-01-27, 7d
+    Champion ID & Setup       :drip3, 2026-02-03, 11d
+    US Pilot Launch           :milestone, drip4, 2026-02-21, 0d
+    Pilot Monitoring          :drip5, 2026-02-24, 14d
+    Go/No-Go Decision         :crit, milestone, drip6, 2026-03-07, 0d
+    Broad Rollout             :drip7, 2026-03-10, 18d
+    
+    section Loopio
+    Stakeholder Outreach      :active, loop1, 2026-01-21, 3d
+    Discovery & Analysis      :loop2, 2026-01-27, 14d
+    Solution Design           :loop3, 2026-02-10, 11d
+    Training & Implementation :loop4, 2026-02-24, 25d
+    Metrics & Handoff         :loop5, 2026-03-24, 7d
+    
+    section Tech DD
+    Deep-Dive Session         :tech1, 2026-01-27, 5d
+    Advisory Support          :tech2, 2026-02-03, 49d
+    
+    section Milestones
+    Q1 DEADLINE               :crit, milestone, end, 2026-03-31, 0d
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2>Stakeholder Map</h2>
+            <div class="card">
+                <div class="mermaid">
+flowchart LR
+    subgraph Leadership["🎯 Leadership"]
+        Patrice["Patrice<br/>CEO"]
+        Evan["Evan<br/>COO ✓"]
+        Alexander["Alexander<br/>AI PM ✓"]
+    end
+    
+    subgraph Dripify["📱 Dripify Team"]
+        Tim["Tim<br/>NA BDR 📧"]
+        Cedric["Cedric<br/>France 📧"]
+        Christopher["Christopher<br/>Germany ⚠️"]
+    end
+    
+    subgraph Loopio["📝 Loopio Team"]
+        Dalila["Dalila<br/>Global Presales 📧"]
+        Jan["Jan<br/>Loopio Owner 📧"]
+        Rod["Rod<br/>US AE ⚠️"]
+    end
+    
+    subgraph TechDD["⚙️ Engineering"]
+        Ludovic["Ludovic<br/>CTO"]
+        Loic["Loic<br/>Eng Lead"]
+    end
+    
+    Leadership --> Dripify
+    Leadership --> Loopio
+    Leadership --> TechDD
+                </div>
+                <p style="margin-top: 16px; color: #888; font-size: 0.9rem;">
+                    ✓ = Engaged | 📧 = Outreach Sent | ⚠️ = Risk/Constraint
+                </p>
+            </div>
+        </section>
+        
+        <section>
+            <h2>Workstream 1: Dripify (LinkedIn Automation)</h2>
+            <div class="card">
+                <div class="workstream-header">
+                    <div>
+                        <span class="status-badge status-active">In Progress</span>
+                    </div>
+                    <div class="workstream-meta">
+                        <div class="meta-item"><span class="meta-label">Scope:</span> Global BDR Team</div>
+                        <div class="meta-item"><span class="meta-label">Goal:</span> 15-20 → 25-30 opps/quarter</div>
+                        <div class="meta-item"><span class="meta-label">Budget:</span> ~$5-8K</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-phase">
+                    <div class="phase-title">Phase 1: Validation</div>
+                    <div class="phase-dates">Jan 21 - Feb 7</div>
+                    <table>
+                        <tr><th>Task</th><th>Owner</th><th>Due</th><th>Status</th></tr>
+                        <tr><td>Schedule validation calls</td><td>Mike</td><td>Jan 24</td><td><span class="status-badge status-active">Active</span></td></tr>
+                        <tr><td>Tim validation call (US)</td><td>Mike</td><td>Jan 27-31</td><td><span class="status-badge status-pending">Pending</span></td></tr>
+                        <tr><td>Cedric validation call (France)</td><td>Mike/Henry</td><td>Jan 27-31</td><td><span class="status-badge status-pending">Pending</span></td></tr>
+                        <tr><td>Baseline BDR metrics</td><td>Mike</td><td>Jan 31</td><td><span class="status-badge status-pending">Pending</span></td></tr>
+                        <tr><td>Confirm Dripify fit</td><td>Mike</td><td>Feb 7</td><td><span class="status-badge status-pending">Pending</span></td></tr>
+                    </table>
+                </div>
+                
+                <div class="timeline-phase">
+                    <div class="phase-title">Phase 2: Pilot Setup</div>
+                    <div class="phase-dates">Feb 10 - Feb 21</div>
+                    <table>
+                        <tr><th>Task</th><th>Owner</th><th>Due</th></tr>
+                        <tr><td>Procure Dripify licenses</td><td>Evan/Mike</td><td>Feb 10</td></tr>
+                        <tr><td>Configure for EasyVista</td><td>Mike</td><td>Feb 14</td></tr>
+                        <tr><td>Create outreach templates</td><td>Mike</td><td>Feb 17</td></tr>
+                        <tr><td>Train champion user</td><td>Mike</td><td>Feb 19</td></tr>
+                        <tr><td>🚀 US Pilot Launch</td><td>Mike/Tim</td><td>Feb 21</td></tr>
+                    </table>
+                </div>
+                
+                <div class="timeline-phase">
+                    <div class="phase-title">Phase 3: Pilot & Rollout</div>
+                    <div class="phase-dates">Feb 24 - Mar 28</div>
+                    <table>
+                        <tr><th>Task</th><th>Owner</th><th>Due</th></tr>
+                        <tr><td>Pilot monitoring (2 weeks)</td><td>Mike/Tim</td><td>Mar 7</td></tr>
+                        <tr><td>⚡ Go/No-Go Decision</td><td>Mike/Evan</td><td>Mar 7</td></tr>
+                        <tr><td>US broad rollout</td><td>Mike/Tim</td><td>Mar 14</td></tr>
+                        <tr><td>France rollout</td><td>Mike/Henry/Cedric</td><td>Mar 21</td></tr>
+                        <tr><td>Documentation & handoff</td><td>Mike</td><td>Mar 28</td></tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2>Workstream 2: Loopio Standardization</h2>
+            <div class="card">
+                <div class="workstream-header">
+                    <div>
+                        <span class="status-badge status-active">In Progress</span>
+                    </div>
+                    <div class="workstream-meta">
+                        <div class="meta-item"><span class="meta-label">Scope:</span> Global Pre-sales</div>
+                        <div class="meta-item"><span class="meta-label">Goal:</span> Consistent RFP responses</div>
+                        <div class="meta-item"><span class="meta-label">Budget:</span> $0 (existing license)</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-phase">
+                    <div class="phase-title">Phase 1: Discovery</div>
+                    <div class="phase-dates">Jan 21 - Feb 7</div>
+                    <table>
+                        <tr><th>Task</th><th>Owner</th><th>Due</th><th>Status</th></tr>
+                        <tr><td>Schedule Dalila/Jan call</td><td>Mike</td><td>Jan 24</td><td><span class="status-badge status-active">Active</span></td></tr>
+                        <tr><td>Discovery call</td><td>Mike</td><td>Jan 27-31</td><td><span class="status-badge status-pending">Pending</span></td></tr>
+                        <tr><td>Interview Rod (ChatGPT usage)</td><td>Mike</td><td>Feb 5</td><td><span class="status-badge status-pending">Pending</span></td></tr>
+                        <tr><td>Identify blockers</td><td>Mike</td><td>Feb 7</td><td><span class="status-badge status-pending">Pending</span></td></tr>
+                    </table>
+                </div>
+                
+                <div class="timeline-phase">
+                    <div class="phase-title">Phase 2: Solution & Training</div>
+                    <div class="phase-dates">Feb 10 - Mar 21</div>
+                    <table>
+                        <tr><th>Task</th><th>Owner</th><th>Due</th></tr>
+                        <tr><td>Define Loopio usage metrics</td><td>Mike/Jan</td><td>Feb 12</td></tr>
+                        <tr><td>Change management plan</td><td>Mike</td><td>Feb 14</td></tr>
+                        <tr><td>Training materials</td><td>Mike/Jan</td><td>Feb 19</td></tr>
+                        <tr><td>US pre-sales training</td><td>Mike/Jan</td><td>Feb 28</td></tr>
+                        <tr><td>Address Rod's workflow</td><td>Mike</td><td>Mar 3</td></tr>
+                        <tr><td>France training</td><td>Henry/Jan</td><td>Mar 14</td></tr>
+                        <tr><td>Global training complete</td><td>Jan</td><td>Mar 21</td></tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2>Key Milestones</h2>
+            <div class="card">
+                <div class="milestone-list">
+                    <div class="milestone"><span class="milestone-date">Jan 23</span> — Ludovic/Loic prioritization review</div>
+                    <div class="milestone"><span class="milestone-date">Jan 24</span> — Stakeholder call scheduling complete</div>
+                    <div class="milestone"><span class="milestone-date">Feb 7</span> — Validation phase complete</div>
+                    <div class="milestone"><span class="milestone-date">Feb 21</span> — Dripify US pilot launch</div>
+                    <div class="milestone"><span class="milestone-date">Mar 7</span> — Dripify Go/No-Go decision</div>
+                    <div class="milestone"><span class="milestone-date">Mar 21</span> — Loopio global training complete</div>
+                    <div class="milestone"><span class="milestone-date">Mar 28</span> — Final documentation</div>
+                    <div class="milestone" style="background: linear-gradient(135deg, rgba(245, 87, 108, 0.3), rgba(240, 147, 251, 0.3)); border-color: rgba(245, 87, 108, 0.5);"><span class="milestone-date" style="color: #f5576c;">Mar 31</span> — 🎯 Q1 DEADLINE</div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2>Risks & Blockers</h2>
+            <div class="risk-grid">
+                <div class="risk-card">
+                    <div class="risk-title">⚠️ Rod bypassing Loopio</div>
+                    <div class="risk-mitigation"><strong>Likelihood:</strong> Confirmed | <strong>Impact:</strong> Medium<br>
+                    <strong>Mitigation:</strong> Direct interview to understand workflow; address root cause</div>
+                </div>
+                <div class="risk-card">
+                    <div class="risk-title">⚠️ France adoption resistance</div>
+                    <div class="risk-mitigation"><strong>Likelihood:</strong> High | <strong>Impact:</strong> High<br>
+                    <strong>Mitigation:</strong> Henry involvement; "France's idea" positioning; engage Cedric early</div>
+                </div>
+                <div class="risk-card">
+                    <div class="risk-title">⚠️ Germany works council</div>
+                    <div class="risk-mitigation"><strong>Likelihood:</strong> N/A | <strong>Impact:</strong> N/A<br>
+                    <strong>Mitigation:</strong> Excluded from initial scope; Christopher informed</div>
+                </div>
+                <div class="risk-card">
+                    <div class="risk-title">⚠️ Stakeholder non-response</div>
+                    <div class="risk-mitigation"><strong>Likelihood:</strong> Medium | <strong>Impact:</strong> High<br>
+                    <strong>Mitigation:</strong> Follow-up cadence; Evan escalation path if needed</div>
+                </div>
+                <div class="risk-card">
+                    <div class="risk-title">⚠️ Q1 timeline slip</div>
+                    <div class="risk-mitigation"><strong>Likelihood:</strong> Medium | <strong>Impact:</strong> High<br>
+                    <strong>Mitigation:</strong> Weekly tracking; early escalation; buffer in schedule</div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2>Open Questions (Resolve This Week)</h2>
+            <div class="card">
+                <ul class="question-list">
+                    <li>Who are the France stakeholders beyond Cedric to engage?</li>
+                    <li>Why does Rod prefer ChatGPT over Loopio? (Need detailed understanding)</li>
+                    <li>What specific metrics does Loopio track that we can use for adoption measurement?</li>
+                    <li>What's the baseline BDR opportunity count by geography and experience level?</li>
+                    <li>When can we schedule the tech DD deep-dive session?</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section>
+            <h2>Team Responsibilities</h2>
+            <div class="card">
+                <table>
+                    <tr><th>Team Member</th><th>Focus Areas</th></tr>
+                    <tr>
+                        <td><strong>Mike</strong></td>
+                        <td>Dripify validation & implementation • Loopio change management • Stakeholder communication • Documentation</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Henry</strong></td>
+                        <td>France stakeholder relationships • Executive relationship management • Tech DD coordination • France rollout support</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Russell</strong></td>
+                        <td>Technical due diligence deep-dive • Engineering assessment comparison • Ludovic/Loic advisory</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+        
+        <section>
+            <h2>Investor Narrative Support</h2>
+            <div class="card">
+                <p style="margin-bottom: 16px;">Our deliverables must support Evan/Patrice's investor communications. Target narrative:</p>
+                <blockquote style="border-left: 4px solid #667eea; padding-left: 20px; font-style: italic; color: #b8b8b8; margin: 20px 0;">
+                    "We implemented AI across BDR outbound and RFP response, leading to X% more opportunities, Y% pipeline uplift, and Z% higher efficiency, while scaling without proportional headcount increase."
+                </blockquote>
+                <h3>Required Metrics for Investor Memo</h3>
+                <table>
+                    <tr><th>Category</th><th>Metric</th></tr>
+                    <tr><td>Adoption</td><td>% of team using AI tools, frequency, which processes</td></tr>
+                    <tr><td>BDR Performance</td><td>Opportunities per quarter (15-20 baseline → 25-30 target)</td></tr>
+                    <tr><td>Pipeline</td><td>Added pipeline attributed to AI-enhanced processes</td></tr>
+                    <tr><td>Efficiency</td><td>RFP turnaround time, manager coaching time reduction</td></tr>
+                </table>
+            </div>
+        </section>
+    </div>
+    
+    <button class="print-button" onclick="window.print()">📄 Print / Export PDF</button>
+    
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            gantt: {
+                titleTopMargin: 25,
+                barHeight: 20,
+                barGap: 4,
+                topPadding: 50,
+                leftPadding: 75,
+                gridLineStartPadding: 35,
+                fontSize: 11,
+                sectionFontSize: 14
+            },
+            flowchart: {
+                curve: 'basis'
+            }
+        });
+    </script>
+</body>
+</html>
