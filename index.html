@@ -317,8 +317,8 @@
         }
 
         .milestone {
-            background: linear-gradient(135deg, rgba(77, 192, 199, 0.2), rgba(248, 86, 139, 0.2));
-            border: 1px solid rgba(77, 192, 199, 0.3);
+            background: rgba(56, 82, 111, 0.25);
+            border: 1px solid rgba(56, 82, 111, 0.4);
             border-radius: 8px;
             padding: 12px 16px;
             font-size: 0.9rem;
@@ -329,8 +329,9 @@
             color: var(--ev-teal);
         }
 
+        /* 📞 Calls - Teal */
         .milestone-call {
-            background: linear-gradient(135deg, rgba(77, 192, 199, 0.3), rgba(46, 204, 113, 0.3));
+            background: rgba(77, 192, 199, 0.25);
             border-color: rgba(77, 192, 199, 0.5);
         }
 
@@ -338,13 +339,44 @@
             color: var(--ev-teal);
         }
 
+        /* 🎯 Deadlines - Pink */
         .milestone-deadline {
-            background: linear-gradient(135deg, rgba(248, 86, 139, 0.3), rgba(77, 192, 199, 0.3));
+            background: rgba(248, 86, 139, 0.25);
             border-color: rgba(248, 86, 139, 0.5);
         }
 
         .milestone-deadline .milestone-date {
             color: var(--ev-pink);
+        }
+
+        /* 🚀 Launches - Green */
+        .milestone-launch {
+            background: rgba(46, 204, 113, 0.25);
+            border-color: rgba(46, 204, 113, 0.5);
+        }
+
+        .milestone-launch .milestone-date {
+            color: #2ecc71;
+        }
+
+        /* ⚡ Decisions - Yellow/Amber */
+        .milestone-decision {
+            background: rgba(241, 196, 15, 0.25);
+            border-color: rgba(241, 196, 15, 0.5);
+        }
+
+        .milestone-decision .milestone-date {
+            color: #f1c40f;
+        }
+
+        /* ✅ Completions - Navy/Default */
+        .milestone-complete {
+            background: rgba(56, 82, 111, 0.25);
+            border-color: rgba(56, 82, 111, 0.4);
+        }
+
+        .milestone-complete .milestone-date {
+            color: var(--text-secondary);
         }
 
         .risk-grid {
@@ -852,13 +884,13 @@ flowchart LR
             <div class="card">
                 <div class="milestone-list">
                     <div class="milestone milestone-call"><span class="milestone-date">Jan 23</span> — 📞 Christopher call (9am CST)</div>
-                    <div class="milestone"><span class="milestone-date">Jan 23</span> — Ludovic/Loic prioritization review</div>
+                    <div class="milestone milestone-complete"><span class="milestone-date">Jan 23</span> — Ludovic/Loic prioritization review</div>
                     <div class="milestone milestone-call"><span class="milestone-date">Jan 24</span> — 📞 Tim validation call (9am EST)</div>
-                    <div class="milestone"><span class="milestone-date">Feb 7</span> — Validation phase complete</div>
-                    <div class="milestone"><span class="milestone-date">Feb 21</span> — Dripify US pilot launch</div>
-                    <div class="milestone"><span class="milestone-date">Mar 7</span> — Dripify Go/No-Go decision</div>
-                    <div class="milestone"><span class="milestone-date">Mar 21</span> — Loopio global training complete</div>
-                    <div class="milestone"><span class="milestone-date">Mar 28</span> — Final documentation</div>
+                    <div class="milestone milestone-complete"><span class="milestone-date">Feb 7</span> — Validation phase complete</div>
+                    <div class="milestone milestone-launch"><span class="milestone-date">Feb 21</span> — 🚀 Dripify US pilot launch</div>
+                    <div class="milestone milestone-decision"><span class="milestone-date">Mar 7</span> — ⚡ Dripify Go/No-Go decision</div>
+                    <div class="milestone milestone-complete"><span class="milestone-date">Mar 21</span> — Loopio global training complete</div>
+                    <div class="milestone milestone-complete"><span class="milestone-date">Mar 28</span> — Final documentation</div>
                     <div class="milestone milestone-deadline"><span class="milestone-date">Mar 31</span> — 🎯 Q1 DEADLINE</div>
                 </div>
             </div>
