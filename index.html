@@ -6,173 +6,240 @@
     <title>EasyVista Q1 2026 Engagement Timeline</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <style>
+        :root {
+            --ev-teal: #4dc0c7;
+            --ev-pink: #f8568b;
+            --ev-navy: #38526f;
+            --ev-cream: #f8f1e6;
+
+            /* Dark mode (default) */
+            --bg-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            --bg-card: rgba(255,255,255,0.05);
+            --border-color: rgba(255,255,255,0.1);
+            --text-primary: #e8e8e8;
+            --text-secondary: #a0a0a0;
+            --text-muted: #888;
+            --accent-primary: var(--ev-teal);
+            --accent-secondary: var(--ev-pink);
+            --table-header-bg: rgba(77, 192, 199, 0.2);
+            --timeline-dot-border: #1a1a2e;
+            --mermaid-bg: #fff;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: var(--ev-cream);
+            --bg-card: rgba(56, 82, 111, 0.05);
+            --border-color: rgba(56, 82, 111, 0.15);
+            --text-primary: var(--ev-navy);
+            --text-secondary: #5a6d7e;
+            --text-muted: #7a8a9a;
+            --table-header-bg: rgba(77, 192, 199, 0.15);
+            --timeline-dot-border: var(--ev-cream);
+            --mermaid-bg: #fff;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #e8e8e8;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.6;
             min-height: 100vh;
+            transition: background 0.3s, color 0.3s;
         }
-        
+
+        [data-theme="light"] body {
+            background: var(--ev-cream);
+        }
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 40px 20px;
         }
-        
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            z-index: 1000;
+            transition: transform 0.2s;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
         header {
             text-align: center;
             margin-bottom: 50px;
             padding: 40px;
-            background: rgba(255,255,255,0.05);
+            background: var(--bg-card);
             border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid var(--border-color);
         }
-        
+
         h1 {
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 10px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
+            background: linear-gradient(90deg, var(--ev-teal), var(--ev-pink));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        
+
         .subtitle {
             font-size: 1.1rem;
-            color: #a0a0a0;
+            color: var(--text-secondary);
         }
-        
+
         .deadline-banner {
             display: inline-block;
             margin-top: 20px;
             padding: 12px 24px;
-            background: linear-gradient(90deg, #f093fb, #f5576c);
+            background: linear-gradient(90deg, var(--ev-pink), var(--ev-teal));
             border-radius: 30px;
             font-weight: 600;
             color: white;
         }
-        
+
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 20px;
             margin-bottom: 40px;
         }
-        
+
         .stat-card {
-            background: rgba(255,255,255,0.05);
+            background: var(--bg-card);
             border-radius: 12px;
             padding: 24px;
             text-align: center;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid var(--border-color);
             transition: transform 0.2s, box-shadow 0.2s;
         }
-        
+
         .stat-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.2);
+            box-shadow: 0 10px 40px rgba(77, 192, 199, 0.2);
         }
-        
+
         .stat-number {
             font-size: 2.5rem;
             font-weight: 700;
-            background: linear-gradient(90deg, #667eea, #764ba2);
+            background: linear-gradient(90deg, var(--ev-teal), var(--ev-pink));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        
+
         .stat-label {
-            color: #a0a0a0;
+            color: var(--text-secondary);
             font-size: 0.9rem;
             margin-top: 8px;
         }
-        
+
         section {
             margin-bottom: 50px;
         }
-        
+
         h2 {
             font-size: 1.8rem;
             margin-bottom: 24px;
             padding-bottom: 12px;
-            border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+            border-bottom: 2px solid rgba(77, 192, 199, 0.3);
             display: flex;
             align-items: center;
             gap: 12px;
         }
-        
+
         h2::before {
             content: '';
             display: inline-block;
             width: 4px;
             height: 24px;
-            background: linear-gradient(180deg, #667eea, #764ba2);
+            background: linear-gradient(180deg, var(--ev-teal), var(--ev-pink));
             border-radius: 2px;
         }
-        
+
         h3 {
             font-size: 1.3rem;
             margin: 24px 0 16px;
-            color: #b8b8b8;
+            color: var(--text-secondary);
         }
-        
+
         .card {
-            background: rgba(255,255,255,0.05);
+            background: var(--bg-card);
             border-radius: 12px;
             padding: 24px;
             margin-bottom: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid var(--border-color);
         }
-        
+
         .mermaid {
-            background: #fff;
+            background: var(--mermaid-bg);
             border-radius: 12px;
             padding: 20px;
             overflow-x: auto;
         }
-        
+
+        /* Table wrapper for mobile scroll */
+        .table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 16px 0;
+            min-width: 500px;
         }
-        
+
         th, td {
             padding: 12px 16px;
             text-align: left;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid var(--border-color);
         }
-        
+
         th {
-            background: rgba(102, 126, 234, 0.2);
+            background: var(--table-header-bg);
             font-weight: 600;
-            color: #667eea;
+            color: var(--ev-teal);
+            white-space: nowrap;
         }
-        
+
         tr:hover {
-            background: rgba(255,255,255,0.03);
+            background: rgba(77, 192, 199, 0.05);
         }
-        
+
         .status-badge {
             display: inline-block;
             padding: 4px 12px;
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 500;
+            white-space: nowrap;
         }
-        
+
         .status-complete { background: rgba(46, 204, 113, 0.2); color: #2ecc71; }
-        .status-active { background: rgba(52, 152, 219, 0.2); color: #3498db; }
+        .status-active { background: rgba(77, 192, 199, 0.2); color: var(--ev-teal); }
         .status-pending { background: rgba(241, 196, 15, 0.2); color: #f1c40f; }
-        .status-risk { background: rgba(231, 76, 60, 0.2); color: #e74c3c; }
-        
+        .status-risk { background: rgba(248, 86, 139, 0.2); color: var(--ev-pink); }
+
         .workstream-header {
             display: flex;
             justify-content: space-between;
@@ -181,31 +248,32 @@
             gap: 16px;
             margin-bottom: 20px;
         }
-        
+
         .workstream-meta {
             display: flex;
             gap: 16px;
             flex-wrap: wrap;
         }
-        
+
         .meta-item {
-            background: rgba(255,255,255,0.05);
+            background: var(--bg-card);
             padding: 8px 16px;
             border-radius: 8px;
             font-size: 0.9rem;
+            border: 1px solid var(--border-color);
         }
-        
+
         .meta-label {
-            color: #888;
+            color: var(--text-muted);
             margin-right: 8px;
         }
-        
+
         .timeline-phase {
             position: relative;
             padding-left: 30px;
             margin-bottom: 30px;
         }
-        
+
         .timeline-phase::before {
             content: '';
             position: absolute;
@@ -213,9 +281,9 @@
             top: 0;
             bottom: 0;
             width: 2px;
-            background: linear-gradient(180deg, #667eea, #764ba2);
+            background: linear-gradient(180deg, var(--ev-teal), var(--ev-pink));
         }
-        
+
         .timeline-phase::after {
             content: '';
             position: absolute;
@@ -223,79 +291,97 @@
             top: 8px;
             width: 18px;
             height: 18px;
-            background: #667eea;
+            background: var(--ev-teal);
             border-radius: 50%;
-            border: 3px solid #1a1a2e;
+            border: 3px solid var(--timeline-dot-border);
         }
-        
+
         .phase-title {
             font-size: 1.1rem;
             font-weight: 600;
-            color: #667eea;
+            color: var(--ev-teal);
             margin-bottom: 12px;
         }
-        
+
         .phase-dates {
             font-size: 0.85rem;
-            color: #888;
+            color: var(--text-muted);
             margin-bottom: 12px;
         }
-        
+
         .milestone-list {
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
             margin: 20px 0;
         }
-        
+
         .milestone {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
-            border: 1px solid rgba(102, 126, 234, 0.3);
+            background: linear-gradient(135deg, rgba(77, 192, 199, 0.2), rgba(248, 86, 139, 0.2));
+            border: 1px solid rgba(77, 192, 199, 0.3);
             border-radius: 8px;
             padding: 12px 16px;
             font-size: 0.9rem;
         }
-        
+
         .milestone-date {
             font-weight: 600;
-            color: #667eea;
+            color: var(--ev-teal);
         }
-        
+
+        .milestone-call {
+            background: linear-gradient(135deg, rgba(77, 192, 199, 0.3), rgba(46, 204, 113, 0.3));
+            border-color: rgba(77, 192, 199, 0.5);
+        }
+
+        .milestone-call .milestone-date {
+            color: var(--ev-teal);
+        }
+
+        .milestone-deadline {
+            background: linear-gradient(135deg, rgba(248, 86, 139, 0.3), rgba(77, 192, 199, 0.3));
+            border-color: rgba(248, 86, 139, 0.5);
+        }
+
+        .milestone-deadline .milestone-date {
+            color: var(--ev-pink);
+        }
+
         .risk-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 16px;
         }
-        
+
         .risk-card {
-            background: rgba(231, 76, 60, 0.1);
-            border: 1px solid rgba(231, 76, 60, 0.3);
+            background: rgba(248, 86, 139, 0.1);
+            border: 1px solid rgba(248, 86, 139, 0.3);
             border-radius: 12px;
             padding: 20px;
         }
-        
+
         .risk-title {
             font-weight: 600;
-            color: #e74c3c;
+            color: var(--ev-pink);
             margin-bottom: 8px;
         }
-        
+
         .risk-mitigation {
             font-size: 0.9rem;
-            color: #a0a0a0;
+            color: var(--text-secondary);
         }
-        
+
         .question-list {
             list-style: none;
         }
-        
+
         .question-list li {
             padding: 12px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid var(--border-color);
             padding-left: 24px;
             position: relative;
         }
-        
+
         .question-list li::before {
             content: '?';
             position: absolute;
@@ -303,48 +389,261 @@
             color: #f1c40f;
             font-weight: bold;
         }
-        
-        @media (max-width: 768px) {
-            h1 { font-size: 1.8rem; }
-            .container { padding: 20px; }
-            .stat-number { font-size: 2rem; }
+
+        blockquote {
+            border-left: 4px solid var(--ev-teal);
+            padding-left: 20px;
+            font-style: italic;
+            color: var(--text-secondary);
+            margin: 20px 0;
         }
-        
+
         .print-button {
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, var(--ev-teal), var(--ev-pink));
             color: white;
             border: none;
             padding: 16px 24px;
             border-radius: 30px;
             cursor: pointer;
             font-weight: 600;
-            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 4px 20px rgba(77, 192, 199, 0.4);
             transition: transform 0.2s;
         }
-        
+
         .print-button:hover {
             transform: scale(1.05);
         }
-        
+
+        /* ==================== MOBILE RESPONSIVE ==================== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px 12px;
+            }
+
+            header {
+                padding: 24px 16px;
+                margin-bottom: 30px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .subtitle {
+                font-size: 0.9rem;
+            }
+
+            .deadline-banner {
+                padding: 10px 16px;
+                font-size: 0.85rem;
+            }
+
+            .theme-toggle {
+                top: 12px;
+                right: 12px;
+                padding: 6px 12px;
+                font-size: 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .stat-card {
+                padding: 16px 12px;
+            }
+
+            .stat-number {
+                font-size: 1.8rem;
+            }
+
+            .stat-label {
+                font-size: 0.75rem;
+            }
+
+            h2 {
+                font-size: 1.3rem;
+                margin-bottom: 16px;
+                padding-bottom: 8px;
+            }
+
+            h2::before {
+                width: 3px;
+                height: 18px;
+            }
+
+            h3 {
+                font-size: 1.1rem;
+            }
+
+            .card {
+                padding: 16px 12px;
+                border-radius: 10px;
+            }
+
+            /* Scrollable tables */
+            .table-wrapper {
+                margin: 0 -12px;
+                padding: 0 12px;
+            }
+
+            table {
+                font-size: 0.8rem;
+                min-width: 450px;
+            }
+
+            th, td {
+                padding: 8px 10px;
+            }
+
+            .status-badge {
+                padding: 3px 8px;
+                font-size: 0.7rem;
+            }
+
+            /* Workstream meta stacked */
+            .workstream-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .workstream-meta {
+                flex-direction: column;
+                gap: 8px;
+                width: 100%;
+            }
+
+            .meta-item {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+
+            /* Timeline adjustments */
+            .timeline-phase {
+                padding-left: 24px;
+                margin-bottom: 24px;
+            }
+
+            .timeline-phase::after {
+                width: 14px;
+                height: 14px;
+            }
+
+            .phase-title {
+                font-size: 1rem;
+            }
+
+            .phase-dates {
+                font-size: 0.8rem;
+            }
+
+            /* Milestones stack */
+            .milestone-list {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .milestone {
+                padding: 10px 12px;
+                font-size: 0.8rem;
+            }
+
+            /* Risk cards single column */
+            .risk-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .risk-card {
+                padding: 16px;
+            }
+
+            .risk-title {
+                font-size: 0.9rem;
+            }
+
+            .risk-mitigation {
+                font-size: 0.8rem;
+            }
+
+            /* Questions */
+            .question-list li {
+                padding: 10px 0 10px 20px;
+                font-size: 0.85rem;
+            }
+
+            /* Mermaid charts */
+            .mermaid {
+                padding: 12px;
+                font-size: 0.8rem;
+            }
+
+            /* Print button smaller */
+            .print-button {
+                bottom: 16px;
+                right: 16px;
+                padding: 12px 16px;
+                font-size: 0.85rem;
+            }
+
+            blockquote {
+                padding-left: 12px;
+                font-size: 0.9rem;
+                margin: 16px 0;
+            }
+        }
+
+        /* Small phones */
+        @media (max-width: 380px) {
+            h1 {
+                font-size: 1.3rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+
+            .stat-number {
+                font-size: 1.5rem;
+            }
+
+            table {
+                font-size: 0.75rem;
+            }
+
+            th, td {
+                padding: 6px 8px;
+            }
+        }
+
         @media print {
-            body { background: white; color: black; }
-            .print-button { display: none; }
-            .card { border: 1px solid #ddd; }
+            body { background: white !important; color: black !important; }
+            .print-button, .theme-toggle { display: none !important; }
+            .card { border: 1px solid #ddd; background: white !important; }
             .mermaid { background: white; }
+            h1, h2, .stat-number, .phase-title, .milestone-date {
+                -webkit-text-fill-color: var(--ev-navy) !important;
+                color: var(--ev-navy) !important;
+            }
         }
     </style>
 </head>
 <body>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌓</button>
+
     <div class="container">
         <header>
             <h1>EasyVista Q1 2026 Engagement Timeline</h1>
             <p class="subtitle">Internal Review Document | Mike Duncan & Henry Yelin</p>
             <div class="deadline-banner">🎯 Q1 Deadline: March 31, 2026 (~70 days remaining)</div>
         </header>
-        
+
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-number">2</div>
@@ -363,7 +662,7 @@
                 <div class="stat-label">Active Risks</div>
             </div>
         </div>
-        
+
         <section>
             <h2>Project Gantt Chart</h2>
             <div class="card">
@@ -371,10 +670,10 @@
 gantt
     title EasyVista Q1 2026 Timeline
     dateFormat YYYY-MM-DD
-    
+
     section Discovery
     Leadership Discovery       :done, disc1, 2026-01-04, 2026-01-19
-    
+
     section Dripify
     Stakeholder Outreach      :active, drip1, 2026-01-21, 3d
     Validation Calls          :drip2, 2026-01-27, 7d
@@ -383,24 +682,24 @@ gantt
     Pilot Monitoring          :drip5, 2026-02-24, 14d
     Go/No-Go Decision         :crit, milestone, drip6, 2026-03-07, 0d
     Broad Rollout             :drip7, 2026-03-10, 18d
-    
+
     section Loopio
     Stakeholder Outreach      :active, loop1, 2026-01-21, 3d
     Discovery & Analysis      :loop2, 2026-01-27, 14d
     Solution Design           :loop3, 2026-02-10, 11d
     Training & Implementation :loop4, 2026-02-24, 25d
     Metrics & Handoff         :loop5, 2026-03-24, 7d
-    
+
     section Tech DD
     Deep-Dive Session         :tech1, 2026-01-27, 5d
     Advisory Support          :tech2, 2026-02-03, 49d
-    
+
     section Milestones
     Q1 DEADLINE               :crit, milestone, end, 2026-03-31, 0d
                 </div>
             </div>
         </section>
-        
+
         <section>
             <h2>Stakeholder Map</h2>
             <div class="card">
@@ -411,34 +710,34 @@ flowchart LR
         Evan["Evan<br/>COO ✓"]
         Alexander["Alexander<br/>AI PM ✓"]
     end
-    
+
     subgraph Dripify["📱 Dripify Team"]
         Tim["Tim Brouillard<br/>VP BizDev 📅"]
         Cedric["Cedric<br/>France 📧"]
         Christopher["Christopher Kuhn<br/>COO OTRS 📅"]
     end
-    
+
     subgraph Loopio["📝 Loopio Team"]
         Dalila["Dalila<br/>Global Presales 📧"]
         Jan["Jan<br/>Loopio Owner 📧"]
         Rod["Rod<br/>US AE ⚠️"]
     end
-    
+
     subgraph TechDD["⚙️ Engineering"]
         Ludovic["Ludovic<br/>CTO"]
         Loic["Loic<br/>Eng Lead"]
     end
-    
+
     Leadership --> Dripify
     Leadership --> Loopio
     Leadership --> TechDD
                 </div>
-                <p style="margin-top: 16px; color: #888; font-size: 0.9rem;">
+                <p style="margin-top: 16px; color: var(--text-muted); font-size: 0.9rem;">
                     ✓ = Engaged | 📧 = Outreach Sent | 📅 = Call Scheduled | ⚠️ = Risk
                 </p>
             </div>
         </section>
-        
+
         <section>
             <h2>Workstream 1: Dripify (LinkedIn Automation)</h2>
             <div class="card">
@@ -452,49 +751,55 @@ flowchart LR
                         <div class="meta-item"><span class="meta-label">Budget:</span> ~$5-8K</div>
                     </div>
                 </div>
-                
+
                 <div class="timeline-phase">
                     <div class="phase-title">Phase 1: Validation</div>
                     <div class="phase-dates">Jan 21 - Feb 7</div>
-                    <table>
-                        <tr><th>Task</th><th>Owner</th><th>Due</th><th>Status</th></tr>
-                        <tr><td>Schedule validation calls</td><td>Mike</td><td>Jan 24</td><td><span class="status-badge status-complete">Complete</span></td></tr>
-                        <tr><td>Christopher call (Germany/OTRS)</td><td>Mike</td><td>Jan 23</td><td><span class="status-badge status-active">Thu 9am CST</span></td></tr>
-                        <tr><td>Tim validation call (US)</td><td>Mike</td><td>Jan 24</td><td><span class="status-badge status-active">Fri 9am EST</span></td></tr>
-                        <tr><td>Cedric validation call (France)</td><td>Mike/Henry</td><td>Jan 31</td><td><span class="status-badge status-pending">Pending</span></td></tr>
-                        <tr><td>Baseline BDR metrics</td><td>EasyVista</td><td>Jan 31</td><td><span class="status-badge status-pending">Pending</span></td></tr>
-                        <tr><td>Confirm Dripify fit</td><td>Mike</td><td>Feb 7</td><td><span class="status-badge status-pending">Pending</span></td></tr>
-                    </table>
+                    <div class="table-wrapper">
+                        <table>
+                            <tr><th>Task</th><th>Owner</th><th>Due</th><th>Status</th></tr>
+                            <tr><td>Schedule validation calls</td><td>Mike</td><td>Jan 24</td><td><span class="status-badge status-complete">Complete</span></td></tr>
+                            <tr><td>Christopher call (Germany/OTRS)</td><td>Mike</td><td>Jan 23</td><td><span class="status-badge status-active">Thu 9am CST</span></td></tr>
+                            <tr><td>Tim validation call (US)</td><td>Mike</td><td>Jan 24</td><td><span class="status-badge status-active">Fri 9am EST</span></td></tr>
+                            <tr><td>Cedric validation call (France)</td><td>Mike/Henry</td><td>Jan 31</td><td><span class="status-badge status-pending">Pending</span></td></tr>
+                            <tr><td>Baseline BDR metrics</td><td>EasyVista</td><td>Jan 31</td><td><span class="status-badge status-pending">Pending</span></td></tr>
+                            <tr><td>Confirm Dripify fit</td><td>Mike</td><td>Feb 7</td><td><span class="status-badge status-pending">Pending</span></td></tr>
+                        </table>
+                    </div>
                 </div>
-                
+
                 <div class="timeline-phase">
                     <div class="phase-title">Phase 2: Pilot Setup</div>
                     <div class="phase-dates">Feb 10 - Feb 21</div>
-                    <table>
-                        <tr><th>Task</th><th>Owner</th><th>Advisor</th><th>Due</th></tr>
-                        <tr><td>Procure Dripify licenses</td><td>EasyVista (Evan)</td><td>—</td><td>Feb 10</td></tr>
-                        <tr><td>Configure for EasyVista</td><td>EasyVista (Tim)</td><td>Mike</td><td>Feb 14</td></tr>
-                        <tr><td>Create outreach templates</td><td>EasyVista (Tim)</td><td>Mike</td><td>Feb 17</td></tr>
-                        <tr><td>Train champion user</td><td>Mike</td><td>—</td><td>Feb 19</td></tr>
-                        <tr><td>🚀 US Pilot Launch</td><td>EasyVista (Tim)</td><td>—</td><td>Feb 21</td></tr>
-                    </table>
+                    <div class="table-wrapper">
+                        <table>
+                            <tr><th>Task</th><th>Owner</th><th>Advisor</th><th>Due</th></tr>
+                            <tr><td>Procure Dripify licenses</td><td>EasyVista (Evan)</td><td>—</td><td>Feb 10</td></tr>
+                            <tr><td>Configure for EasyVista</td><td>EasyVista (Tim)</td><td>Mike</td><td>Feb 14</td></tr>
+                            <tr><td>Create outreach templates</td><td>EasyVista (Tim)</td><td>Mike</td><td>Feb 17</td></tr>
+                            <tr><td>Train champion user</td><td>Mike</td><td>—</td><td>Feb 19</td></tr>
+                            <tr><td>🚀 US Pilot Launch</td><td>EasyVista (Tim)</td><td>—</td><td>Feb 21</td></tr>
+                        </table>
+                    </div>
                 </div>
-                
+
                 <div class="timeline-phase">
                     <div class="phase-title">Phase 3: Pilot & Rollout</div>
                     <div class="phase-dates">Feb 24 - Mar 28</div>
-                    <table>
-                        <tr><th>Task</th><th>Owner</th><th>Advisor</th><th>Due</th></tr>
-                        <tr><td>Pilot monitoring (2 weeks)</td><td>EasyVista (Tim)</td><td>Mike</td><td>Mar 7</td></tr>
-                        <tr><td>⚡ Go/No-Go Decision</td><td>EasyVista (Evan)</td><td>Mike</td><td>Mar 7</td></tr>
-                        <tr><td>US broad rollout</td><td>EasyVista (Tim)</td><td>Mike</td><td>Mar 14</td></tr>
-                        <tr><td>France rollout</td><td>EasyVista (Cedric)</td><td>Henry</td><td>Mar 21</td></tr>
-                        <tr><td>Documentation & handoff</td><td>Mike</td><td>—</td><td>Mar 28</td></tr>
-                    </table>
+                    <div class="table-wrapper">
+                        <table>
+                            <tr><th>Task</th><th>Owner</th><th>Advisor</th><th>Due</th></tr>
+                            <tr><td>Pilot monitoring (2 weeks)</td><td>EasyVista (Tim)</td><td>Mike</td><td>Mar 7</td></tr>
+                            <tr><td>⚡ Go/No-Go Decision</td><td>EasyVista (Evan)</td><td>Mike</td><td>Mar 7</td></tr>
+                            <tr><td>US broad rollout</td><td>EasyVista (Tim)</td><td>Mike</td><td>Mar 14</td></tr>
+                            <tr><td>France rollout</td><td>EasyVista (Cedric)</td><td>Henry</td><td>Mar 21</td></tr>
+                            <tr><td>Documentation & handoff</td><td>Mike</td><td>—</td><td>Mar 28</td></tr>
+                        </table>
+                    </div>
                 </div>
             </div>
         </section>
-        
+
         <section>
             <h2>Workstream 2: Loopio Standardization</h2>
             <div class="card">
@@ -508,53 +813,57 @@ flowchart LR
                         <div class="meta-item"><span class="meta-label">Budget:</span> $0 (existing license)</div>
                     </div>
                 </div>
-                
+
                 <div class="timeline-phase">
                     <div class="phase-title">Phase 1: Discovery</div>
                     <div class="phase-dates">Jan 21 - Feb 7</div>
-                    <table>
-                        <tr><th>Task</th><th>Owner</th><th>Due</th><th>Status</th></tr>
-                        <tr><td>Schedule Dalila/Jan call</td><td>Mike</td><td>Jan 24</td><td><span class="status-badge status-active">Active</span></td></tr>
-                        <tr><td>Discovery call</td><td>Mike</td><td>Jan 27-31</td><td><span class="status-badge status-pending">Pending</span></td></tr>
-                        <tr><td>Interview Rod (ChatGPT usage)</td><td>Mike</td><td>Feb 5</td><td><span class="status-badge status-pending">Pending</span></td></tr>
-                        <tr><td>Identify blockers</td><td>Mike</td><td>Feb 7</td><td><span class="status-badge status-pending">Pending</span></td></tr>
-                    </table>
+                    <div class="table-wrapper">
+                        <table>
+                            <tr><th>Task</th><th>Owner</th><th>Due</th><th>Status</th></tr>
+                            <tr><td>Schedule Dalila/Jan call</td><td>Mike</td><td>Jan 24</td><td><span class="status-badge status-active">Active</span></td></tr>
+                            <tr><td>Discovery call</td><td>Mike</td><td>Jan 27-31</td><td><span class="status-badge status-pending">Pending</span></td></tr>
+                            <tr><td>Interview Rod (ChatGPT usage)</td><td>Mike</td><td>Feb 5</td><td><span class="status-badge status-pending">Pending</span></td></tr>
+                            <tr><td>Identify blockers</td><td>Mike</td><td>Feb 7</td><td><span class="status-badge status-pending">Pending</span></td></tr>
+                        </table>
+                    </div>
                 </div>
-                
+
                 <div class="timeline-phase">
                     <div class="phase-title">Phase 2: Solution & Training</div>
                     <div class="phase-dates">Feb 10 - Mar 21</div>
-                    <table>
-                        <tr><th>Task</th><th>Owner</th><th>Advisor</th><th>Due</th></tr>
-                        <tr><td>Define Loopio usage metrics</td><td>EasyVista (Jan)</td><td>Mike</td><td>Feb 12</td></tr>
-                        <tr><td>Change management plan</td><td>Mike</td><td>—</td><td>Feb 14</td></tr>
-                        <tr><td>Training materials</td><td>EasyVista (Jan)</td><td>Mike</td><td>Feb 19</td></tr>
-                        <tr><td>US pre-sales training</td><td>EasyVista (Jan)</td><td>Mike</td><td>Feb 28</td></tr>
-                        <tr><td>Address Rod's workflow</td><td>EasyVista (Jan)</td><td>Mike</td><td>Mar 3</td></tr>
-                        <tr><td>France training</td><td>EasyVista (Jan)</td><td>Henry</td><td>Mar 14</td></tr>
-                        <tr><td>Global training complete</td><td>EasyVista (Jan)</td><td>—</td><td>Mar 21</td></tr>
-                    </table>
+                    <div class="table-wrapper">
+                        <table>
+                            <tr><th>Task</th><th>Owner</th><th>Advisor</th><th>Due</th></tr>
+                            <tr><td>Define Loopio usage metrics</td><td>EasyVista (Jan)</td><td>Mike</td><td>Feb 12</td></tr>
+                            <tr><td>Change management plan</td><td>Mike</td><td>—</td><td>Feb 14</td></tr>
+                            <tr><td>Training materials</td><td>EasyVista (Jan)</td><td>Mike</td><td>Feb 19</td></tr>
+                            <tr><td>US pre-sales training</td><td>EasyVista (Jan)</td><td>Mike</td><td>Feb 28</td></tr>
+                            <tr><td>Address Rod's workflow</td><td>EasyVista (Jan)</td><td>Mike</td><td>Mar 3</td></tr>
+                            <tr><td>France training</td><td>EasyVista (Jan)</td><td>Henry</td><td>Mar 14</td></tr>
+                            <tr><td>Global training complete</td><td>EasyVista (Jan)</td><td>—</td><td>Mar 21</td></tr>
+                        </table>
+                    </div>
                 </div>
             </div>
         </section>
-        
+
         <section>
             <h2>Key Milestones</h2>
             <div class="card">
                 <div class="milestone-list">
-                    <div class="milestone" style="background: linear-gradient(135deg, rgba(52, 152, 219, 0.3), rgba(46, 204, 113, 0.3)); border-color: rgba(52, 152, 219, 0.5);"><span class="milestone-date" style="color: #3498db;">Jan 23</span> — 📞 Christopher call (9am CST)</div>
+                    <div class="milestone milestone-call"><span class="milestone-date">Jan 23</span> — 📞 Christopher call (9am CST)</div>
                     <div class="milestone"><span class="milestone-date">Jan 23</span> — Ludovic/Loic prioritization review</div>
-                    <div class="milestone" style="background: linear-gradient(135deg, rgba(52, 152, 219, 0.3), rgba(46, 204, 113, 0.3)); border-color: rgba(52, 152, 219, 0.5);"><span class="milestone-date" style="color: #3498db;">Jan 24</span> — 📞 Tim validation call (9am EST)</div>
+                    <div class="milestone milestone-call"><span class="milestone-date">Jan 24</span> — 📞 Tim validation call (9am EST)</div>
                     <div class="milestone"><span class="milestone-date">Feb 7</span> — Validation phase complete</div>
                     <div class="milestone"><span class="milestone-date">Feb 21</span> — Dripify US pilot launch</div>
                     <div class="milestone"><span class="milestone-date">Mar 7</span> — Dripify Go/No-Go decision</div>
                     <div class="milestone"><span class="milestone-date">Mar 21</span> — Loopio global training complete</div>
                     <div class="milestone"><span class="milestone-date">Mar 28</span> — Final documentation</div>
-                    <div class="milestone" style="background: linear-gradient(135deg, rgba(245, 87, 108, 0.3), rgba(240, 147, 251, 0.3)); border-color: rgba(245, 87, 108, 0.5);"><span class="milestone-date" style="color: #f5576c;">Mar 31</span> — 🎯 Q1 DEADLINE</div>
+                    <div class="milestone milestone-deadline"><span class="milestone-date">Mar 31</span> — 🎯 Q1 DEADLINE</div>
                 </div>
             </div>
         </section>
-        
+
         <section>
             <h2>Risks & Blockers</h2>
             <div class="risk-grid">
@@ -585,7 +894,7 @@ flowchart LR
                 </div>
             </div>
         </section>
-        
+
         <section>
             <h2>Open Questions (Resolve This Week)</h2>
             <div class="card">
@@ -598,51 +907,83 @@ flowchart LR
                 </ul>
             </div>
         </section>
-        
+
         <section>
             <h2>Team Responsibilities</h2>
             <div class="card">
-                <table>
-                    <tr><th>Team Member</th><th>Focus Areas</th></tr>
-                    <tr>
-                        <td><strong>Mike</strong></td>
-                        <td>Validation calls • Change management strategy • Stakeholder communication • Documentation • <em>Advisory role on implementation</em></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Henry</strong></td>
-                        <td>France stakeholder relationships • Executive relationship management • Tech DD coordination • France rollout support</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Russell</strong></td>
-                        <td>Technical due diligence deep-dive • Engineering assessment comparison • Ludovic/Loic advisory</td>
-                    </tr>
-                </table>
+                <div class="table-wrapper">
+                    <table>
+                        <tr><th>Team Member</th><th>Focus Areas</th></tr>
+                        <tr>
+                            <td><strong>Mike</strong></td>
+                            <td>Validation calls • Change management strategy • Stakeholder communication • Documentation • <em>Advisory role on implementation</em></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Henry</strong></td>
+                            <td>France stakeholder relationships • Executive relationship management • Tech DD coordination • France rollout support</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Russell</strong></td>
+                            <td>Technical due diligence deep-dive • Engineering assessment comparison • Ludovic/Loic advisory</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </section>
-        
+
         <section>
             <h2>Investor Narrative Support</h2>
             <div class="card">
                 <p style="margin-bottom: 16px;">Our deliverables must support Evan/Patrice's investor communications. Target narrative:</p>
-                <blockquote style="border-left: 4px solid #667eea; padding-left: 20px; font-style: italic; color: #b8b8b8; margin: 20px 0;">
+                <blockquote>
                     "We implemented AI across BDR outbound and RFP response, leading to X% more opportunities, Y% pipeline uplift, and Z% higher efficiency, while scaling without proportional headcount increase."
                 </blockquote>
                 <h3>Required Metrics for Investor Memo</h3>
-                <table>
-                    <tr><th>Category</th><th>Metric</th></tr>
-                    <tr><td>Adoption</td><td>% of team using AI tools, frequency, which processes</td></tr>
-                    <tr><td>BDR Performance</td><td>Opportunities per quarter (15-20 baseline → 25-30 target)</td></tr>
-                    <tr><td>Pipeline</td><td>Added pipeline attributed to AI-enhanced processes</td></tr>
-                    <tr><td>Efficiency</td><td>RFP turnaround time, manager coaching time reduction</td></tr>
-                </table>
+                <div class="table-wrapper">
+                    <table>
+                        <tr><th>Category</th><th>Metric</th></tr>
+                        <tr><td>Adoption</td><td>% of team using AI tools, frequency, which processes</td></tr>
+                        <tr><td>BDR Performance</td><td>Opportunities per quarter (15-20 baseline → 25-30 target)</td></tr>
+                        <tr><td>Pipeline</td><td>Added pipeline attributed to AI-enhanced processes</td></tr>
+                        <tr><td>Efficiency</td><td>RFP turnaround time, manager coaching time reduction</td></tr>
+                    </table>
+                </div>
             </div>
         </section>
     </div>
-    
-    <button class="print-button" onclick="window.print()">📄 Print / Export PDF</button>
-    
+
+    <button class="print-button" onclick="window.print()">📄 Print</button>
+
     <script>
-        mermaid.initialize({ 
+        // Theme handling
+        function getPreferredTheme() {
+            const saved = localStorage.getItem('theme');
+            if (saved) return saved;
+            return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme') || 'dark';
+            setTheme(current === 'dark' ? 'light' : 'dark');
+        }
+
+        // Initialize theme
+        setTheme(getPreferredTheme());
+
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', e => {
+            if (!localStorage.getItem('theme')) {
+                setTheme(e.matches ? 'light' : 'dark');
+            }
+        });
+
+        // Mermaid initialization
+        mermaid.initialize({
             startOnLoad: true,
             theme: 'default',
             gantt: {
