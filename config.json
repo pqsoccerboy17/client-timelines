@@ -1,0 +1,218 @@
+{
+  "meta": {
+    "template_version": "1.0",
+    "created": "2026-01-21",
+    "last_updated": "2026-01-21",
+    "author": "Mike Duncan"
+  },
+  "client": {
+    "name": "EasyVista",
+    "primary_contact": "Evan Carlson",
+    "contact_role": "COO",
+    "contact_email": "ecarlson@easyvista.com",
+    "contact_phone": "908.672.9978",
+    "website": "https://easyvista.com",
+    "industry": "IT Service Management",
+    "deadline": "2026-03-31",
+    "deadline_label": "Q1 2026",
+    "budget_min": 10000,
+    "budget_max": 15000,
+    "budget_stretch": 20000
+  },
+  "team": {
+    "lead": {
+      "name": "Mike",
+      "focus": ["Dripify validation", "Loopio change mgmt", "Stakeholder comms", "Documentation"]
+    },
+    "partner": {
+      "name": "Henry",
+      "focus": ["France relationships", "Exec management", "Tech DD coord", "France rollout"]
+    },
+    "engineer": {
+      "name": "Russell",
+      "focus": ["Tech DD deep-dive", "Eng assessment", "Ludovic/Loic advisory"]
+    }
+  },
+  "workstreams": [
+    {
+      "id": "dripify",
+      "name": "Dripify (LinkedIn Automation)",
+      "goal": "Automate LinkedIn outreach for global BDR team",
+      "scope": "BDRs only (not broader sales initially)",
+      "success_metric": "Increase opps from 15-20 to 25-30 per quarter per BDR",
+      "budget_allocation": "~$5-8K",
+      "status": "in_progress",
+      "stakeholders": ["Tim Brouillard", "Cedric", "Christopher"],
+      "phases": [
+        {
+          "name": "Validation",
+          "start": "2026-01-21",
+          "end": "2026-02-07",
+          "tasks": [
+            {"task": "Schedule validation calls", "owner": "Mike", "due": "2026-01-24"},
+            {"task": "Tim validation call (US)", "owner": "Mike", "due": "2026-01-31"},
+            {"task": "Cedric validation call (France)", "owner": "Mike/Henry", "due": "2026-01-31"},
+            {"task": "Baseline BDR metrics", "owner": "Mike", "due": "2026-01-31"},
+            {"task": "Confirm Dripify fit", "owner": "Mike", "due": "2026-02-07"}
+          ]
+        },
+        {
+          "name": "Pilot Setup",
+          "start": "2026-02-10",
+          "end": "2026-02-21",
+          "tasks": [
+            {"task": "Procure Dripify licenses", "owner": "Evan/Mike", "due": "2026-02-10"},
+            {"task": "Configure for use case", "owner": "Mike", "due": "2026-02-14"},
+            {"task": "Create outreach templates", "owner": "Mike", "due": "2026-02-17"},
+            {"task": "Train champion", "owner": "Mike", "due": "2026-02-19"},
+            {"task": "US Pilot Launch", "owner": "Mike/Tim", "due": "2026-02-21", "milestone": true}
+          ]
+        },
+        {
+          "name": "Pilot Evaluation",
+          "start": "2026-02-24",
+          "end": "2026-03-07",
+          "tasks": [
+            {"task": "Monitor pilot (2 weeks)", "owner": "Mike/Tim", "due": "2026-03-07"},
+            {"task": "Collect feedback", "owner": "Mike", "due": "2026-03-05"},
+            {"task": "Go/No-Go decision", "owner": "Mike/Evan", "due": "2026-03-07", "milestone": true}
+          ]
+        },
+        {
+          "name": "Broader Rollout",
+          "start": "2026-03-10",
+          "end": "2026-03-28",
+          "tasks": [
+            {"task": "Full US BDR rollout", "owner": "Mike/Tim", "due": "2026-03-14"},
+            {"task": "France BDR rollout", "owner": "Mike/Henry/Cedric", "due": "2026-03-21"},
+            {"task": "Documentation & handoff", "owner": "Mike", "due": "2026-03-28"}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "loopio",
+      "name": "Loopio Standardization",
+      "goal": "Re-establish Loopio as standard for RFP responses",
+      "scope": "Global pre-sales team",
+      "success_metric": "Consistent RFP responses; ChatGPT usage decline",
+      "budget_allocation": "$0 (existing license)",
+      "status": "in_progress",
+      "stakeholders": ["Dalila", "Jan", "Rod"],
+      "phases": [
+        {
+          "name": "Discovery",
+          "start": "2026-01-21",
+          "end": "2026-02-07",
+          "tasks": [
+            {"task": "Schedule Dalila/Jan call", "owner": "Mike", "due": "2026-01-24"},
+            {"task": "Discovery call", "owner": "Mike", "due": "2026-01-31"},
+            {"task": "Interview Rod (ChatGPT usage)", "owner": "Mike", "due": "2026-02-05"},
+            {"task": "Identify blockers", "owner": "Mike", "due": "2026-02-07"}
+          ]
+        },
+        {
+          "name": "Solution Design",
+          "start": "2026-02-10",
+          "end": "2026-02-21",
+          "tasks": [
+            {"task": "Define usage metrics", "owner": "Mike/Jan", "due": "2026-02-12"},
+            {"task": "Change management plan", "owner": "Mike", "due": "2026-02-14"},
+            {"task": "Training materials", "owner": "Mike/Jan", "due": "2026-02-19"},
+            {"task": "Dalila sign-off", "owner": "Mike", "due": "2026-02-21"}
+          ]
+        },
+        {
+          "name": "Implementation",
+          "start": "2026-02-24",
+          "end": "2026-03-21",
+          "tasks": [
+            {"task": "US pre-sales training", "owner": "Mike/Jan", "due": "2026-02-28"},
+            {"task": "Address Rod workflow", "owner": "Mike", "due": "2026-03-03"},
+            {"task": "France training", "owner": "Henry/Jan", "due": "2026-03-14"},
+            {"task": "Global training complete", "owner": "Jan", "due": "2026-03-21", "milestone": true}
+          ]
+        },
+        {
+          "name": "Handoff",
+          "start": "2026-03-24",
+          "end": "2026-03-31",
+          "tasks": [
+            {"task": "Final adoption metrics", "owner": "Mike/Jan", "due": "2026-03-28"},
+            {"task": "Sustainability playbook", "owner": "Mike", "due": "2026-03-28"},
+            {"task": "Handoff to Dalila/Jan", "owner": "Mike", "due": "2026-03-31"}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tech_dd",
+      "name": "Technical Due Diligence Support",
+      "goal": "Address engineering maturity for exit readiness",
+      "scope": "Advisory alongside EPAM assessment",
+      "success_metric": "Clear investor narrative on tech capabilities",
+      "budget_allocation": "Included",
+      "status": "in_progress",
+      "stakeholders": ["Ludovic", "Loic"],
+      "phases": [
+        {
+          "name": "Assessment",
+          "start": "2026-01-21",
+          "end": "2026-02-14",
+          "tasks": [
+            {"task": "Schedule deep-dive", "owner": "Henry/Mike", "due": "2026-01-24"},
+            {"task": "Deep-dive session", "owner": "Henry/Russell", "due": "2026-01-31"},
+            {"task": "EPAM comparison", "owner": "Russell", "due": "2026-02-07"},
+            {"task": "Advisory input", "owner": "Henry/Russell", "due": "2026-02-14"}
+          ]
+        }
+      ]
+    }
+  ],
+  "stakeholders": [
+    {"name": "Patrice", "role": "CEO", "group": "leadership", "status": "engaged", "notes": "Co-leads global sales"},
+    {"name": "Evan Carlson", "role": "COO", "group": "leadership", "status": "engaged", "notes": "Primary sponsor, budget holder"},
+    {"name": "Alexander", "role": "AI PM/Consultant", "group": "leadership", "status": "engaged", "notes": "Evan's delegate"},
+    {"name": "Ludovic", "role": "CTO", "group": "engineering", "status": "pending", "notes": "Prioritization help needed"},
+    {"name": "Loic", "role": "Engineering Lead", "group": "engineering", "status": "pending", "notes": "April release non-negotiable"},
+    {"name": "Tim Brouillard", "role": "NA BDR Manager", "group": "dripify", "status": "outreach_sent", "notes": "Boston, champion candidate"},
+    {"name": "Cedric", "role": "France Sales Manager", "group": "dripify", "status": "outreach_sent", "notes": "Critical for France buy-in"},
+    {"name": "Christopher", "role": "Germany BDR", "group": "dripify", "status": "excluded", "notes": "Works council constraint"},
+    {"name": "Dalila", "role": "Global Presales Lead", "group": "loopio", "status": "outreach_sent", "notes": "Owns presales globally"},
+    {"name": "Jan", "role": "Loopio Owner", "group": "loopio", "status": "outreach_sent", "notes": "Reports to Dalila"},
+    {"name": "Rod", "role": "US AE", "group": "loopio", "status": "risk", "notes": "ChatGPT power user, change mgmt target"}
+  ],
+  "risks": [
+    {"risk": "Rod bypassing Loopio", "likelihood": "confirmed", "impact": "medium", "mitigation": "Direct interview; address root cause"},
+    {"risk": "France adoption resistance", "likelihood": "high", "impact": "high", "mitigation": "Henry involvement; France's idea positioning"},
+    {"risk": "Germany works council", "likelihood": "n/a", "impact": "n/a", "mitigation": "Excluded from scope"},
+    {"risk": "Stakeholder non-response", "likelihood": "medium", "impact": "high", "mitigation": "Follow-up cadence; Evan escalation"},
+    {"risk": "Q1 timeline slip", "likelihood": "medium", "impact": "high", "mitigation": "Weekly tracking; early escalation"}
+  ],
+  "milestones": [
+    {"date": "2026-01-23", "event": "Ludovic/Loic prioritization review"},
+    {"date": "2026-01-24", "event": "Stakeholder call scheduling complete"},
+    {"date": "2026-02-07", "event": "Validation phase complete"},
+    {"date": "2026-02-21", "event": "Dripify US pilot launch"},
+    {"date": "2026-03-07", "event": "Dripify Go/No-Go decision", "critical": true},
+    {"date": "2026-03-21", "event": "Loopio global training complete"},
+    {"date": "2026-03-28", "event": "Final documentation"},
+    {"date": "2026-03-31", "event": "Q1 DEADLINE", "critical": true}
+  ],
+  "open_questions": [
+    "Who are France stakeholders beyond Cedric?",
+    "Why does Rod prefer ChatGPT over Loopio?",
+    "What Loopio metrics can we track?",
+    "Baseline BDR opp count by geography?",
+    "When can we schedule tech DD deep-dive?"
+  ],
+  "investor_narrative": {
+    "template": "We implemented AI across BDR outbound and RFP response, leading to X% more opportunities, Y% pipeline uplift, and Z% higher efficiency, while scaling without proportional headcount increase.",
+    "metrics_needed": [
+      "% of team using AI tools",
+      "Opportunities per quarter (baseline → target)",
+      "Added pipeline from AI processes",
+      "RFP turnaround time reduction"
+    ]
+  }
+}

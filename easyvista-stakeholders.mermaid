@@ -1,0 +1,53 @@
+```mermaid
+flowchart TB
+    subgraph Leadership["🎯 Leadership (Decision Makers)"]
+        Patrice["Patrice<br/>CEO<br/>Co-leads global sales"]
+        Evan["Evan Carlson<br/>COO<br/>Primary Sponsor<br/>Budget holder"]
+        Alexander["Alexander<br/>AI PM/Consultant<br/>Evan's Delegate"]
+    end
+    
+    subgraph Dripify["📱 Dripify Workstream (BDR Automation)"]
+        Tim["Tim Brouillard<br/>NA BDR Manager<br/>Boston/US<br/>🎯 Champion"]
+        Cedric["Cedric<br/>France Sales Manager<br/>Critical for France buy-in"]
+        Christopher["Christopher<br/>Germany BDR<br/>⚠️ Works council constraint"]
+    end
+    
+    subgraph Loopio["📝 Loopio Workstream (RFP Standardization)"]
+        Dalila["Dalila<br/>Global Presales Lead<br/>Owns presales globally"]
+        Jan["Jan<br/>Presales (Loopio Owner)<br/>Reports to Dalila"]
+        Rod["Rod<br/>US AE<br/>⚠️ ChatGPT power user<br/>Change mgmt target"]
+    end
+    
+    subgraph TechDD["⚙️ Technical Due Diligence"]
+        Ludovic["Ludovic<br/>CTO<br/>Prioritization help needed"]
+        Loic["Loic<br/>Engineering Leadership<br/>April release non-negotiable"]
+    end
+    
+    subgraph OurTeam["👥 Our Team"]
+        Mike["Mike<br/>Sales AI Lead<br/>Primary contact"]
+        Henry["Henry<br/>Partner<br/>France relationships"]
+        Russell["Russell<br/>Engineering Lead<br/>Tech DD support"]
+    end
+    
+    Leadership --> Dripify
+    Leadership --> Loopio
+    Leadership --> TechDD
+    
+    Mike --> Tim
+    Mike --> Dalila
+    Mike --> Rod
+    Henry --> Cedric
+    Henry --> Dalila
+    Russell --> Ludovic
+    Russell --> Loic
+    
+    classDef champion fill:#90EE90,stroke:#228B22
+    classDef risk fill:#FFB6C1,stroke:#DC143C
+    classDef leader fill:#87CEEB,stroke:#4169E1
+    classDef team fill:#DDA0DD,stroke:#9932CC
+    
+    class Tim,Jan champion
+    class Rod,Christopher risk
+    class Patrice,Evan,Alexander leader
+    class Mike,Henry,Russell team
+```
