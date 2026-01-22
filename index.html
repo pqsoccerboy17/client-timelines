@@ -732,26 +732,38 @@ gantt
             <div class="card">
                 <div class="mermaid">
 flowchart TB
-    subgraph Leadership
+    subgraph Leadership["🎯 Leadership"]
         Patrice_Barbedette["Patrice Barbedette<br/>CEO & President ✓"]
         Evan_Carlson["Evan Carlson<br/>COO ✓"]
         Alexander["Alexander<br/>AI PM/Consultant ✓"]
     end
-    subgraph Engineering
+    subgraph Engineering["⚙️ Engineering"]
         Ludovic["Ludovic<br/>CTO "]
         Loic["Loic<br/>Engineering Lead "]
     end
-    subgraph Dripify
+    subgraph Dripify["📱 Dripify Team"]
         Tim_Brouillard["Tim Brouillard<br/>VP Business Development "]
         Cedric["Cedric<br/>France Sales Manager 📧"]
         Christopher_T._Kuhn["Christopher T. Kuhn<br/>COO OTRS AG ✓"]
         Seima_Ishaq["Seima Ishaq<br/>BDR (OTRS) ✓"]
     end
-    subgraph Loopio
+    subgraph Loopio["📝 Loopio Team"]
         Dalila["Dalila<br/>Global Presales Lead 📧"]
         Jan["Jan<br/>Loopio Owner 📧"]
         Rod["Rod<br/>US AE ⚠️"]
     end
+
+    classDef engaged fill:#2ecc71,stroke:#27ae60,color:#fff
+    classDef scheduled fill:#4dc0c7,stroke:#3aa8af,color:#fff
+    classDef outreach fill:#f1c40f,stroke:#d4ac0d,color:#333
+    classDef cold fill:#95a5a6,stroke:#7f8c8d,color:#fff
+    classDef risk fill:#f8568b,stroke:#e04477,color:#fff
+
+    class Patrice_Barbedette,Evan_Carlson,Alexander,Christopher_T._Kuhn,Seima_Ishaq engaged
+    class Tim_Brouillard scheduled
+    class Cedric,Dalila,Jan outreach
+    class Ludovic,Loic cold
+    class Rod risk
                 </div>
                 <p style="margin-top: 16px; color: var(--text-muted); font-size: 0.9rem;">
                     <span style="display:inline-block;width:12px;height:12px;background:#2ecc71;border-radius:3px;margin-right:4px;"></span> Engaged |
