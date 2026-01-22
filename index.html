@@ -443,6 +443,83 @@
             transform: scale(1.05);
         }
 
+        /* Zoom button for stakeholder map */
+        .zoom-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--ev-teal);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 10px rgba(77, 192, 199, 0.3);
+            transition: transform 0.2s, opacity 0.2s;
+            z-index: 10;
+        }
+
+        .zoom-button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Zoom modal */
+        .zoom-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            padding: 40px;
+            overflow: auto;
+        }
+
+        .zoom-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .zoom-modal-content {
+            position: relative;
+            width: 100%;
+            max-width: 1600px;
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .zoom-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--ev-pink);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            font-weight: bold;
+            line-height: 1;
+            transition: transform 0.2s;
+        }
+
+        .zoom-close:hover {
+            transform: scale(1.1);
+        }
+
+        .stakeholder-section {
+            position: relative;
+        }
+
         /* ==================== MOBILE RESPONSIVE ==================== */
         @media (max-width: 768px) {
             .container {
@@ -617,6 +694,33 @@
                 font-size: 0.85rem;
             }
 
+            /* Zoom button responsive */
+            .zoom-button {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+                top: 12px;
+                right: 12px;
+            }
+
+            /* Zoom modal responsive */
+            .zoom-modal {
+                padding: 20px;
+            }
+
+            .zoom-modal-content {
+                padding: 24px 16px;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+
+            .zoom-close {
+                width: 36px;
+                height: 36px;
+                font-size: 1.3rem;
+                top: 12px;
+                right: 12px;
+            }
+
             blockquote {
                 padding-left: 12px;
                 font-size: 0.9rem;
@@ -729,8 +833,9 @@ gantt
 
         <section>
             <h2>Stakeholder Map</h2>
-            <div class="card">
-                <div class="mermaid">
+            <div class="card stakeholder-section">
+                <button class="zoom-button" onclick="openStakeholderZoom()">🔍 Zoom In</button>
+                <div class="mermaid" id="stakeholder-map">
 flowchart TB
     subgraph Leadership["🎯 Leadership"]
         Patrice_Barbedette["Patrice Barbedette<br/>CEO & President ✓"]
@@ -1030,6 +1135,15 @@ flowchart TB
 
     <button class="print-button" onclick="window.print()">📄 Print</button>
 
+    <!-- Zoom Modal for Stakeholder Map -->
+    <div class="zoom-modal" id="stakeholder-zoom-modal" onclick="closeStakeholderZoom(event)">
+        <div class="zoom-modal-content" onclick="event.stopPropagation()">
+            <button class="zoom-close" onclick="closeStakeholderZoom()">×</button>
+            <h2 style="margin-bottom: 24px; color: var(--ev-navy);">Stakeholder Map</h2>
+            <div class="mermaid" id="stakeholder-map-zoomed"></div>
+        </div>
+    </div>
+
     <script>
         // Theme handling
         function getPreferredTheme() {
@@ -1055,6 +1169,36 @@ flowchart TB
         window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', e => {
             if (!localStorage.getItem('theme')) {
                 setTheme(e.matches ? 'light' : 'dark');
+            }
+        });
+
+        // Stakeholder map zoom functionality
+        function openStakeholderZoom() {
+            const modal = document.getElementById('stakeholder-zoom-modal');
+            const sourceMap = document.getElementById('stakeholder-map');
+            const zoomedMap = document.getElementById('stakeholder-map-zoomed');
+
+            // Copy the mermaid diagram content
+            zoomedMap.innerHTML = sourceMap.innerHTML;
+
+            // Show modal
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            // Re-render mermaid in the modal
+            mermaid.init(undefined, zoomedMap);
+        }
+
+        function closeStakeholderZoom(event) {
+            const modal = document.getElementById('stakeholder-zoom-modal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close on Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeStakeholderZoom();
             }
         });
 
