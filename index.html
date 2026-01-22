@@ -743,14 +743,21 @@ flowchart TB
     end
     subgraph Dripify["📱 Dripify Team"]
         Tim_Brouillard["Tim Brouillard<br/>VP Business Development "]
-        Cedric["Cedric<br/>France Sales Manager 📧"]
+        Cédric_Cibot_Voisin["Cédric Cibot-Voisin<br/>SVP Sales Europe 📧"]
+        Raphael_Hugnet["Raphael Hugnet<br/>BDR Lead - France 📧"]
+        Ismael_Sabbagh["Ismael Sabbagh<br/>BDR Lead - Spain 📧"]
+        Sean_Herbert["Sean Herbert<br/>BDR Lead - UK 📧"]
+        Stefano["Stefano<br/>BDR Lead - Italy 📧"]
         Christopher_T._Kuhn["Christopher T. Kuhn<br/>COO OTRS AG ✓"]
         Seima_Ishaq["Seima Ishaq<br/>BDR (OTRS) ✓"]
     end
     subgraph Loopio["📝 Loopio Team"]
-        Dalila["Dalila<br/>Global Presales Lead 📧"]
+        Dalila_Souiah["Dalila Souiah<br/>Global Presales Lead 📧"]
         Jan["Jan<br/>Loopio Owner 📧"]
         Rod["Rod<br/>US AE ⚠️"]
+    end
+    subgraph Other["🔗 Other Contacts"]
+        Laure_Ruperas["Laure Ruperas<br/>TBD "]
     end
 
     %% Leadership hierarchy
@@ -761,14 +768,19 @@ flowchart TB
     Evan_Carlson --> Ludovic
     Ludovic --> Loic
     Evan_Carlson --> Tim_Brouillard
-    Evan_Carlson --> Dalila
+    Evan_Carlson --> Cédric_Cibot_Voisin
+    Evan_Carlson --> Dalila_Souiah
 
     %% Dripify team hierarchy
     Christopher_T._Kuhn --> Seima_Ishaq
+    Cédric_Cibot_Voisin --> Raphael_Hugnet
+    Cédric_Cibot_Voisin --> Ismael_Sabbagh
+    Cédric_Cibot_Voisin --> Sean_Herbert
+    Cédric_Cibot_Voisin --> Stefano
 
     %% Loopio team hierarchy
-    Dalila --> Jan
-    Dalila --> Rod
+    Dalila_Souiah --> Jan
+    Dalila_Souiah --> Rod
 
     classDef engaged fill:#2ecc71,stroke:#27ae60,color:#fff
     classDef scheduled fill:#4dc0c7,stroke:#3aa8af,color:#fff
@@ -778,8 +790,8 @@ flowchart TB
 
     class Patrice_Barbedette,Evan_Carlson,Alexander,Christopher_T._Kuhn,Seima_Ishaq engaged
     class Tim_Brouillard scheduled
-    class Cedric,Dalila,Jan outreach
-    class Ludovic,Loic cold
+    class Cédric_Cibot_Voisin,Raphael_Hugnet,Ismael_Sabbagh,Sean_Herbert,Stefano,Dalila_Souiah,Jan outreach
+    class Ludovic,Loic,Laure_Ruperas cold
     class Rod risk
                 </div>
                 <p style="margin-top: 16px; color: var(--text-muted); font-size: 0.9rem;">
@@ -815,7 +827,7 @@ flowchart TB
                             <tr><td>Schedule validation calls</td><td>Mike</td><td>Jan 24</td><td><span class="status-badge status-complete">Complete</span></td></tr>
                             <tr><td>Christopher call (Germany/OTRS)</td><td>Mike</td><td>Jan 23</td><td><span class="status-badge status-active">Thu 9am CST</span></td></tr>
                             <tr><td>Tim validation call (US)</td><td>Mike</td><td>Jan 24</td><td><span class="status-badge status-active">Fri 9am EST</span></td></tr>
-                            <tr><td>Cedric validation call (France)</td><td>Mike/Henry</td><td>Jan 31</td><td><span class="status-badge status-pending">Pending</span></td></tr>
+                            <tr><td>Regional validation calls (Europe)</td><td>Mike/Henry</td><td>Jan 31</td><td><span class="status-badge status-pending">Pending</span></td></tr>
                             <tr><td>Baseline BDR metrics</td><td>EasyVista</td><td>Jan 31</td><td><span class="status-badge status-pending">Pending</span></td></tr>
                             <tr><td>Confirm Dripify fit</td><td>Mike</td><td>Feb 7</td><td><span class="status-badge status-pending">Pending</span></td></tr>
                         </table>
@@ -846,7 +858,7 @@ flowchart TB
                             <tr><td>Pilot monitoring (2 weeks)</td><td>EasyVista (Tim)</td><td>Mike</td><td>Mar 7</td></tr>
                             <tr><td>⚡ Go/No-Go Decision</td><td>EasyVista (Evan)</td><td>Mike</td><td>Mar 7</td></tr>
                             <tr><td>US broad rollout</td><td>EasyVista (Tim)</td><td>Mike</td><td>Mar 14</td></tr>
-                            <tr><td>France rollout</td><td>EasyVista (Cedric)</td><td>Henry</td><td>Mar 21</td></tr>
+                            <tr><td>Europe rollout</td><td>EasyVista (Regional Leads)</td><td>Henry</td><td>Mar 21</td></tr>
                             <tr><td>Documentation & handoff</td><td>Mike</td><td>—</td><td>Mar 28</td></tr>
                         </table>
                     </div>
@@ -927,9 +939,9 @@ flowchart TB
                     <strong>Mitigation:</strong> Direct interview to understand workflow; address root cause</div>
                 </div>
                 <div class="risk-card">
-                    <div class="risk-title">⚠️ France adoption resistance</div>
+                    <div class="risk-title">⚠️ Europe adoption resistance</div>
                     <div class="risk-mitigation"><strong>Likelihood:</strong> High | <strong>Impact:</strong> High<br>
-                    <strong>Mitigation:</strong> Henry involvement; "France's idea" positioning; engage Cedric early</div>
+                    <strong>Mitigation:</strong> Henry involvement; regional positioning; engage Cédric and regional BDR leads early</div>
                 </div>
                 <div class="risk-card">
                     <div class="risk-title">⚠️ Germany works council</div>
@@ -953,11 +965,12 @@ flowchart TB
             <h2>Open Questions (Resolve This Week)</h2>
             <div class="card">
                 <ul class="question-list">
-                    <li>Who are the France stakeholders beyond Cedric to engage?</li>
                     <li>Why does Rod prefer ChatGPT over Loopio? (Need detailed understanding)</li>
                     <li>What specific metrics does Loopio track that we can use for adoption measurement?</li>
-                    <li>What's the baseline BDR opportunity count by geography and experience level?</li>
+                    <li>Baseline BDR metrics validated for DACH (Seima: 20-30 companies/day) - need US/France/Spain/UK/Italy metrics</li>
                     <li>When can we schedule the tech DD deep-dive session?</li>
+                    <li>What is Laure Ruperas' role in the engagement?</li>
+                    <li>When will we receive Stefano's email for Italy coordination?</li>
                 </ul>
             </div>
         </section>
