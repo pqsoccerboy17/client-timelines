@@ -153,15 +153,16 @@
 
 ## Open Questions
 
-- [ ] Who are France stakeholders beyond Cedric?
 - [ ] Why does Rod prefer ChatGPT over Loopio?
 - [ ] What Loopio metrics can we track?
-- [ ] Baseline BDR metrics validated for DACH (Seima: 20-30 companies/day) - need US/France metrics
+- [ ] Baseline BDR metrics validated for DACH (Seima: 20-30 companies/day) - need US/France/Spain/UK/Italy metrics
 - [ ] When can we schedule tech DD deep-dive?
 - [ ] When is optimal time for Dripify setup with Seima?
 - [ ] What specific ICP emerges from last year's closure data?
 - [ ] What are the key healthcare/manufacturing targets in DACH?
+- [ ] What is Laure Ruperas' role in the engagement?
+- [ ] When will we receive Stefano's email for Italy coordination?
 
 ---
 
-*Generated 2026-01-22 10:11*
+*Generated 2026-01-22 14:07*
