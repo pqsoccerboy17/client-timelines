@@ -697,31 +697,32 @@ gantt
     title EasyVista Q1 2026 Timeline
     dateFormat YYYY-MM-DD
 
-    section Discovery
-    Leadership Discovery       :done, disc1, 2026-01-04, 2026-01-19
+    section Dripify (LinkedIn Automation)
+    Validation :active, dripify_p0, 2026-01-21, 2026-02-07
+    Pilot Setup :dripify_p1, after dripify_p0, 2026-02-21
+    Pilot Evaluation :dripify_p2, after dripify_p1, 2026-03-07
+    Broader Rollout :dripify_p3, after dripify_p2, 2026-03-28
 
-    section Dripify
-    Stakeholder Outreach      :active, drip1, 2026-01-21, 3d
-    Validation Calls          :drip2, 2026-01-27, 7d
-    Champion ID & Setup       :drip3, 2026-02-03, 11d
-    US Pilot Launch           :milestone, drip4, 2026-02-21, 0d
-    Pilot Monitoring          :drip5, 2026-02-24, 14d
-    Go/No-Go Decision         :crit, milestone, drip6, 2026-03-07, 0d
-    Broad Rollout             :drip7, 2026-03-10, 18d
+    section Loopio Standardization
+    Discovery :active, loopio_p0, 2026-01-21, 2026-02-07
+    Solution Design :loopio_p1, after loopio_p0, 2026-02-21
+    Implementation :loopio_p2, after loopio_p1, 2026-03-21
+    Handoff :loopio_p3, after loopio_p2, 2026-03-31
 
-    section Loopio
-    Stakeholder Outreach      :active, loop1, 2026-01-21, 3d
-    Discovery & Analysis      :loop2, 2026-01-27, 14d
-    Solution Design           :loop3, 2026-02-10, 11d
-    Training & Implementation :loop4, 2026-02-24, 25d
-    Metrics & Handoff         :loop5, 2026-03-24, 7d
-
-    section Tech DD
-    Deep-Dive Session         :tech1, 2026-01-27, 5d
-    Advisory Support          :tech2, 2026-02-03, 49d
+    section Technical Due Diligence Support
+    Assessment :active, tech_dd_p0, 2026-01-21, 2026-02-14
 
     section Milestones
-    Q1 DEADLINE               :crit, milestone, end, 2026-03-31, 0d
+    Christopher/Seima call (DACH/OTRS) - Complete :milestone, 2026-01-22, 0d
+    Ludovic/Loic prioritization review :milestone, 2026-01-23, 0d
+    Tim validation call (US) :milestone, 2026-01-24, 0d
+    DACH GTM plan & Seima setup :milestone, 2026-01-31, 0d
+    Validation phase complete :milestone, 2026-02-07, 0d
+    Dripify US pilot launch :milestone, 2026-02-21, 0d
+    Dripify Go/No-Go decision :crit, milestone, 2026-03-07, 0d
+    Loopio global training complete :milestone, 2026-03-21, 0d
+    Final documentation :milestone, 2026-03-28, 0d
+    Q1 DEADLINE :crit, milestone, 2026-03-31, 0d
                 </div>
             </div>
         </section>
@@ -730,44 +731,27 @@ gantt
             <h2>Stakeholder Map</h2>
             <div class="card">
                 <div class="mermaid">
-flowchart LR
-    subgraph Leadership["🎯 Leadership"]
-        Patrice["Patrice<br/>CEO"]
-        Evan["Evan<br/>COO ✓"]
-        Alexander["Alexander<br/>AI PM ✓"]
+flowchart TB
+    subgraph Leadership
+        Patrice_Barbedette["Patrice Barbedette<br/>CEO & President ✓"]
+        Evan_Carlson["Evan Carlson<br/>COO ✓"]
+        Alexander["Alexander<br/>AI PM/Consultant ✓"]
     end
-
-    subgraph Dripify["📱 Dripify Team"]
-        Tim["Tim Brouillard<br/>VP BizDev 📅"]
-        Cedric["Cedric<br/>France 📧"]
-        Christopher["Christopher Kuhn<br/>COO OTRS 📅"]
+    subgraph Engineering
+        Ludovic["Ludovic<br/>CTO "]
+        Loic["Loic<br/>Engineering Lead "]
     end
-
-    subgraph Loopio["📝 Loopio Team"]
-        Dalila["Dalila<br/>Global Presales 📧"]
+    subgraph Dripify
+        Tim_Brouillard["Tim Brouillard<br/>VP Business Development "]
+        Cedric["Cedric<br/>France Sales Manager 📧"]
+        Christopher_T._Kuhn["Christopher T. Kuhn<br/>COO OTRS AG ✓"]
+        Seima_Ishaq["Seima Ishaq<br/>BDR (OTRS) ✓"]
+    end
+    subgraph Loopio
+        Dalila["Dalila<br/>Global Presales Lead 📧"]
         Jan["Jan<br/>Loopio Owner 📧"]
         Rod["Rod<br/>US AE ⚠️"]
     end
-
-    subgraph TechDD["⚙️ Engineering"]
-        Ludovic["Ludovic<br/>CTO"]
-        Loic["Loic<br/>Eng Lead"]
-    end
-
-    Leadership --> Dripify
-    Leadership --> Loopio
-    Leadership --> TechDD
-
-    classDef engaged fill:#2ecc71,stroke:#27ae60,color:#fff
-    classDef scheduled fill:#4dc0c7,stroke:#3aa8af,color:#fff
-    classDef outreach fill:#f1c40f,stroke:#d4ac0d,color:#333
-    classDef cold fill:#95a5a6,stroke:#7f8c8d,color:#fff
-    classDef risk fill:#f8568b,stroke:#e04477,color:#fff
-
-    class Evan,Alexander,Patrice,Rod engaged
-    class Tim,Christopher scheduled
-    class Cedric,Dalila,Jan outreach
-    class Ludovic,Loic cold
                 </div>
                 <p style="margin-top: 16px; color: var(--text-muted); font-size: 0.9rem;">
                     <span style="display:inline-block;width:12px;height:12px;background:#2ecc71;border-radius:3px;margin-right:4px;"></span> Engaged |
