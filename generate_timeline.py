@@ -69,6 +69,61 @@ def generate_stakeholder_map(cfg: dict) -> str:
     lines.append("```")
     return "\n".join(lines)
 
+def update_index_html_classes(cfg: dict, index_path: str = "index.html"):
+    """Update stakeholder class assignments in index.html based on config.json statuses"""
+    import re
+
+    with open(index_path, 'r') as f:
+        html = f.read()
+
+    # Group stakeholders by status
+    status_groups = {
+        'engaged': [],
+        'scheduled': [],
+        'outreach': [],
+        'cold': [],
+        'risk': []
+    }
+
+    for s in cfg['stakeholders']:
+        name_key = s['name'].replace(' ', '_').replace('-', '_')
+        status = s['status']
+
+        if status == 'engaged':
+            status_groups['engaged'].append(name_key)
+        elif status == 'scheduled':
+            status_groups['scheduled'].append(name_key)
+        elif status == 'outreach_sent':
+            status_groups['outreach'].append(name_key)
+        elif status == 'pending':
+            status_groups['cold'].append(name_key)
+        elif status == 'risk':
+            status_groups['risk'].append(name_key)
+
+    # Build new class assignment lines
+    new_classes = []
+    if status_groups['engaged']:
+        new_classes.append(f"    class {','.join(status_groups['engaged'])} engaged")
+    if status_groups['scheduled']:
+        new_classes.append(f"    class {','.join(status_groups['scheduled'])} scheduled")
+    if status_groups['outreach']:
+        new_classes.append(f"    class {','.join(status_groups['outreach'])} outreach")
+    if status_groups['cold']:
+        new_classes.append(f"    class {','.join(status_groups['cold'])} cold")
+    if status_groups['risk']:
+        new_classes.append(f"    class {','.join(status_groups['risk'])} risk")
+
+    # Replace the class assignments section
+    pattern = r'(    classDef risk fill:#f8568b,stroke:#e04477,color:#fff\n\n)(    class .*?\n)+?(?=                </div>)'
+    replacement = r'\1' + '\n'.join(new_classes) + '\n'
+
+    html = re.sub(pattern, replacement, html, flags=re.MULTILINE)
+
+    with open(index_path, 'w') as f:
+        f.write(html)
+
+    print(f"✓ Updated stakeholder class assignments in {index_path}")
+
 def generate_markdown(cfg: dict) -> str:
     """Generate full timeline markdown"""
     c = cfg['client']
@@ -143,10 +198,14 @@ def main():
     (output_dir / f"{client}-stakeholders.mermaid").write_text(stakeholders)
     (output_dir / f"{client}-timeline.md").write_text(md)
 
+    # Update index.html stakeholder class assignments
+    update_index_html_classes(cfg, output_dir / "index.html")
+
     print(f"✓ Generated files for {cfg['client']['name']}")
     print(f"  - {client}-gantt.mermaid")
     print(f"  - {client}-stakeholders.mermaid")
     print(f"  - {client}-timeline.md")
+    print(f"  - index.html (stakeholder classes updated)")
 
 if __name__ == "__main__":
     main()

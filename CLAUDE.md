@@ -6,7 +6,7 @@ Timeline visualization for tracking consulting engagement milestones, stakeholde
 
 **Static-first, config-driven design:**
 - Single source of truth: [config.json](config.json) (12KB JSON file)
-- Python generator: [generate_timeline.py](generate_timeline.py) parses config → produces 3 derivative files
+- Python generator: [generate_timeline.py](generate_timeline.py) parses config → produces 4 derivative artifacts
 - No build process: [index.html](index.html) works offline, client-side only (Mermaid.js via CDN)
 - Version control first: All changes committed to git for audit trail
 
@@ -15,6 +15,22 @@ Timeline visualization for tracking consulting engagement milestones, stakeholde
 - Stakeholder-friendly: Embeddable Mermaid diagrams work in Notion, GitHub, HTML
 - Offline-capable: No backend required, static hosting compatible
 - Investor narrative: Tracks metrics for capital fundraising readiness
+
+## Update Workflow (CRITICAL)
+
+**When updating stakeholder statuses or any config.json data:**
+1. Edit [config.json](config.json) only (never edit derivative files directly)
+2. Run `python3 generate_timeline.py`
+3. Review changes: `git diff`
+4. Commit all modified files together
+
+**What generate_timeline.py updates automatically:**
+- [easyvista-gantt.mermaid](easyvista-gantt.mermaid) - Gantt chart visualization
+- [easyvista-stakeholders.mermaid](easyvista-stakeholders.mermaid) - Stakeholder map with status icons
+- [easyvista-timeline.md](easyvista-timeline.md) - Markdown timeline document
+- [index.html](index.html) - Stakeholder class assignments for visual colors (lines 792-796)
+
+**⚠️ NEVER manually edit stakeholder colors in index.html** - The script syncs them automatically from config.json to prevent mismatches between data and visualization.
 
 ## External Integrations
 
