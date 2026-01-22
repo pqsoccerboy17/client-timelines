@@ -2,7 +2,7 @@
   "meta": {
     "template_version": "1.0",
     "created": "2026-01-21",
-    "last_updated": "2026-01-21T13:00:00",
+    "last_updated": "2026-01-22T18:00:00",
     "author": "Mike Duncan"
   },
   "client": {
@@ -38,11 +38,11 @@
       "id": "dripify",
       "name": "Dripify (LinkedIn Automation)",
       "goal": "Automate LinkedIn outreach for global BDR team",
-      "scope": "BDRs only (not broader sales initially)",
+      "scope": "BDRs only (not broader sales initially). Initial pilot: DACH region (Germany, Austria, Switzerland). Target industries: Healthcare and Manufacturing. Public Sector excluded from initial automation due to long sales cycles.",
       "success_metric": "Increase opps from 15-20 to 25-30 per quarter per BDR",
       "budget_allocation": "~$5-8K",
       "status": "in_progress",
-      "stakeholders": ["Tim Brouillard", "Cedric", "Christopher"],
+      "stakeholders": ["Tim Brouillard", "Cedric", "Christopher", "Seima"],
       "phases": [
         {
           "name": "Validation",
@@ -50,9 +50,12 @@
           "end": "2026-02-07",
           "tasks": [
             {"task": "Schedule validation calls", "owner": "Mike", "due": "2026-01-24", "status": "complete"},
-            {"task": "Christopher call (Germany/OTRS)", "owner": "Mike", "due": "2026-01-23", "status": "scheduled"},
+            {"task": "Christopher/Seima call (DACH/OTRS)", "owner": "Mike", "due": "2026-01-22", "status": "complete"},
             {"task": "Tim validation call (US)", "owner": "Mike", "due": "2026-01-24", "status": "scheduled"},
             {"task": "Cedric validation call (France)", "owner": "Mike/Henry", "due": "2026-01-31"},
+            {"task": "Dripify setup call with Seima", "owner": "Mike", "due": "2026-01-31", "status": "pending"},
+            {"task": "Create DACH GTM plan", "owner": "Mike", "due": "2026-01-31", "status": "in_progress"},
+            {"task": "Reshape ICP from closure data", "owner": "Mike/EasyVista", "due": "2026-01-31", "status": "pending"},
             {"task": "Baseline BDR metrics", "owner": "EasyVista", "due": "2026-01-31"},
             {"task": "Confirm Dripify fit", "owner": "Mike", "due": "2026-02-07"}
           ]
@@ -178,10 +181,11 @@
     {"name": "Loic", "role": "Engineering Lead", "group": "engineering", "status": "pending", "notes": "April release non-negotiable"},
     {"name": "Tim Brouillard", "role": "VP Business Development", "group": "dripify", "status": "scheduled", "phone": "508-783-7624", "meeting": "2026-01-24 09:00 EST", "notes": "Champion candidate. Call scheduled Fri 1/24"},
     {"name": "Cedric", "role": "France Sales Manager", "group": "dripify", "status": "outreach_sent", "notes": "Critical for France buy-in"},
-    {"name": "Christopher T. Kuhn", "role": "COO OTRS AG", "group": "dripify", "status": "scheduled", "phone": "+49 9421 56818 393", "meeting": "2026-01-23 09:00 CST", "notes": "Call scheduled Thu 1/23. Works council constraints for Germany."},
+    {"name": "Christopher T. Kuhn", "role": "COO OTRS AG", "group": "dripify", "status": "engaged", "phone": "+49 9421 56818 393", "notes": "Founded US subsidiary 2005. Manages sales for DACH, Nordics, Netherlands, Belgium. Technical background. Works council constraints for Germany."},
     {"name": "Dalila", "role": "Global Presales Lead", "group": "loopio", "status": "outreach_sent", "notes": "Owns presales globally"},
     {"name": "Jan", "role": "Loopio Owner", "group": "loopio", "status": "outreach_sent", "notes": "Reports to Dalila"},
-    {"name": "Rod", "role": "US AE", "group": "loopio", "status": "risk", "notes": "ChatGPT power user, change mgmt target"}
+    {"name": "Rod", "role": "US AE", "group": "loopio", "status": "risk", "notes": "ChatGPT power user, change mgmt target"},
+    {"name": "Seima Ishaq", "role": "BDR (OTRS)", "group": "dripify", "region": "DACH/Benelux/Nordics/Middle East", "status": "engaged", "email": "seima.ishaq@otrs.com", "languages": "German, Dutch, English, Arabic", "notes": "First BDR for OTRS. Targets 20-30 companies/day with industry segmentation strategy. Primary user for DACH Dripify pilot. Multi-channel approach (LinkedIn + Email)."}
   ],
   "risks": [
     {"risk": "Rod bypassing Loopio", "likelihood": "confirmed", "impact": "medium", "mitigation": "Direct interview; address root cause"},
@@ -191,9 +195,10 @@
     {"risk": "Q1 timeline slip", "likelihood": "medium", "impact": "high", "mitigation": "Weekly tracking; early escalation"}
   ],
   "milestones": [
-    {"date": "2026-01-23", "event": "Christopher call (Germany/OTRS)"},
+    {"date": "2026-01-22", "event": "Christopher/Seima call (DACH/OTRS) - Complete"},
     {"date": "2026-01-23", "event": "Ludovic/Loic prioritization review"},
     {"date": "2026-01-24", "event": "Tim validation call (US)"},
+    {"date": "2026-01-31", "event": "DACH GTM plan & Seima setup"},
     {"date": "2026-02-07", "event": "Validation phase complete"},
     {"date": "2026-02-21", "event": "Dripify US pilot launch"},
     {"date": "2026-03-07", "event": "Dripify Go/No-Go decision", "critical": true},
@@ -205,8 +210,11 @@
     "Who are France stakeholders beyond Cedric?",
     "Why does Rod prefer ChatGPT over Loopio?",
     "What Loopio metrics can we track?",
-    "Baseline BDR opp count by geography?",
-    "When can we schedule tech DD deep-dive?"
+    "Baseline BDR metrics validated for DACH (Seima: 20-30 companies/day) - need US/France metrics",
+    "When can we schedule tech DD deep-dive?",
+    "When is optimal time for Dripify setup with Seima?",
+    "What specific ICP emerges from last year's closure data?",
+    "What are the key healthcare/manufacturing targets in DACH?"
   ],
   "investor_narrative": {
     "template": "We implemented AI across BDR outbound and RFP response, leading to X% more opportunities, Y% pipeline uplift, and Z% higher efficiency, while scaling without proportional headcount increase.",
