@@ -1,9 +1,9 @@
 # EasyVista Engagement Timeline
-## Internal Review | January 22, 2026
+## Internal Review | January 31, 2026
 
 **Contact:** Evan Carlson (COO)
 **Deadline:** Q1 2026 (2026-03-31)
-**Days Remaining:** ~67 days
+**Days Remaining:** ~58 days
 **Budget:** $10,000-$15,000
 
 ---
@@ -12,9 +12,9 @@
 
 ## Dripify (LinkedIn Automation)
 
-**Goal:** Automate LinkedIn outreach for global BDR team
-**Scope:** BDRs only (not broader sales initially). Initial pilot: DACH region (Germany, Austria, Switzerland). Target industries: Healthcare and Manufacturing. Public Sector excluded from initial automation due to long sales cycles.
-**Success Metric:** Increase opps from 15-20 to 25-30 per quarter per BDR
+**Goal:** Increase BDR opportunity generation from 15-20 to 25-30 per quarter
+**Scope:** Global BDR Team
+**Success Metric:** 25-30 opportunities per quarter
 
 ### Phases
 
@@ -23,12 +23,9 @@
 | Task | Owner | Due |
 |------|-------|-----|
 | Schedule validation calls | Mike | 2026-01-24 |
-| Christopher/Seima call (DACH/OTRS) | Mike | 2026-01-22 |
+| Christopher call (Germany/OTRS) | Mike | 2026-01-23 |
 | Tim validation call (US) | Mike | 2026-01-24 |
-| Cedric validation call (France) | Mike/Henry | 2026-01-31 |
-| Dripify setup call with Seima | Mike | 2026-01-31 |
-| Create DACH GTM plan | Mike | 2026-01-31 |
-| Reshape ICP from closure data | Mike/EasyVista | 2026-01-31 |
+| Regional validation calls (Europe) | Mike/Henry | 2026-01-31 |
 | Baseline BDR metrics | EasyVista | 2026-01-31 |
 | Confirm Dripify fit | Mike | 2026-02-07 |
 
@@ -37,34 +34,33 @@
 | Task | Owner | Due |
 |------|-------|-----|
 | Procure Dripify licenses | EasyVista (Evan) | 2026-02-10 |
-| Configure for use case | EasyVista (Tim) | 2026-02-14 |
+| Configure for EasyVista | EasyVista (Tim) | 2026-02-14 |
 | Create outreach templates | EasyVista (Tim) | 2026-02-17 |
-| Train champion | Mike | 2026-02-19 |
+| Train champion user | Mike | 2026-02-19 |
 | US Pilot Launch 🎯 | EasyVista (Tim) | 2026-02-21 |
 
 #### Pilot Evaluation (2026-02-24 - 2026-03-07)
 
 | Task | Owner | Due |
 |------|-------|-----|
-| Monitor pilot (2 weeks) | EasyVista (Tim) | 2026-03-07 |
-| Collect feedback | Mike | 2026-03-05 |
-| Go/No-Go decision 🎯 | EasyVista (Evan) | 2026-03-07 |
+| Pilot monitoring (2 weeks) | EasyVista (Tim) | 2026-03-07 |
+| Go/No-Go Decision 🎯 | EasyVista (Evan) | 2026-03-07 |
 
 #### Broader Rollout (2026-03-10 - 2026-03-28)
 
 | Task | Owner | Due |
 |------|-------|-----|
-| Full US BDR rollout | EasyVista (Tim) | 2026-03-14 |
-| France BDR rollout | EasyVista (Cedric) | 2026-03-21 |
+| US broad rollout | EasyVista (Tim) | 2026-03-14 |
+| Europe rollout | EasyVista (Regional Leads) | 2026-03-21 |
 | Documentation & handoff | Mike | 2026-03-28 |
 
 ---
 
 ## Loopio Standardization
 
-**Goal:** Re-establish Loopio as standard for RFP responses
-**Scope:** Global pre-sales team
-**Success Metric:** Consistent RFP responses; ChatGPT usage decline
+**Goal:** Consistent RFP responses globally
+**Scope:** Global Pre-sales and Sales
+**Success Metric:** 100% Loopio adoption by March 31
 
 ### Phases
 
@@ -81,17 +77,16 @@
 
 | Task | Owner | Due |
 |------|-------|-----|
-| Define usage metrics | EasyVista (Jan) | 2026-02-12 |
+| Define Loopio usage metrics | EasyVista (Jan) | 2026-02-12 |
 | Change management plan | Mike | 2026-02-14 |
 | Training materials | EasyVista (Jan) | 2026-02-19 |
-| Dalila sign-off | EasyVista (Dalila) | 2026-02-21 |
 
 #### Implementation (2026-02-24 - 2026-03-21)
 
 | Task | Owner | Due |
 |------|-------|-----|
 | US pre-sales training | EasyVista (Jan) | 2026-02-28 |
-| Address Rod workflow | EasyVista (Jan) | 2026-03-03 |
+| Address Rod's workflow | EasyVista (Jan) | 2026-03-03 |
 | France training | EasyVista (Jan) | 2026-03-14 |
 | Global training complete 🎯 | EasyVista (Jan) | 2026-03-21 |
 
@@ -99,28 +94,8 @@
 
 | Task | Owner | Due |
 |------|-------|-----|
-| Final adoption metrics | EasyVista (Jan) | 2026-03-28 |
-| Sustainability playbook | Mike | 2026-03-28 |
-| Handoff to Dalila/Jan | Mike | 2026-03-31 |
-
----
-
-## Technical Due Diligence Support
-
-**Goal:** Address engineering maturity for exit readiness
-**Scope:** Advisory alongside EPAM assessment
-**Success Metric:** Clear investor narrative on tech capabilities
-
-### Phases
-
-#### Assessment (2026-01-21 - 2026-02-14)
-
-| Task | Owner | Due |
-|------|-------|-----|
-| Schedule deep-dive | Henry/Mike | 2026-01-24 |
-| Deep-dive session | Henry/Russell | 2026-01-31 |
-| EPAM comparison | Russell | 2026-02-07 |
-| Advisory input | Henry/Russell | 2026-02-14 |
+| Final documentation | Mike | 2026-03-28 |
+| Handoff complete | Mike | 2026-03-31 |
 
 ---
 
@@ -128,11 +103,11 @@
 
 | Risk | Likelihood | Impact | Mitigation |
 |------|------------|--------|------------|
-| Rod bypassing Loopio | confirmed | medium | Direct interview; address root cause |
-| France adoption resistance | high | high | Henry involvement; France's idea positioning |
-| Germany works council | n/a | n/a | Excluded from scope |
-| Stakeholder non-response | medium | high | Follow-up cadence; Evan escalation |
-| Q1 timeline slip | medium | high | Weekly tracking; early escalation |
+| Rod bypassing Loopio | confirmed | medium | Direct interview to understand workflow; address root cause |
+| Europe adoption resistance | high | high | Henry involvement; regional positioning; engage Cédric and regional BDR leads early |
+| Germany works council | n/a | n/a | Excluded from initial scope; Christopher informed |
+| Stakeholder non-response | medium | high | Follow-up cadence; Evan escalation path if needed |
+| Q1 timeline slip | medium | high | Weekly tracking; early escalation; buffer in schedule |
 
 ---
 
@@ -140,9 +115,12 @@
 
 - **2026-01-22** — Christopher/Seima call (DACH/OTRS) - Complete
 - **2026-01-23** — Ludovic/Loic prioritization review
+- **2026-01-23** — Christopher call (Germany)
 - **2026-01-24** — Tim validation call (US)
 - **2026-01-31** — DACH GTM plan & Seima setup
+- **2026-02-04** — 🎯 Mandatory Loopio alignment call
 - **2026-02-07** — Validation phase complete
+- **2026-02-09** — New West BDR onboarding + Dripify training
 - **2026-02-21** — Dripify US pilot launch
 - **2026-03-07** — 🎯 Dripify Go/No-Go decision
 - **2026-03-21** — Loopio global training complete
@@ -153,16 +131,13 @@
 
 ## Open Questions
 
-- [ ] Why does Rod prefer ChatGPT over Loopio?
-- [ ] What Loopio metrics can we track?
+- [ ] Why does Rod prefer ChatGPT over Loopio? (Need detailed understanding)
+- [ ] What specific metrics does Loopio track that we can use for adoption measurement?
 - [ ] Baseline BDR metrics validated for DACH (Seima: 20-30 companies/day) - need US/France/Spain/UK/Italy metrics
-- [ ] When can we schedule tech DD deep-dive?
-- [ ] When is optimal time for Dripify setup with Seima?
-- [ ] What specific ICP emerges from last year's closure data?
-- [ ] What are the key healthcare/manufacturing targets in DACH?
+- [ ] When can we schedule the tech DD deep-dive session?
 - [ ] What is Laure Ruperas' role in the engagement?
 - [ ] When will we receive Stefano's email for Italy coordination?
 
 ---
 
-*Generated 2026-01-22 14:33*
+*Generated 2026-01-31 00:02*
