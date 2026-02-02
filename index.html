@@ -1613,9 +1613,26 @@ flowchart TB
             if (e.key === '?') alert('Keyboard Shortcuts:\n1 - Dashboard\n2 - Charter\n3 - Champions\n4 - Timeline');
         });
 
+        // Store original mermaid source BEFORE any processing
+        const mermaidSources = {};
+        document.querySelectorAll('.mermaid').forEach((el, idx) => {
+            mermaidSources[idx] = el.innerHTML.trim();
+            el.setAttribute('data-mermaid-idx', idx);
+        });
+
         // Mermaid initialization with theme support
         function initMermaid() {
             const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
+
+            // Reset mermaid elements to original source
+            document.querySelectorAll('.mermaid').forEach(el => {
+                el.removeAttribute('data-processed');
+                const idx = el.getAttribute('data-mermaid-idx');
+                if (mermaidSources[idx]) {
+                    el.innerHTML = mermaidSources[idx];
+                }
+            });
+
             mermaid.initialize({
                 startOnLoad: false,
                 theme: 'base',
@@ -1665,35 +1682,31 @@ flowchart TB
                     curve: 'basis'
                 }
             });
-            mermaid.run().then(() => {
-                document.querySelectorAll('.mermaid').forEach(el => el.style.opacity = '1');
-            });
-        }
 
-        // Store original mermaid source for re-rendering
-        const mermaidSources = {};
-        document.querySelectorAll('.mermaid').forEach((el, idx) => {
-            mermaidSources[idx] = el.textContent;
-            el.setAttribute('data-mermaid-idx', idx);
-        });
+            // Run mermaid and handle both Promise and non-Promise versions
+            try {
+                const result = mermaid.run();
+                if (result && result.then) {
+                    result.then(() => {
+                        document.querySelectorAll('.mermaid').forEach(el => el.style.opacity = '1');
+                    }).catch(err => console.error('Mermaid error:', err));
+                } else {
+                    document.querySelectorAll('.mermaid').forEach(el => el.style.opacity = '1');
+                }
+            } catch (err) {
+                console.error('Mermaid error:', err);
+            }
+        }
 
         // Re-init mermaid on theme change
         const originalToggle = window.toggleTheme;
         window.toggleTheme = function() {
             originalToggle();
-            // Give DOM time to update
-            setTimeout(() => {
-                document.querySelectorAll('.mermaid').forEach(el => {
-                    el.removeAttribute('data-processed');
-                    const idx = el.getAttribute('data-mermaid-idx');
-                    if (mermaidSources[idx]) {
-                        el.innerHTML = mermaidSources[idx];
-                    }
-                });
-                initMermaid();
-            }, 100);
+            // Give DOM time to update theme attribute
+            setTimeout(initMermaid, 100);
         };
 
+        // Initial render
         initMermaid();
     </script>
 </body>
