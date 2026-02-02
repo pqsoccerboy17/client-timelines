@@ -11,6 +11,13 @@
     <link rel="stylesheet" href="../shared/print.css" media="print">
     <style>
         :root {
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.25rem;
+            --font-size-xl: 1.5rem;
+            --font-size-2xl: 2rem;
+            --font-size-3xl: 2.5rem;
             --ev-teal: #4dc0c7;
             --ev-pink: #f8568b;
             --ev-navy: #38526f;
@@ -29,12 +36,14 @@
             --bg-card: rgba(56, 82, 111, 0.05);
             --border-color: rgba(56, 82, 111, 0.15);
             --text-primary: var(--ev-navy);
-            --text-secondary: #5a6d7e;
+            --text-secondary: #4a5d6e; /* was #5a6d7e - now WCAG AA compliant */
             --text-muted: #7a8a9a;
             --table-header-bg: rgba(77, 192, 199, 0.15);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -59,7 +68,9 @@
             cursor: pointer;
             font-size: 1.2rem;
             z-index: 1000;
+            transition: transform 0.3s ease;
         }
+        .theme-toggle:active { transform: rotate(180deg) scale(1.1); }
 
         .back-link {
             display: inline-flex;
@@ -87,6 +98,7 @@
             font-weight: 700;
             margin-bottom: 10px;
             color: var(--ev-teal);
+            letter-spacing: -0.02em;
         }
 
         .subtitle { font-size: 1rem; color: var(--text-secondary); }
@@ -101,6 +113,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            letter-spacing: -0.01em;
         }
 
         h2::before {
@@ -125,7 +138,8 @@
         table { width: 100%; border-collapse: collapse; margin: 16px 0; }
         th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border-color); }
         th { background: var(--table-header-bg); font-weight: 600; color: var(--ev-teal); }
-        tr:hover { background: rgba(77, 192, 199, 0.05); }
+        tr { transition: background 0.15s ease; }
+        tr:hover { background: rgba(77, 192, 199, 0.1); }
 
         .status-badge {
             display: inline-block;
@@ -344,9 +358,90 @@
           50% { box-shadow: 0 0 0 8px rgba(248, 86, 139, 0); }
         }
         .status-risk { animation: pulse 2s infinite; }
+
+        /* Skip link */
+        .skip-link {
+            position: absolute;
+            top: -50px;
+            left: 16px;
+            background: var(--ev-teal);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 0 0 8px 8px;
+            z-index: 10000;
+            text-decoration: none;
+            font-weight: 600;
+            transition: top 0.2s;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Focus states */
+        button:focus-visible,
+        a:focus-visible,
+        .theme-toggle:focus-visible {
+            outline: 2px solid var(--ev-teal);
+            outline-offset: 2px;
+        }
+        .site-nav a:focus-visible {
+            outline: 2px solid var(--ev-teal);
+            outline-offset: -2px;
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Light mode card shadows */
+        [data-theme="light"] .card,
+        [data-theme="light"] .champion-card,
+        [data-theme="light"] header {
+            box-shadow: 0 2px 8px rgba(56, 82, 111, 0.08);
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        /* Table scroll hint for mobile */
+        @media (max-width: 768px) {
+            .table-wrapper {
+                position: relative;
+            }
+            .table-wrapper::after {
+                content: '';
+                position: absolute;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                width: 40px;
+                background: linear-gradient(to right, transparent, rgba(26, 26, 46, 0.8));
+                pointer-events: none;
+            }
+            [data-theme="light"] .table-wrapper::after {
+                background: linear-gradient(to right, transparent, rgba(248, 241, 230, 0.9));
+            }
+            .site-nav {
+                gap: 8px;
+                padding: 8px 12px;
+            }
+            .site-nav a {
+                padding: 12px 14px;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+            }
+        }
     </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <nav class="site-nav">
       <a href="../index.html">Dashboard</a>
       <a href="charter.html">Charter</a>
@@ -356,7 +451,7 @@
 
     <button class="theme-toggle" onclick="toggleTheme()">&#127763;</button>
 
-    <div class="container">
+    <div class="container" id="main-content">
         <div class="breadcrumbs"><a href="../index.html">Dashboard</a> / Champions</div>
 
         <header>
@@ -413,56 +508,58 @@
                 <h3>Global Champion</h3>
                 <div class="champion-card global">
                     <div class="champion-name">Tim Brouillard</div>
-                    <div class="champion-role">VP Business Development <span class="status-badge status-engaged">Engaged</span></div>
+                    <div class="champion-role">VP Business Development <span class="status-badge status-engaged">&#10003; Engaged</span></div>
                     <div class="champion-reason">11+ years at EasyVista. High credibility. Already championing BDR transformation.</div>
                 </div>
 
                 <h3>Regional Champions</h3>
+                <div class="table-wrapper">
                 <table>
                     <tr><th>Region</th><th>Champion</th><th>Role</th><th>Status</th><th>Notes</th></tr>
                     <tr>
                         <td><strong>US</strong></td>
                         <td>Tim Brouillard</td>
                         <td>VP BD</td>
-                        <td><span class="status-badge status-engaged">Engaged</span></td>
+                        <td><span class="status-badge status-engaged">&#10003; Engaged</span></td>
                         <td>Leads pilot; primary success story</td>
                     </tr>
                     <tr>
                         <td><strong>DACH</strong></td>
                         <td>Seima Ishaq</td>
                         <td>BDR (OTRS)</td>
-                        <td><span class="status-badge status-engaged">Engaged</span></td>
+                        <td><span class="status-badge status-engaged">&#10003; Engaged</span></td>
                         <td>Multilingual; 20-30 companies/day baseline</td>
                     </tr>
                     <tr>
                         <td><strong>UK</strong></td>
                         <td>Sean Herbert</td>
                         <td>BDR Lead</td>
-                        <td><span class="status-badge status-engaged">Engaged</span></td>
+                        <td><span class="status-badge status-engaged">&#10003; Engaged</span></td>
                         <td>Custom ChatGPT user; Gong advocate</td>
                     </tr>
                     <tr>
                         <td><strong>France</strong></td>
                         <td>Raphael Hugnet</td>
                         <td>BDR Lead</td>
-                        <td><span class="status-badge status-scheduled">Scheduled</span></td>
+                        <td><span class="status-badge status-scheduled">&#9675; Scheduled</span></td>
                         <td>Coordination role; call booked</td>
                     </tr>
                     <tr>
                         <td><strong>Spain</strong></td>
                         <td>Ismael Sabbagh</td>
                         <td>BDR Lead</td>
-                        <td><span class="status-badge status-outreach">Outreach Sent</span></td>
+                        <td><span class="status-badge status-outreach">&#8594; Outreach Sent</span></td>
                         <td>Awaiting response</td>
                     </tr>
                     <tr>
                         <td><strong>Italy</strong></td>
                         <td>Stefano</td>
                         <td>BDR Lead</td>
-                        <td><span class="status-badge status-outreach">Outreach Sent</span></td>
+                        <td><span class="status-badge status-outreach">&#8594; Outreach Sent</span></td>
                         <td>Awaiting email confirmation</td>
                     </tr>
                 </table>
+                </div>
 
                 <h3>Champion Responsibilities (Dripify)</h3>
                 <ol style="margin-left: 20px;">
@@ -479,25 +576,26 @@
                 <h3>Global Champion</h3>
                 <div class="champion-card global">
                     <div class="champion-name">Yann</div>
-                    <div class="champion-role">Loopio Owner <span class="status-badge status-engaged">Engaged</span></div>
+                    <div class="champion-role">Loopio Owner <span class="status-badge status-engaged">&#10003; Engaged</span></div>
                     <div class="champion-reason">Global knowledge owner. Driving 100% adoption target. Feb target for English content structure.</div>
                 </div>
 
                 <h3>Regional Champions</h3>
+                <div class="table-wrapper">
                 <table>
                     <tr><th>Region</th><th>Champion</th><th>Role</th><th>Status</th><th>Notes</th></tr>
                     <tr>
                         <td><strong>Global Presales</strong></td>
                         <td>Dalila Souiah</td>
                         <td>Global Presales Lead</td>
-                        <td><span class="status-badge status-engaged">Engaged</span></td>
+                        <td><span class="status-badge status-engaged">&#10003; Engaged</span></td>
                         <td>NAM, LatAm, Europe oversight</td>
                     </tr>
                     <tr>
                         <td><strong>US</strong></td>
                         <td>Rod</td>
                         <td>AE</td>
-                        <td><span class="status-badge status-risk">Risk</span></td>
+                        <td><span class="status-badge status-risk">&#9888; Risk</span></td>
                         <td>Convert from resistor to champion</td>
                     </tr>
                     <tr>
@@ -508,6 +606,7 @@
                         <td>Identify through Dalila/Henry</td>
                     </tr>
                 </table>
+                </div>
 
                 <h3>Champion Responsibilities (Loopio)</h3>
                 <ol style="margin-left: 20px;">
@@ -529,6 +628,7 @@
                 </ul>
 
                 <h3>Conversion Strategy</h3>
+                <div class="table-wrapper">
                 <table>
                     <tr><th>Step</th><th>Action</th><th>Owner</th><th>Timeline</th></tr>
                     <tr><td>1</td><td>Interview to understand workflow</td><td>Mike</td><td>Feb 5</td></tr>
@@ -537,6 +637,7 @@
                     <tr><td>4</td><td>Pilot enhanced workflow with Rod</td><td>Yann</td><td>Feb 17-21</td></tr>
                     <tr><td>5</td><td>If successful: position as "power user" champion</td><td>Yann + Dalila</td><td>Mar 3</td></tr>
                 </table>
+                </div>
 
                 <h3>Success Criteria</h3>
                 <ul style="margin-left: 20px;">
@@ -550,12 +651,14 @@
         <section>
             <h2>Leadership Champions</h2>
             <div class="card">
+                <div class="table-wrapper">
                 <table>
                     <tr><th>Name</th><th>Role</th><th>Champion Function</th></tr>
                     <tr><td><strong>Evan Carlson</strong></td><td>COO / Sponsor</td><td>Executive air cover; removes blockers; approves resources</td></tr>
                     <tr><td><strong>Patrice Barbedette</strong></td><td>CEO</td><td>AI communications commitment (Jan 30); investor narrative</td></tr>
                     <tr><td><strong>Alexander</strong></td><td>AI PM</td><td>Cross-initiative coordination; ExCom representation</td></tr>
                 </table>
+                </div>
             </div>
         </section>
 

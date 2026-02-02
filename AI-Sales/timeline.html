@@ -11,6 +11,15 @@
     <link rel="stylesheet" href="../shared/print.css" media="print">
     <style>
         :root {
+            /* Type scale */
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.25rem;
+            --font-size-xl: 1.5rem;
+            --font-size-2xl: 2rem;
+            --font-size-3xl: 2.5rem;
+
             --ev-teal: #4dc0c7;
             --ev-pink: #f8568b;
             --ev-navy: #38526f;
@@ -31,12 +40,14 @@
             --bg-card: rgba(56, 82, 111, 0.05);
             --border-color: rgba(56, 82, 111, 0.15);
             --text-primary: var(--ev-navy);
-            --text-secondary: #5a6d7e;
+            --text-secondary: #4a5d6e; /* was #5a6d7e - now WCAG AA compliant */
             --text-muted: #7a8a9a;
             --table-header-bg: rgba(77, 192, 199, 0.15);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -61,7 +72,9 @@
             cursor: pointer;
             font-size: 1.2rem;
             z-index: 1000;
+            transition: transform 0.3s ease;
         }
+        .theme-toggle:active { transform: rotate(180deg) scale(1.1); }
 
         .back-link {
             display: inline-flex;
@@ -89,6 +102,7 @@
             font-weight: 700;
             margin-bottom: 10px;
             color: var(--ev-teal);
+            letter-spacing: -0.02em;
         }
 
         .subtitle { font-size: 1rem; color: var(--text-secondary); margin-bottom: 20px; }
@@ -133,6 +147,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            letter-spacing: -0.01em;
         }
 
         h2::before {
@@ -157,6 +172,12 @@
         .phase-card {
             border-left: 4px solid var(--ev-teal);
             margin-bottom: 24px;
+        }
+        .phase-card.phase-complete {
+            border-left-color: #2ecc71;
+        }
+        .phase-card.phase-active {
+            border-left-color: var(--ev-pink);
         }
 
         .phase-header {
@@ -193,7 +214,8 @@
         table { width: 100%; border-collapse: collapse; margin: 16px 0; }
         th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border-color); }
         th { background: var(--table-header-bg); font-weight: 600; color: var(--ev-teal); font-size: 0.9rem; }
-        tr:hover { background: rgba(77, 192, 199, 0.05); }
+        tr { transition: background 0.15s ease; }
+        tr:hover { background: rgba(77, 192, 199, 0.1); }
 
         .status-badge {
             display: inline-block;
@@ -204,7 +226,9 @@
         }
 
         .status-complete { background: rgba(46, 204, 113, 0.2); color: #2ecc71; }
+        .status-complete::before { content: '\2713 '; }
         .status-pending { background: rgba(241, 196, 15, 0.2); color: #f1c40f; }
+        .status-pending::before { content: '\25CB '; }
 
         .timeline-visual {
             background: rgba(77, 192, 199, 0.1);
@@ -323,6 +347,59 @@
             margin-top: 40px;
         }
 
+        /* Skip link */
+        .skip-link {
+            position: absolute;
+            top: -50px;
+            left: 16px;
+            background: var(--ev-teal);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 0 0 8px 8px;
+            z-index: 10000;
+            text-decoration: none;
+            font-weight: 600;
+            transition: top 0.2s;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Focus states */
+        button:focus-visible,
+        a:focus-visible,
+        .theme-toggle:focus-visible {
+            outline: 2px solid var(--ev-teal);
+            outline-offset: 2px;
+        }
+        .site-nav a:focus-visible {
+            outline: 2px solid var(--ev-teal);
+            outline-offset: -2px;
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Light mode card shadows */
+        [data-theme="light"] .card,
+        [data-theme="light"] .phase-card,
+        [data-theme="light"] .countdown-item,
+        [data-theme="light"] header {
+            box-shadow: 0 2px 8px rgba(56, 82, 111, 0.08);
+        }
+
+        /* Table wrapper for mobile scroll hint */
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
         @media (max-width: 768px) {
             .container { padding: 16px 12px; }
             header { padding: 24px 16px; }
@@ -333,6 +410,36 @@
             th, td { padding: 8px 10px; }
             .timeline-visual { font-size: 0.7rem; padding: 16px; }
             .countdown-grid { grid-template-columns: repeat(2, 1fr); }
+
+            /* Mobile touch targets */
+            .site-nav {
+                gap: 8px;
+                padding: 8px 12px;
+            }
+            .site-nav a {
+                padding: 12px 14px;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+            }
+
+            /* Table scroll hint */
+            .table-wrapper {
+                position: relative;
+            }
+            .table-wrapper::after {
+                content: '';
+                position: absolute;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                width: 40px;
+                background: linear-gradient(to right, transparent, rgba(26, 26, 46, 0.8));
+                pointer-events: none;
+            }
+            [data-theme="light"] .table-wrapper::after {
+                background: linear-gradient(to right, transparent, rgba(248, 241, 230, 0.9));
+            }
         }
 
         @media print {
@@ -408,6 +515,8 @@
     </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <nav class="site-nav">
       <a href="../index.html">Dashboard</a>
       <a href="charter.html">Charter</a>
@@ -417,7 +526,7 @@
 
     <button class="theme-toggle" onclick="toggleTheme()">&#127763;</button>
 
-    <div class="container">
+    <div class="container" id="main-content">
         <div class="breadcrumbs"><a href="../index.html">Dashboard</a> / Timeline</div>
 
         <header>
@@ -460,7 +569,7 @@
 
         <section>
             <h2>Phase 1: Validation</h2>
-            <div class="card phase-card">
+            <div class="card phase-card phase-active">
                 <div class="phase-header">
                     <div class="phase-title">Stakeholder Alignment & Baseline</div>
                     <div class="phase-dates">Jan 21 – Feb 7 (2.5 weeks)</div>
@@ -468,6 +577,7 @@
                 <div class="phase-objective">Confirm tool fit for EasyVista context, establish baseline metrics, secure stakeholder buy-in</div>
 
                 <h3>Dripify Track</h3>
+                <div class="table-wrapper">
                 <table>
                     <tr><th>Week</th><th>Activity</th><th>Owner</th><th>Status</th></tr>
                     <tr><td>W1</td><td>Christopher/Seima call (DACH)</td><td>Mike</td><td><span class="status-badge status-complete">Complete</span></td></tr>
@@ -478,8 +588,10 @@
                     <tr><td>W2</td><td>Baseline BDR metrics collection</td><td>EasyVista</td><td><span class="status-badge status-pending">Pending</span></td></tr>
                     <tr><td>W3</td><td>Confirm Dripify fit</td><td>Mike</td><td><span class="status-badge status-pending">Pending</span></td></tr>
                 </table>
+                </div>
 
                 <h3>Loopio Track</h3>
+                <div class="table-wrapper">
                 <table>
                     <tr><th>Week</th><th>Activity</th><th>Owner</th><th>Status</th></tr>
                     <tr><td>W1</td><td>Schedule Dalila/Yann call</td><td>Mike</td><td><span class="status-badge status-complete">Complete</span></td></tr>
@@ -488,6 +600,7 @@
                     <tr><td>W3</td><td>Interview Rod (ChatGPT usage)</td><td>Mike</td><td><span class="status-badge status-pending">Pending</span></td></tr>
                     <tr><td>W3</td><td>Identify blockers</td><td>Mike</td><td><span class="status-badge status-pending">Pending</span></td></tr>
                 </table>
+                </div>
 
                 <h3>Change Management Activities</h3>
                 <div class="cm-activities">
@@ -523,6 +636,7 @@
                 <div class="phase-objective">Configure tools for EasyVista, train champion users, launch US Dripify pilot</div>
 
                 <h3>Dripify Track</h3>
+                <div class="table-wrapper">
                 <table>
                     <tr><th>Week</th><th>Activity</th><th>Owner</th><th>Due</th></tr>
                     <tr><td>W4</td><td>Procure Dripify licenses</td><td>Evan</td><td>Feb 10</td></tr>
@@ -531,14 +645,17 @@
                     <tr><td>W5</td><td>Train champion user</td><td>Mike</td><td>Feb 19</td></tr>
                     <tr><td>W5</td><td><strong>US Pilot Launch</strong></td><td>Tim</td><td>Feb 21</td></tr>
                 </table>
+                </div>
 
                 <h3>Loopio Track</h3>
+                <div class="table-wrapper">
                 <table>
                     <tr><th>Week</th><th>Activity</th><th>Owner</th><th>Due</th></tr>
                     <tr><td>W4</td><td>Define Loopio usage metrics</td><td>Yann</td><td>Feb 12</td></tr>
                     <tr><td>W4</td><td>Change management plan</td><td>Mike</td><td>Feb 14</td></tr>
                     <tr><td>W5</td><td>Training materials</td><td>Yann</td><td>Feb 19</td></tr>
                 </table>
+                </div>
 
                 <h3>Change Management Activities</h3>
                 <div class="cm-activities">
@@ -574,6 +691,7 @@
                 <div class="phase-objective">Monitor pilot performance, collect user feedback, make Go/No-Go decision</div>
 
                 <h3>Activities</h3>
+                <div class="table-wrapper">
                 <table>
                     <tr><th>Week</th><th>Activity</th><th>Owner</th><th>Due</th></tr>
                     <tr><td>W6-7</td><td>Dripify pilot monitoring</td><td>Tim</td><td>Mar 7</td></tr>
@@ -581,6 +699,7 @@
                     <tr><td>W7</td><td>Address Rod's workflow</td><td>Yann</td><td>Mar 3</td></tr>
                     <tr><td>W7</td><td><strong>Go/No-Go Decision</strong></td><td>Evan</td><td>Mar 7</td></tr>
                 </table>
+                </div>
 
                 <h3>Go/No-Go Criteria (Dripify)</h3>
                 <div class="criteria-grid">
@@ -619,6 +738,7 @@
                 </div>
                 <div class="phase-objective">Expand Dripify to additional regions, complete Loopio global training, establish steady-state</div>
 
+                <div class="table-wrapper">
                 <table>
                     <tr><th>Week</th><th>Activity</th><th>Owner</th><th>Due</th></tr>
                     <tr><td>W8</td><td>US broad rollout (Dripify)</td><td>Tim</td><td>Mar 14</td></tr>
@@ -627,6 +747,7 @@
                     <tr><td>W9</td><td><strong>Global training complete (Loopio)</strong></td><td>Yann</td><td>Mar 21</td></tr>
                     <tr><td>W10</td><td>Documentation & handoff</td><td>Mike</td><td>Mar 28</td></tr>
                 </table>
+                </div>
 
                 <h3>Change Management Activities</h3>
                 <div class="cm-activities">
@@ -662,6 +783,7 @@
                 <div class="phase-objective">Complete all documentation, transfer ownership, package investor narrative</div>
 
                 <h3>Final Deliverables</h3>
+                <div class="table-wrapper">
                 <table>
                     <tr><th>Deliverable</th><th>Owner</th><th>Due</th></tr>
                     <tr><td>Dripify playbook</td><td>Mike</td><td>Mar 28</td></tr>
@@ -670,6 +792,7 @@
                     <tr><td>Investor narrative draft</td><td>Mike</td><td>Mar 31</td></tr>
                     <tr><td>Lessons learned</td><td>Mike</td><td>Mar 31</td></tr>
                 </table>
+                </div>
                 <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
                 <div class="progress-label">Not Started</div>
             </div>

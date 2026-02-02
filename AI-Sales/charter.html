@@ -11,6 +11,13 @@
     <link rel="stylesheet" href="../shared/print.css" media="print">
     <style>
         :root {
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.25rem;
+            --font-size-xl: 1.5rem;
+            --font-size-2xl: 2rem;
+            --font-size-3xl: 2.5rem;
             --ev-teal: #4dc0c7;
             --ev-pink: #f8568b;
             --ev-navy: #38526f;
@@ -30,7 +37,7 @@
             --bg-card: rgba(56, 82, 111, 0.05);
             --border-color: rgba(56, 82, 111, 0.15);
             --text-primary: var(--ev-navy);
-            --text-secondary: #5a6d7e;
+            --text-secondary: #4a5d6e; /* was #5a6d7e - now WCAG AA compliant */
             --text-muted: #7a8a9a;
             --table-header-bg: rgba(77, 192, 199, 0.15);
         }
@@ -60,7 +67,9 @@
             cursor: pointer;
             font-size: 1.2rem;
             z-index: 1000;
+            transition: transform 0.3s ease;
         }
+        .theme-toggle:active { transform: rotate(180deg) scale(1.1); }
 
         .back-link {
             display: inline-flex;
@@ -88,6 +97,7 @@
             font-weight: 700;
             margin-bottom: 10px;
             color: var(--ev-teal);
+            letter-spacing: -0.02em;
         }
 
         .subtitle { font-size: 1rem; color: var(--text-secondary); }
@@ -120,6 +130,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            letter-spacing: -0.01em;
         }
 
         h2::before {
@@ -144,7 +155,8 @@
         table { width: 100%; border-collapse: collapse; margin: 16px 0; }
         th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border-color); }
         th { background: var(--table-header-bg); font-weight: 600; color: var(--ev-teal); }
-        tr:hover { background: rgba(77, 192, 199, 0.05); }
+        tr { transition: background 0.15s ease; }
+        tr:hover { background: rgba(77, 192, 199, 0.1); }
 
         .status-badge {
             display: inline-block;
@@ -155,7 +167,10 @@
         }
 
         .status-active { background: rgba(77, 192, 199, 0.2); color: var(--ev-teal); }
+        .status-complete::before { content: '\2713 '; }
         .status-risk { background: rgba(248, 86, 139, 0.2); color: var(--ev-pink); }
+        .status-risk::before { content: '\26A0 '; }
+        .status-pending::before { content: '\25CB '; }
 
         blockquote {
             border-left: 4px solid var(--ev-teal);
@@ -278,9 +293,89 @@
           to { opacity: 1; transform: translateY(0); }
         }
         .container > * { animation: fadeIn 0.4s ease-out forwards; }
+
+        /* Skip link */
+        .skip-link {
+            position: absolute;
+            top: -50px;
+            left: 16px;
+            background: var(--ev-teal);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 0 0 8px 8px;
+            z-index: 10000;
+            text-decoration: none;
+            font-weight: 600;
+            transition: top 0.2s;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Focus states */
+        button:focus-visible,
+        a:focus-visible,
+        .theme-toggle:focus-visible {
+            outline: 2px solid var(--ev-teal);
+            outline-offset: 2px;
+        }
+        .site-nav a:focus-visible {
+            outline: 2px solid var(--ev-teal);
+            outline-offset: -2px;
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Light mode card shadows */
+        [data-theme="light"] .card,
+        [data-theme="light"] header {
+            box-shadow: 0 2px 8px rgba(56, 82, 111, 0.08);
+        }
+
+        /* Table wrapper for mobile scroll hint */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+        @media (max-width: 768px) {
+            .table-wrapper {
+                position: relative;
+            }
+            .table-wrapper::after {
+                content: '';
+                position: absolute;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                width: 40px;
+                background: linear-gradient(to right, transparent, rgba(26, 26, 46, 0.8));
+                pointer-events: none;
+            }
+            [data-theme="light"] .table-wrapper::after {
+                background: linear-gradient(to right, transparent, rgba(248, 241, 230, 0.9));
+            }
+            /* Mobile touch targets */
+            .site-nav {
+                gap: 8px;
+                padding: 8px 12px;
+            }
+            .site-nav a {
+                padding: 12px 14px;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+            }
+        }
     </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <nav class="site-nav">
       <a href="../index.html">Dashboard</a>
       <a href="charter.html" class="active">Charter</a>
@@ -290,7 +385,7 @@
 
     <button class="theme-toggle" onclick="toggleTheme()">&#127763;</button>
 
-    <div class="container">
+    <div class="container" id="main-content">
         <div class="breadcrumbs"><a href="../index.html">Dashboard</a> / Charter</div>
 
         <header>
@@ -344,11 +439,13 @@
             <h2>Scope</h2>
             <div class="card">
                 <h3>In Scope</h3>
+                <div class="table-wrapper">
                 <table>
                     <tr><th>Workstream</th><th>Tool</th><th>Goal</th><th>Region</th></tr>
                     <tr><td><strong>Dripify</strong></td><td>LinkedIn Automation</td><td>25-30 opportunities/quarter</td><td>US (pilot) -> Global</td></tr>
                     <tr><td><strong>Loopio</strong></td><td>RFP Response</td><td>100% adoption</td><td>Global</td></tr>
                 </table>
+                </div>
 
                 <h3>Out of Scope</h3>
                 <ul style="margin-left: 20px;">
@@ -363,26 +460,31 @@
             <h2>Success Metrics</h2>
             <div class="card">
                 <h3>Dripify</h3>
+                <div class="table-wrapper">
                 <table>
                     <tr><th>Metric</th><th>Baseline</th><th>Target</th><th>Measurement</th></tr>
                     <tr><td>Opportunities/quarter</td><td>15-20</td><td>25-30</td><td>CRM pipeline tracking</td></tr>
                     <tr><td>BDR outreach volume</td><td>TBD</td><td>+50%</td><td>Dripify analytics</td></tr>
                     <tr><td>Response rate</td><td>TBD</td><td>+20%</td><td>Dripify analytics</td></tr>
                 </table>
+                </div>
 
                 <h3>Loopio</h3>
+                <div class="table-wrapper">
                 <table>
                     <tr><th>Metric</th><th>Baseline</th><th>Target</th><th>Measurement</th></tr>
                     <tr><td>Adoption rate</td><td>~60% (est.)</td><td>100%</td><td>Loopio usage reports</td></tr>
                     <tr><td>RFP turnaround time</td><td>TBD</td><td>-30%</td><td>Pre/post comparison</td></tr>
                     <tr><td>Shadow IT usage</td><td>Confirmed (Rod)</td><td>0</td><td>Self-reported + spot checks</td></tr>
                 </table>
+                </div>
             </div>
         </section>
 
         <section id="timeline">
             <h2>Timeline & Milestones</h2>
             <div class="card">
+                <div class="table-wrapper">
                 <table>
                     <tr><th>Phase</th><th>Dates</th><th>Key Milestone</th></tr>
                     <tr><td>Validation</td><td>Jan 21 – Feb 7</td><td>Stakeholder alignment, baseline metrics</td></tr>
@@ -391,6 +493,7 @@
                     <tr><td>Rollout</td><td>Mar 10 – Mar 28</td><td>Global deployment</td></tr>
                     <tr><td>Handoff</td><td>Mar 28 – Mar 31</td><td>Documentation complete</td></tr>
                 </table>
+                </div>
 
                 <h3>Critical Dates</h3>
                 <ul style="margin-left: 20px;">
@@ -404,6 +507,7 @@
         <section id="budget">
             <h2>Budget</h2>
             <div class="card">
+                <div class="table-wrapper">
                 <table>
                     <tr><th>Category</th><th>Allocation</th></tr>
                     <tr><td>Dripify licenses + setup</td><td>$5-8K</td></tr>
@@ -411,6 +515,7 @@
                     <tr><td>Consulting (Mike/Henry)</td><td>Included in engagement</td></tr>
                     <tr><td><strong>Total</strong></td><td><strong>$10-15K</strong> (stretch: $20K)</td></tr>
                 </table>
+                </div>
             </div>
         </section>
 
@@ -418,6 +523,7 @@
             <h2>Governance</h2>
             <div class="card">
                 <h3>Decision Rights</h3>
+                <div class="table-wrapper">
                 <table>
                     <tr><th>Decision</th><th>Owner</th><th>Consulted</th></tr>
                     <tr><td>Budget approval</td><td>Evan Carlson</td><td>Patrice Barbedette</td></tr>
@@ -425,6 +531,7 @@
                     <tr><td>Loopio policy changes</td><td>Yann (Loopio Owner)</td><td>Dalila Souiah</td></tr>
                     <tr><td>Regional rollout timing</td><td>Regional Leads</td><td>Mike, Henry</td></tr>
                 </table>
+                </div>
 
                 <h3>Escalation Path</h3>
                 <ol style="margin-left: 20px;">
@@ -467,6 +574,7 @@
         <section>
             <h2>Team</h2>
             <div class="card">
+                <div class="table-wrapper">
                 <table>
                     <tr><th>Role</th><th>Name</th><th>Responsibility</th></tr>
                     <tr><td>Lead</td><td>Mike Duncan</td><td>Validation, change management, documentation</td></tr>
@@ -474,6 +582,7 @@
                     <tr><td>Sponsor</td><td>Evan Carlson</td><td>Budget, decisions, escalation</td></tr>
                     <tr><td>External</td><td>Alexander</td><td>AI PM, ExCom participation</td></tr>
                 </table>
+                </div>
             </div>
         </section>
 
@@ -492,6 +601,7 @@
         <section>
             <h2>Approvals</h2>
             <div class="card">
+                <div class="table-wrapper">
                 <table class="approval-table">
                     <tr><th>Name</th><th>Role</th><th>Date</th><th>Signature</th></tr>
                     <tr><td>Evan Carlson</td><td>Sponsor</td><td></td><td></td></tr>
@@ -499,6 +609,7 @@
                     <tr><td>Tim Brouillard</td><td>Dripify Champion</td><td></td><td></td></tr>
                     <tr><td>Yann</td><td>Loopio Owner</td><td></td><td></td></tr>
                 </table>
+                </div>
             </div>
         </section>
 

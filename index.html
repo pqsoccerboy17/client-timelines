@@ -12,6 +12,15 @@
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <style>
         :root {
+            /* Type scale */
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.25rem;
+            --font-size-xl: 1.5rem;
+            --font-size-2xl: 2rem;
+            --font-size-3xl: 2.5rem;
+
             --ev-teal: #4dc0c7;
             --ev-pink: #f8568b;
             --ev-navy: #38526f;
@@ -36,7 +45,7 @@
             --bg-card: rgba(56, 82, 111, 0.05);
             --border-color: rgba(56, 82, 111, 0.15);
             --text-primary: var(--ev-navy);
-            --text-secondary: #5a6d7e;
+            --text-secondary: #4a5d6e; /* was #5a6d7e - now WCAG AA compliant */
             --text-muted: #7a8a9a;
             --table-header-bg: rgba(77, 192, 199, 0.15);
             --timeline-dot-border: var(--ev-cream);
@@ -47,6 +56,48 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        /* Smooth scroll */
+        html { scroll-behavior: smooth; }
+
+        /* Skip link */
+        .skip-link {
+            position: absolute;
+            top: -50px;
+            left: 16px;
+            background: var(--ev-teal);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 0 0 8px 8px;
+            z-index: 10000;
+            text-decoration: none;
+            font-weight: 600;
+            transition: top 0.2s;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Focus states */
+        button:focus-visible,
+        a:focus-visible,
+        .theme-toggle:focus-visible {
+            outline: 2px solid var(--ev-teal);
+            outline-offset: 2px;
+        }
+        .site-nav a:focus-visible {
+            outline: 2px solid var(--ev-teal);
+            outline-offset: -2px;
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
         }
 
         body {
@@ -80,11 +131,15 @@
             cursor: pointer;
             font-size: 1.2rem;
             z-index: 1000;
-            transition: transform 0.2s;
+            transition: transform 0.3s ease;
         }
 
         .theme-toggle:hover {
             transform: scale(1.1);
+        }
+
+        .theme-toggle:active {
+            transform: rotate(180deg) scale(1.1);
         }
 
         header {
@@ -101,6 +156,7 @@
             font-weight: 700;
             margin-bottom: 10px;
             color: var(--ev-teal);
+            letter-spacing: -0.02em;
         }
 
         .subtitle {
@@ -151,6 +207,23 @@
             margin-top: 8px;
         }
 
+        /* Mini progress bars for stat cards */
+        .mini-progress {
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            margin-top: 12px;
+            overflow: hidden;
+        }
+        [data-theme="light"] .mini-progress {
+            background: rgba(56, 82, 111, 0.1);
+        }
+        .mini-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--ev-teal), var(--ev-pink));
+            border-radius: 2px;
+        }
+
         section {
             margin-bottom: 50px;
         }
@@ -163,6 +236,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            letter-spacing: -0.01em;
         }
 
         h2::before {
@@ -193,6 +267,11 @@
             border-radius: 12px;
             padding: 20px;
             overflow-x: auto;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .mermaid svg {
+            opacity: 1;
         }
 
         /* Table wrapper for mobile scroll */
@@ -221,8 +300,11 @@
             white-space: nowrap;
         }
 
+        tr {
+            transition: background 0.15s ease;
+        }
         tr:hover {
-            background: rgba(77, 192, 199, 0.05);
+            background: rgba(77, 192, 199, 0.1);
         }
 
         .status-badge {
@@ -356,7 +438,13 @@
             border-radius: 8px;
             padding: 12px 16px;
             font-size: 0.9rem;
+            border-left: 3px solid transparent;
         }
+        .milestone-deadline { border-left-color: var(--ev-pink); }
+        .milestone-launch { border-left-color: #2ecc71; }
+        .milestone-decision { border-left-color: #e6b800; }
+        .milestone-complete { border-left-color: #2ecc71; }
+        .milestone-call { border-left-color: var(--ev-teal); }
 
         .milestone-date {
             font-weight: 600;
@@ -558,6 +646,40 @@
 
         .stakeholder-section {
             position: relative;
+        }
+
+        /* Mobile touch targets */
+        @media (max-width: 768px) {
+            .site-nav {
+                gap: 8px;
+                padding: 8px 12px;
+            }
+            .site-nav a {
+                padding: 12px 14px;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        /* Table scroll hint for mobile */
+        @media (max-width: 768px) {
+            .table-wrapper {
+                position: relative;
+            }
+            .table-wrapper::after {
+                content: '';
+                position: absolute;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                width: 40px;
+                background: linear-gradient(to right, transparent, rgba(26, 26, 46, 0.8));
+                pointer-events: none;
+            }
+            [data-theme="light"] .table-wrapper::after {
+                background: linear-gradient(to right, transparent, rgba(248, 241, 230, 0.9));
+            }
         }
 
         /* ==================== MOBILE RESPONSIVE ==================== */
@@ -833,6 +955,13 @@
             color: var(--ev-teal);
             background: rgba(77, 192, 199, 0.1);
         }
+
+        /* Light mode card shadows */
+        [data-theme="light"] .card,
+        [data-theme="light"] .stat-card,
+        [data-theme="light"] header {
+            box-shadow: 0 2px 8px rgba(56, 82, 111, 0.08);
+        }
         .breadcrumbs {
             color: var(--text-muted);
             font-size: 0.9rem;
@@ -863,6 +992,7 @@
     </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <nav class="site-nav">
         <a href="index.html" class="active">Dashboard</a>
         <a href="AI-Sales/charter.html">Charter</a>
@@ -871,7 +1001,7 @@
     </nav>
     <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌓</button>
 
-    <div class="container">
+    <div class="container" id="main-content">
         <div class="breadcrumbs">Dashboard</div>
         <header>
             <h1>EasyVista Q1 2026 Engagement Timeline</h1>
@@ -904,6 +1034,7 @@
                     <span class="stat-total">/ 29</span>
                 </div>
                 <div class="stat-label">Tasks Complete</div>
+                <div class="mini-progress"><div class="mini-progress-fill" style="width: 17%"></div></div>
             </div>
             <div class="stat-card">
                 <div class="progress-stat">
@@ -911,6 +1042,7 @@
                     <span class="stat-total">/ 17</span>
                 </div>
                 <div class="stat-label">Stakeholders Engaged</div>
+                <div class="mini-progress"><div class="mini-progress-fill" style="width: 59%"></div></div>
             </div>
             <div class="stat-card days-card">
                 <div class="stat-number urgency-warning" id="days-remaining">57</div>
@@ -963,7 +1095,7 @@ gantt
         <section>
             <h2>Stakeholder Map</h2>
             <div class="card stakeholder-section">
-                <button class="zoom-button" onclick="openStakeholderZoom()">🔍 Zoom In</button>
+                <button class="zoom-button" onclick="openStakeholderZoom()" aria-label="Open stakeholder map fullscreen">🔍 Zoom In</button>
                 <div class="mermaid" id="stakeholder-map">
 flowchart TB
     subgraph Leadership["🎯 Leadership"]
@@ -1058,9 +1190,9 @@ flowchart TB
                     <div class="table-wrapper">
                         <table>
                             <tr><th>Task</th><th>Owner</th><th>Due</th><th>Status</th></tr>
-                            <tr><td>Schedule validation calls</td><td>Mike</td><td>Jan 24</td><td><span class="status-badge status-complete">Complete</span></td></tr>
-                            <tr><td>Christopher call (Germany/OTRS)</td><td>Mike</td><td>Jan 23</td><td><span class="status-badge status-complete">Complete</span></td></tr>
-                            <tr><td>Tim validation call (US)</td><td>Mike</td><td>Jan 24</td><td><span class="status-badge status-complete">Complete</span></td></tr>
+                            <tr><td>Schedule validation calls</td><td>Mike</td><td>Jan 24</td><td><span class="status-badge status-complete">&#10003; Complete</span></td></tr>
+                            <tr><td>Christopher call (Germany/OTRS)</td><td>Mike</td><td>Jan 23</td><td><span class="status-badge status-complete">&#10003; Complete</span></td></tr>
+                            <tr><td>Tim validation call (US)</td><td>Mike</td><td>Jan 24</td><td><span class="status-badge status-complete">&#10003; Complete</span></td></tr>
                             <tr><td>Regional validation calls (Europe)</td><td>Mike/Henry</td><td>Jan 31</td><td><span class="status-badge status-pending">Pending</span></td></tr>
                             <tr><td>Baseline BDR metrics</td><td>EasyVista</td><td>Jan 31</td><td><span class="status-badge status-pending">Pending</span></td></tr>
                             <tr><td>Confirm Dripify fit</td><td>Mike</td><td>Feb 7</td><td><span class="status-badge status-pending">Pending</span></td></tr>
@@ -1120,7 +1252,7 @@ flowchart TB
                     <div class="table-wrapper">
                         <table>
                             <tr><th>Task</th><th>Owner</th><th>Due</th><th>Status</th></tr>
-                            <tr><td>Schedule Dalila/Jan call</td><td>Mike</td><td>Jan 24</td><td><span class="status-badge status-complete">Complete</span></td></tr>
+                            <tr><td>Schedule Dalila/Jan call</td><td>Mike</td><td>Jan 24</td><td><span class="status-badge status-complete">&#10003; Complete</span></td></tr>
                             <tr><td>Discovery call</td><td>Mike</td><td>Jan 27-31</td><td><span class="status-badge status-pending">Pending</span></td></tr>
                             <tr><td>Interview Rod (ChatGPT usage)</td><td>Mike</td><td>Feb 5</td><td><span class="status-badge status-pending">Pending</span></td></tr>
                             <tr><td>Identify blockers</td><td>Mike</td><td>Feb 7</td><td><span class="status-badge status-pending">Pending</span></td></tr>
@@ -1348,20 +1480,41 @@ flowchart TB
         // Mermaid initialization
         mermaid.initialize({
             startOnLoad: true,
-            theme: 'default',
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#4dc0c7',
+                primaryTextColor: '#38526f',
+                primaryBorderColor: '#38526f',
+                lineColor: '#5a6d7e',
+                sectionBkgColor: '#f8f1e6',
+                altSectionBkgColor: '#ffffff',
+                gridColor: '#d0d0d0',
+                taskBorderColor: '#4dc0c7',
+                taskBkgColor: 'rgba(77, 192, 199, 0.3)',
+                activeTaskBkgColor: '#4dc0c7',
+                activeTaskBorderColor: '#38526f',
+                critBorderColor: '#f8568b',
+                critBkgColor: 'rgba(248, 86, 139, 0.3)',
+                todayLineColor: '#f8568b'
+            },
             gantt: {
                 titleTopMargin: 25,
-                barHeight: 20,
-                barGap: 4,
+                barHeight: 30,
+                barGap: 6,
                 topPadding: 50,
-                leftPadding: 75,
+                leftPadding: 100,
                 gridLineStartPadding: 35,
-                fontSize: 11,
-                sectionFontSize: 14
+                fontSize: 14,
+                sectionFontSize: 16
             },
             flowchart: {
                 curve: 'basis'
             }
+        });
+
+        // Mermaid loading fade-in
+        mermaid.init(undefined, document.querySelectorAll('.mermaid')).then(() => {
+            document.querySelectorAll('.mermaid').forEach(el => el.style.opacity = '1');
         });
     </script>
 </body>
