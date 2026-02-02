@@ -29,7 +29,7 @@ AI Champions are embedded advocates who drive adoption within their teams. They:
               │                             │
      ┌────────┴────────┐         ┌─────────┴─────────┐
      │    DRIPIFY      │         │      LOOPIO       │
-     │  Tim Brouillard │         │        Jan        │
+     │  Tim Brouillard │         │        Yann        │
      │  (Global Lead)  │         │  (Global Owner)   │
      └────────┬────────┘         └─────────┬─────────┘
               │                             │

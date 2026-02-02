@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales AI Enablement Charter | EasyVista</title>
+    <style>
+        :root {
+            --ev-teal: #4dc0c7;
+            --ev-pink: #f8568b;
+            --ev-navy: #38526f;
+            --ev-cream: #f8f1e6;
+            --bg-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            --bg-card: rgba(255,255,255,0.05);
+            --border-color: rgba(255,255,255,0.1);
+            --text-primary: #e8e8e8;
+            --text-secondary: #a0a0a0;
+            --text-muted: #888;
+            --accent-primary: var(--ev-teal);
+            --table-header-bg: rgba(77, 192, 199, 0.2);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: var(--ev-cream);
+            --bg-card: rgba(56, 82, 111, 0.05);
+            --border-color: rgba(56, 82, 111, 0.15);
+            --text-primary: var(--ev-navy);
+            --text-secondary: #5a6d7e;
+            --text-muted: #7a8a9a;
+            --table-header-bg: rgba(77, 192, 199, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        [data-theme="light"] body { background: var(--ev-cream); }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            z-index: 1000;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--ev-teal);
+            text-decoration: none;
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+
+        .back-link:hover { text-decoration: underline; }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px;
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--ev-teal);
+        }
+
+        .subtitle { font-size: 1rem; color: var(--text-secondary); }
+
+        .meta-row {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .meta-label { color: var(--text-muted); margin-right: 6px; }
+
+        section { margin-bottom: 40px; }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(77, 192, 199, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        h2::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 20px;
+            background: var(--ev-teal);
+            border-radius: 2px;
+        }
+
+        h3 { font-size: 1.1rem; margin: 20px 0 12px; color: var(--text-secondary); }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+        th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border-color); }
+        th { background: var(--table-header-bg); font-weight: 600; color: var(--ev-teal); }
+        tr:hover { background: rgba(77, 192, 199, 0.05); }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-active { background: rgba(77, 192, 199, 0.2); color: var(--ev-teal); }
+        .status-risk { background: rgba(248, 86, 139, 0.2); color: var(--ev-pink); }
+
+        blockquote {
+            border-left: 4px solid var(--ev-teal);
+            padding-left: 20px;
+            font-style: italic;
+            color: var(--text-secondary);
+            margin: 20px 0;
+            font-size: 1.05rem;
+        }
+
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+
+        .risk-card {
+            background: rgba(248, 86, 139, 0.1);
+            border: 1px solid rgba(248, 86, 139, 0.3);
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .risk-title { font-weight: 600; color: var(--ev-pink); margin-bottom: 8px; }
+        .risk-detail { font-size: 0.9rem; color: var(--text-secondary); }
+
+        .question-list { list-style: none; }
+        .question-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+            padding-left: 24px;
+            position: relative;
+        }
+        .question-list li::before {
+            content: '?';
+            position: absolute;
+            left: 0;
+            color: #f1c40f;
+            font-weight: bold;
+        }
+
+        .approval-table td:last-child { border-bottom: 1px dashed var(--border-color); width: 150px; }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 16px 12px; }
+            header { padding: 24px 16px; }
+            h1 { font-size: 1.5rem; }
+            .meta-row { flex-direction: column; gap: 8px; }
+            h2 { font-size: 1.2rem; }
+            .card { padding: 16px; }
+            table { font-size: 0.85rem; }
+            th, td { padding: 8px 10px; }
+        }
+
+        @media print {
+            body { background: white !important; color: black !important; }
+            .theme-toggle, .back-link { display: none !important; }
+            .card { border: 1px solid #ddd; background: white !important; }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">&#127763;</button>
+
+    <div class="container">
+        <a href="../index.html" class="back-link">&#8592; Back to Timeline</a>
+
+        <header>
+            <h1>Sales AI Enablement Charter</h1>
+            <p class="subtitle">EasyVista Q1 2026 Initiative</p>
+            <div class="meta-row">
+                <div class="meta-item"><span class="meta-label">Owner:</span> Mike Duncan</div>
+                <div class="meta-item"><span class="meta-label">Sponsor:</span> Evan Carlson (COO)</div>
+                <div class="meta-item"><span class="meta-label">Version:</span> 1.0</div>
+            </div>
+        </header>
+
+        <section>
+            <h2>Executive Summary</h2>
+            <div class="card">
+                <p>This charter establishes the scope, objectives, and governance for EasyVista's Sales and GTM AI enablement initiative. The program spans two workstreams—<strong>Dripify</strong> (LinkedIn automation) and <strong>Loopio</strong> (RFP standardization)—with the goal of measurably improving sales productivity and creating an investor-ready AI adoption narrative by Q1 2026.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Business Context</h2>
+            <div class="card">
+                <h3>Why Now?</h3>
+                <ul style="margin-left: 20px; margin-bottom: 16px;">
+                    <li>EasyVista is preparing for capital fundraising and needs demonstrable AI ROI</li>
+                    <li>Current BDR opportunity generation sits at 15-20/quarter; target is 25-30</li>
+                    <li>Loopio adoption is inconsistent globally, with shadow IT risk (ChatGPT usage)</li>
+                    <li>Q1 2026 provides a natural checkpoint with hard deadline of March 31</li>
+                </ul>
+
+                <h3>Strategic Alignment</h3>
+                <p>This initiative directly supports EasyVista's investor narrative:</p>
+                <blockquote>
+                    "We implemented AI across BDR outbound and RFP response, leading to X% more opportunities, Y% pipeline uplift, and Z% higher efficiency, while scaling without proportional headcount increase."
+                </blockquote>
+            </div>
+        </section>
+
+        <section>
+            <h2>Scope</h2>
+            <div class="card">
+                <h3>In Scope</h3>
+                <table>
+                    <tr><th>Workstream</th><th>Tool</th><th>Goal</th><th>Region</th></tr>
+                    <tr><td><strong>Dripify</strong></td><td>LinkedIn Automation</td><td>25-30 opportunities/quarter</td><td>US (pilot) -> Global</td></tr>
+                    <tr><td><strong>Loopio</strong></td><td>RFP Response</td><td>100% adoption</td><td>Global</td></tr>
+                </table>
+
+                <h3>Out of Scope</h3>
+                <ul style="margin-left: 20px;">
+                    <li>Germany/DACH Dripify rollout (works council constraints)</li>
+                    <li>Engineering AI tools (GitHub Copilot—separate initiative)</li>
+                    <li>Product AI features (separate Ludovic/Loic workstream)</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Success Metrics</h2>
+            <div class="card">
+                <h3>Dripify</h3>
+                <table>
+                    <tr><th>Metric</th><th>Baseline</th><th>Target</th><th>Measurement</th></tr>
+                    <tr><td>Opportunities/quarter</td><td>15-20</td><td>25-30</td><td>CRM pipeline tracking</td></tr>
+                    <tr><td>BDR outreach volume</td><td>TBD</td><td>+50%</td><td>Dripify analytics</td></tr>
+                    <tr><td>Response rate</td><td>TBD</td><td>+20%</td><td>Dripify analytics</td></tr>
+                </table>
+
+                <h3>Loopio</h3>
+                <table>
+                    <tr><th>Metric</th><th>Baseline</th><th>Target</th><th>Measurement</th></tr>
+                    <tr><td>Adoption rate</td><td>~60% (est.)</td><td>100%</td><td>Loopio usage reports</td></tr>
+                    <tr><td>RFP turnaround time</td><td>TBD</td><td>-30%</td><td>Pre/post comparison</td></tr>
+                    <tr><td>Shadow IT usage</td><td>Confirmed (Rod)</td><td>0</td><td>Self-reported + spot checks</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <section>
+            <h2>Timeline & Milestones</h2>
+            <div class="card">
+                <table>
+                    <tr><th>Phase</th><th>Dates</th><th>Key Milestone</th></tr>
+                    <tr><td>Validation</td><td>Jan 21 – Feb 7</td><td>Stakeholder alignment, baseline metrics</td></tr>
+                    <tr><td>Pilot Setup</td><td>Feb 10 – Feb 21</td><td>Dripify US pilot launch</td></tr>
+                    <tr><td>Pilot Evaluation</td><td>Feb 24 – Mar 7</td><td>Go/No-Go decision</td></tr>
+                    <tr><td>Rollout</td><td>Mar 10 – Mar 28</td><td>Global deployment</td></tr>
+                    <tr><td>Handoff</td><td>Mar 28 – Mar 31</td><td>Documentation complete</td></tr>
+                </table>
+
+                <h3>Critical Dates</h3>
+                <ul style="margin-left: 20px;">
+                    <li><strong>Feb 4:</strong> Mandatory Loopio alignment call</li>
+                    <li><strong>Mar 7:</strong> Dripify Go/No-Go decision</li>
+                    <li><strong>Mar 31:</strong> Q1 hard deadline</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Budget</h2>
+            <div class="card">
+                <table>
+                    <tr><th>Category</th><th>Allocation</th></tr>
+                    <tr><td>Dripify licenses + setup</td><td>$5-8K</td></tr>
+                    <tr><td>Loopio (existing license)</td><td>$0</td></tr>
+                    <tr><td>Consulting (Mike/Henry)</td><td>Included in engagement</td></tr>
+                    <tr><td><strong>Total</strong></td><td><strong>$10-15K</strong> (stretch: $20K)</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <section>
+            <h2>Governance</h2>
+            <div class="card">
+                <h3>Decision Rights</h3>
+                <table>
+                    <tr><th>Decision</th><th>Owner</th><th>Consulted</th></tr>
+                    <tr><td>Budget approval</td><td>Evan Carlson</td><td>Patrice Barbedette</td></tr>
+                    <tr><td>Go/No-Go (Dripify)</td><td>Evan Carlson</td><td>Tim Brouillard, Mike</td></tr>
+                    <tr><td>Loopio policy changes</td><td>Jan (Loopio Owner)</td><td>Dalila Souiah</td></tr>
+                    <tr><td>Regional rollout timing</td><td>Regional Leads</td><td>Mike, Henry</td></tr>
+                </table>
+
+                <h3>Escalation Path</h3>
+                <ol style="margin-left: 20px;">
+                    <li><strong>Working level:</strong> Mike Duncan <-> Workstream leads</li>
+                    <li><strong>Sponsor level:</strong> Evan Carlson</li>
+                    <li><strong>Executive level:</strong> Patrice Barbedette (if needed)</li>
+                </ol>
+
+                <h3>Reporting Cadence</h3>
+                <ul style="margin-left: 20px;">
+                    <li><strong>Weekly:</strong> Status update to Evan</li>
+                    <li><strong>Bi-weekly:</strong> Stakeholder sync (as needed)</li>
+                    <li><strong>Monthly:</strong> Executive summary to Patrice</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Risks & Mitigations</h2>
+            <div class="grid-2">
+                <div class="risk-card">
+                    <div class="risk-title">Rod bypassing Loopio (shadow IT)</div>
+                    <div class="risk-detail"><strong>Likelihood:</strong> Confirmed | <strong>Impact:</strong> Medium<br>Direct interview; address workflow root cause</div>
+                </div>
+                <div class="risk-card">
+                    <div class="risk-title">Europe adoption resistance</div>
+                    <div class="risk-detail"><strong>Likelihood:</strong> High | <strong>Impact:</strong> High<br>Henry involvement; regional champions</div>
+                </div>
+                <div class="risk-card">
+                    <div class="risk-title">Germany works council</div>
+                    <div class="risk-detail"><strong>Likelihood:</strong> N/A | <strong>Impact:</strong> N/A<br>Excluded from scope</div>
+                </div>
+                <div class="risk-card">
+                    <div class="risk-title">Q1 timeline slip</div>
+                    <div class="risk-detail"><strong>Likelihood:</strong> Medium | <strong>Impact:</strong> High<br>Weekly tracking; early escalation</div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Team</h2>
+            <div class="card">
+                <table>
+                    <tr><th>Role</th><th>Name</th><th>Responsibility</th></tr>
+                    <tr><td>Lead</td><td>Mike Duncan</td><td>Validation, change management, documentation</td></tr>
+                    <tr><td>Partner</td><td>Henry Yellen</td><td>France relationships, executive mgmt</td></tr>
+                    <tr><td>Sponsor</td><td>Evan Carlson</td><td>Budget, decisions, escalation</td></tr>
+                    <tr><td>External</td><td>Alexander</td><td>AI PM, ExCom participation</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <section>
+            <h2>Open Questions</h2>
+            <div class="card">
+                <ul class="question-list">
+                    <li>Why does Rod prefer ChatGPT over Loopio? (Root cause needed)</li>
+                    <li>Baseline BDR metrics for US/France/Spain/UK/Italy?</li>
+                    <li>Loopio multi-language content synchronization solution?</li>
+                    <li>Laure Ruperas' role in the engagement?</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Approvals</h2>
+            <div class="card">
+                <table class="approval-table">
+                    <tr><th>Name</th><th>Role</th><th>Date</th><th>Signature</th></tr>
+                    <tr><td>Evan Carlson</td><td>Sponsor</td><td></td><td></td></tr>
+                    <tr><td>Mike Duncan</td><td>Lead</td><td></td><td></td></tr>
+                    <tr><td>Tim Brouillard</td><td>Dripify Champion</td><td></td><td></td></tr>
+                    <tr><td>Jan</td><td>Loopio Owner</td><td></td><td></td></tr>
+                </table>
+            </div>
+        </section>
+
+        <footer>
+            <p>Sales AI Enablement Charter | EasyVista Q1 2026</p>
+            <p style="margin-top: 8px;"><a href="../index.html" style="color: var(--ev-teal);">Back to Main Timeline</a></p>
+        </footer>
+    </div>
+
+    <script>
+        function getPreferredTheme() {
+            const saved = localStorage.getItem('theme');
+            if (saved) return saved;
+            return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme') || 'dark';
+            setTheme(current === 'dark' ? 'light' : 'dark');
+        }
+
+        setTheme(getPreferredTheme());
+    </script>
+</body>
+</html>

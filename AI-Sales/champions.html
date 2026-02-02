@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Champions Network | EasyVista</title>
+    <style>
+        :root {
+            --ev-teal: #4dc0c7;
+            --ev-pink: #f8568b;
+            --ev-navy: #38526f;
+            --ev-cream: #f8f1e6;
+            --bg-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            --bg-card: rgba(255,255,255,0.05);
+            --border-color: rgba(255,255,255,0.1);
+            --text-primary: #e8e8e8;
+            --text-secondary: #a0a0a0;
+            --text-muted: #888;
+            --table-header-bg: rgba(77, 192, 199, 0.2);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: var(--ev-cream);
+            --bg-card: rgba(56, 82, 111, 0.05);
+            --border-color: rgba(56, 82, 111, 0.15);
+            --text-primary: var(--ev-navy);
+            --text-secondary: #5a6d7e;
+            --text-muted: #7a8a9a;
+            --table-header-bg: rgba(77, 192, 199, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        [data-theme="light"] body { background: var(--ev-cream); }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            z-index: 1000;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--ev-teal);
+            text-decoration: none;
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+
+        .back-link:hover { text-decoration: underline; }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px;
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--ev-teal);
+        }
+
+        .subtitle { font-size: 1rem; color: var(--text-secondary); }
+
+        section { margin-bottom: 40px; }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(77, 192, 199, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        h2::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 20px;
+            background: var(--ev-teal);
+            border-radius: 2px;
+        }
+
+        h3 { font-size: 1.1rem; margin: 20px 0 12px; color: var(--text-secondary); }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+        th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border-color); }
+        th { background: var(--table-header-bg); font-weight: 600; color: var(--ev-teal); }
+        tr:hover { background: rgba(77, 192, 199, 0.05); }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-engaged { background: rgba(46, 204, 113, 0.2); color: #2ecc71; }
+        .status-scheduled { background: rgba(77, 192, 199, 0.2); color: var(--ev-teal); }
+        .status-outreach { background: rgba(241, 196, 15, 0.2); color: #f1c40f; }
+        .status-risk { background: rgba(248, 86, 139, 0.2); color: var(--ev-pink); }
+
+        .org-chart {
+            background: rgba(77, 192, 199, 0.1);
+            border: 1px solid rgba(77, 192, 199, 0.3);
+            border-radius: 12px;
+            padding: 24px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        .champion-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .champion-card.global {
+            border-left: 4px solid var(--ev-teal);
+        }
+
+        .champion-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--ev-teal);
+            margin-bottom: 4px;
+        }
+
+        .champion-role {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+        }
+
+        .champion-reason {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .conversion-steps {
+            counter-reset: step;
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .conversion-steps li {
+            counter-increment: step;
+            padding: 12px 0 12px 40px;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .conversion-steps li::before {
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            width: 28px;
+            height: 28px;
+            background: var(--ev-teal);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 16px;
+            background: var(--bg-card);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--ev-teal);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .stat-item.risk .stat-number { color: var(--ev-pink); }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 16px 12px; }
+            header { padding: 24px 16px; }
+            h1 { font-size: 1.5rem; }
+            h2 { font-size: 1.2rem; }
+            .card { padding: 16px; }
+            table { font-size: 0.85rem; }
+            th, td { padding: 8px 10px; }
+            .org-chart { font-size: 0.75rem; padding: 16px; }
+        }
+
+        @media print {
+            body { background: white !important; color: black !important; }
+            .theme-toggle, .back-link { display: none !important; }
+            .card { border: 1px solid #ddd; background: white !important; }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">&#127763;</button>
+
+    <div class="container">
+        <a href="../index.html" class="back-link">&#8592; Back to Timeline</a>
+
+        <header>
+            <h1>AI Champions Network</h1>
+            <p class="subtitle">Sales & GTM Enablement | EasyVista Q1 2026</p>
+        </header>
+
+        <section>
+            <h2>What is an AI Champion?</h2>
+            <div class="card">
+                <p style="margin-bottom: 16px;">AI Champions are embedded advocates who drive adoption within their teams. They:</p>
+                <ul style="margin-left: 20px;">
+                    <li>Model desired behaviors (using the tools daily)</li>
+                    <li>Provide peer support and troubleshooting</li>
+                    <li>Surface feedback and blockers to leadership</li>
+                    <li>Celebrate wins and share success stories</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Champion Network Overview</h2>
+            <div class="card">
+                <div class="org-chart">                    &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;
+                    &#9474;  Evan Carlson   &#9474;
+                    &#9474;   (Sponsor)     &#9474;
+                    &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9516;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;
+                             &#9474;
+              &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;
+              &#9474;                             &#9474;
+     &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;         &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;
+     &#9474;    DRIPIFY      &#9474;         &#9474;      LOOPIO       &#9474;
+     &#9474;  Tim Brouillard &#9474;         &#9474;        Jan        &#9474;
+     &#9474;  (Global Lead)  &#9474;         &#9474;  (Global Owner)   &#9474;
+     &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9516;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;         &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9516;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;
+              &#9474;                             &#9474;
+    &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9516;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;         &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;
+    &#9474;         &#9474;         &#9474;         &#9474;                 &#9474;
+   US      DACH     Europe      Dalila           Rod
+  (Tim)   (Seima)  (Regional)  (Presales)    (Convert!)</div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Dripify Champions</h2>
+            <div class="card">
+                <h3>Global Champion</h3>
+                <div class="champion-card global">
+                    <div class="champion-name">Tim Brouillard</div>
+                    <div class="champion-role">VP Business Development <span class="status-badge status-engaged">Engaged</span></div>
+                    <div class="champion-reason">11+ years at EasyVista. High credibility. Already championing BDR transformation.</div>
+                </div>
+
+                <h3>Regional Champions</h3>
+                <table>
+                    <tr><th>Region</th><th>Champion</th><th>Role</th><th>Status</th><th>Notes</th></tr>
+                    <tr>
+                        <td><strong>US</strong></td>
+                        <td>Tim Brouillard</td>
+                        <td>VP BD</td>
+                        <td><span class="status-badge status-engaged">Engaged</span></td>
+                        <td>Leads pilot; primary success story</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DACH</strong></td>
+                        <td>Seima Ishaq</td>
+                        <td>BDR (OTRS)</td>
+                        <td><span class="status-badge status-engaged">Engaged</span></td>
+                        <td>Multilingual; 20-30 companies/day baseline</td>
+                    </tr>
+                    <tr>
+                        <td><strong>UK</strong></td>
+                        <td>Sean Herbert</td>
+                        <td>BDR Lead</td>
+                        <td><span class="status-badge status-engaged">Engaged</span></td>
+                        <td>Custom ChatGPT user; Gong advocate</td>
+                    </tr>
+                    <tr>
+                        <td><strong>France</strong></td>
+                        <td>Raphael Hugnet</td>
+                        <td>BDR Lead</td>
+                        <td><span class="status-badge status-scheduled">Scheduled</span></td>
+                        <td>Coordination role; call booked</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Spain</strong></td>
+                        <td>Ismael Sabbagh</td>
+                        <td>BDR Lead</td>
+                        <td><span class="status-badge status-outreach">Outreach Sent</span></td>
+                        <td>Awaiting response</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Italy</strong></td>
+                        <td>Stefano</td>
+                        <td>BDR Lead</td>
+                        <td><span class="status-badge status-outreach">Outreach Sent</span></td>
+                        <td>Awaiting email confirmation</td>
+                    </tr>
+                </table>
+
+                <h3>Champion Responsibilities (Dripify)</h3>
+                <ol style="margin-left: 20px;">
+                    <li><strong>Pilot Phase:</strong> Test workflows, provide daily feedback</li>
+                    <li><strong>Rollout Phase:</strong> Train peers, answer questions</li>
+                    <li><strong>Steady State:</strong> Share metrics, surface optimization ideas</li>
+                </ol>
+            </div>
+        </section>
+
+        <section>
+            <h2>Loopio Champions</h2>
+            <div class="card">
+                <h3>Global Champion</h3>
+                <div class="champion-card global">
+                    <div class="champion-name">Jan</div>
+                    <div class="champion-role">Loopio Owner <span class="status-badge status-engaged">Engaged</span></div>
+                    <div class="champion-reason">Global knowledge owner. Driving 100% adoption target. Feb target for English content structure.</div>
+                </div>
+
+                <h3>Regional Champions</h3>
+                <table>
+                    <tr><th>Region</th><th>Champion</th><th>Role</th><th>Status</th><th>Notes</th></tr>
+                    <tr>
+                        <td><strong>Global Presales</strong></td>
+                        <td>Dalila Souiah</td>
+                        <td>Global Presales Lead</td>
+                        <td><span class="status-badge status-engaged">Engaged</span></td>
+                        <td>NAM, LatAm, Europe oversight</td>
+                    </tr>
+                    <tr>
+                        <td><strong>US</strong></td>
+                        <td>Rod</td>
+                        <td>AE</td>
+                        <td><span class="status-badge status-risk">Risk</span></td>
+                        <td>Convert from resistor to champion</td>
+                    </tr>
+                    <tr>
+                        <td><strong>France</strong></td>
+                        <td>TBD</td>
+                        <td>TBD</td>
+                        <td>—</td>
+                        <td>Identify through Dalila/Henry</td>
+                    </tr>
+                </table>
+
+                <h3>Champion Responsibilities (Loopio)</h3>
+                <ol style="margin-left: 20px;">
+                    <li><strong>Discovery Phase:</strong> Surface workflow blockers, articulate "why not Loopio"</li>
+                    <li><strong>Training Phase:</strong> Lead regional training sessions</li>
+                    <li><strong>Adoption Phase:</strong> Monitor compliance, provide peer support</li>
+                </ol>
+            </div>
+        </section>
+
+        <section>
+            <h2>Resistor-to-Champion Conversion: Rod</h2>
+            <div class="card">
+                <h3>Current State</h3>
+                <ul style="margin-left: 20px; margin-bottom: 20px;">
+                    <li>Using ChatGPT 100x/day for RFP work</li>
+                    <li>Not using Loopio despite license</li>
+                    <li>Shadow IT risk for data governance</li>
+                </ul>
+
+                <h3>Conversion Strategy</h3>
+                <table>
+                    <tr><th>Step</th><th>Action</th><th>Owner</th><th>Timeline</th></tr>
+                    <tr><td>1</td><td>Interview to understand workflow</td><td>Mike</td><td>Feb 5</td></tr>
+                    <tr><td>2</td><td>Identify specific Loopio gaps</td><td>Mike + Jan</td><td>Feb 7</td></tr>
+                    <tr><td>3</td><td>Address root cause (speed? UX? content?)</td><td>Jan</td><td>Feb 10-14</td></tr>
+                    <tr><td>4</td><td>Pilot enhanced workflow with Rod</td><td>Jan</td><td>Feb 17-21</td></tr>
+                    <tr><td>5</td><td>If successful: position as "power user" champion</td><td>Jan + Dalila</td><td>Mar 3</td></tr>
+                </table>
+
+                <h3>Success Criteria</h3>
+                <ul style="margin-left: 20px;">
+                    <li>Rod using Loopio for 80%+ of RFP work</li>
+                    <li>Rod shares positive experience with peers</li>
+                    <li>ChatGPT usage limited to Loopio-supported workflows</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Leadership Champions</h2>
+            <div class="card">
+                <table>
+                    <tr><th>Name</th><th>Role</th><th>Champion Function</th></tr>
+                    <tr><td><strong>Evan Carlson</strong></td><td>COO / Sponsor</td><td>Executive air cover; removes blockers; approves resources</td></tr>
+                    <tr><td><strong>Patrice Barbedette</strong></td><td>CEO</td><td>AI communications commitment (Jan 30); investor narrative</td></tr>
+                    <tr><td><strong>Alexander</strong></td><td>AI PM</td><td>Cross-initiative coordination; ExCom representation</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <section>
+            <h2>Champion Status Summary</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Engaged</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">Scheduled</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">Outreach Sent</div>
+                </div>
+                <div class="stat-item risk">
+                    <div class="stat-number">1</div>
+                    <div class="stat-label">Risk</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">Pending</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Next Actions</h3>
+                <ul style="margin-left: 20px;">
+                    <li><strong>Feb 4:</strong> Confirm all regional Dripify champions on call</li>
+                    <li><strong>Feb 5:</strong> Rod interview to understand workflow</li>
+                    <li><strong>Feb 7:</strong> Champion kickoff communications</li>
+                    <li><strong>Feb 10:</strong> Weekly champion sync begins</li>
+                </ul>
+            </div>
+        </section>
+
+        <footer>
+            <p>AI Champions Network | EasyVista Q1 2026</p>
+            <p style="margin-top: 8px;"><a href="../index.html" style="color: var(--ev-teal);">Back to Main Timeline</a></p>
+        </footer>
+    </div>
+
+    <script>
+        function getPreferredTheme() {
+            const saved = localStorage.getItem('theme');
+            if (saved) return saved;
+            return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme') || 'dark';
+            setTheme(current === 'dark' ? 'light' : 'dark');
+        }
+
+        setTheme(getPreferredTheme());
+    </script>
+</body>
+</html>
