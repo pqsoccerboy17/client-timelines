@@ -234,6 +234,41 @@
         .status-pending { background: rgba(241, 196, 15, 0.2); color: #f1c40f; }
         .status-risk { background: rgba(248, 86, 139, 0.2); color: var(--ev-pink); }
 
+        /* Urgency colors for countdown */
+        .urgency-safe { background: #2ecc71; }
+        .urgency-warning { background: #f1c40f; color: #333; }
+        .urgency-critical { background: var(--ev-pink); }
+
+        /* Progress cards */
+        .progress-stat {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 4px;
+        }
+        .progress-stat .stat-current {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--ev-teal);
+        }
+        .progress-stat .stat-total {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+        }
+        .stat-card.days-card .stat-number {
+            padding: 8px 16px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        @media (max-width: 768px) {
+            .progress-stat .stat-current {
+                font-size: 1.8rem;
+            }
+            .progress-stat .stat-total {
+                font-size: 1rem;
+            }
+        }
+
         .workstream-header {
             display: flex;
             justify-content: space-between;
@@ -771,24 +806,30 @@
         <header>
             <h1>EasyVista Q1 2026 Engagement Timeline</h1>
             <p class="subtitle">Internal Review Document | Mike Duncan & Henry Yelin</p>
-            <div class="deadline-banner">🎯 Q1 Deadline: March 31, 2026 (~60 days remaining)</div>
+            <div class="deadline-banner urgency-warning" id="deadline-banner">🎯 Q1 Deadline: March 31, 2026 (57 days remaining)</div>
         </header>
 
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="stat-number">2</div>
-                <div class="stat-label">Primary Workstreams</div>
+                <div class="progress-stat">
+                    <span class="stat-current" id="tasks-complete">5</span>
+                    <span class="stat-total">/ 29</span>
+                </div>
+                <div class="stat-label">Tasks Complete</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">12</div>
-                <div class="stat-label">Key Stakeholders</div>
+                <div class="progress-stat">
+                    <span class="stat-current" id="stakeholders-engaged">10</span>
+                    <span class="stat-total">/ 17</span>
+                </div>
+                <div class="stat-label">Stakeholders Engaged</div>
+            </div>
+            <div class="stat-card days-card">
+                <div class="stat-number urgency-warning" id="days-remaining">57</div>
+                <div class="stat-label">Days Remaining</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">$15K</div>
-                <div class="stat-label">Budget Cap</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">5</div>
+                <div class="stat-number">6</div>
                 <div class="stat-label">Active Risks</div>
             </div>
         </div>
@@ -1130,7 +1171,7 @@ flowchart TB
                 &nbsp;•&nbsp;
                 <a href="https://github.com/pqsoccerboy17/client-timelines" style="color: var(--ev-teal); text-decoration: none;">💻 GitHub Repo</a>
             </p>
-            <p>Last updated: Jan 30, 2026 | Mike Duncan & Henry Yelin</p>
+            <p>Last updated: Feb 01, 2026 | Mike Duncan & Henry Yelin</p>
         </footer>
     </div>
 
