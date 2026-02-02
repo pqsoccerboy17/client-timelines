@@ -103,7 +103,7 @@ This initiative directly supports EasyVista's investor narrative:
 |----------|-------|-----------|
 | Budget approval | Evan Carlson | Patrice Barbedette |
 | Go/No-Go (Dripify) | Evan Carlson | Tim Brouillard, Mike |
-| Loopio policy changes | Jan (Loopio Owner) | Dalila Souiah |
+| Loopio policy changes | Yann (Loopio Owner) | Dalila Souiah |
 | Regional rollout timing | Regional Leads | Mike, Henry |
 
 ### Escalation Path
@@ -159,7 +159,7 @@ This initiative directly supports EasyVista's investor narrative:
 | Evan Carlson | Sponsor | ________ | ________ |
 | Mike Duncan | Lead | ________ | ________ |
 | Tim Brouillard | Dripify Champion | ________ | ________ |
-| Jan | Loopio Owner | ________ | ________ |
+| Yann | Loopio Owner | ________ | ________ |
 
 ---
 

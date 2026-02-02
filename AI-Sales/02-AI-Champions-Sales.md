@@ -74,7 +74,7 @@ AI Champions are embedded advocates who drive adoption within their teams. They:
 
 | Name | Role | Status | Why This Person |
 |------|------|--------|-----------------|
-| **Jan** | Loopio Owner | Engaged | Global knowledge owner. Driving 100% adoption target. Feb target for English content structure. |
+| **Yann** | Loopio Owner | Engaged | Global knowledge owner. Driving 100% adoption target. Feb target for English content structure. |
 
 ### Regional Champions
 
@@ -104,10 +104,10 @@ AI Champions are embedded advocates who drive adoption within their teams. They:
 | Step | Action | Owner | Timeline |
 |------|--------|-------|----------|
 | 1 | Interview to understand workflow | Mike | Feb 5 |
-| 2 | Identify specific Loopio gaps | Mike + Jan | Feb 7 |
-| 3 | Address root cause (speed? UX? content?) | Jan | Feb 10-14 |
-| 4 | Pilot enhanced workflow with Rod | Jan | Feb 17-21 |
-| 5 | If successful: position as "power user" champion | Jan + Dalila | Mar 3 |
+| 2 | Identify specific Loopio gaps | Mike + Yann | Feb 7 |
+| 3 | Address root cause (speed? UX? content?) | Yann | Feb 10-14 |
+| 4 | Pilot enhanced workflow with Rod | Yann | Feb 17-21 |
+| 5 | If successful: position as "power user" champion | Yann + Dalila | Mar 3 |
 
 ### Success Criteria
 - Rod using Loopio for 80%+ of RFP work
@@ -152,7 +152,7 @@ AI Champions are embedded advocates who drive adoption within their teams. They:
 
 | Status | Count | Names |
 |--------|-------|-------|
-| **Engaged** | 8 | Tim, Seima, Sean, Christopher, Dalila, Jan, Loic, Alexander |
+| **Engaged** | 8 | Tim, Seima, Sean, Christopher, Dalila, Yann, Loic, Alexander |
 | **Scheduled** | 2 | Cédric, Raphael |
 | **Outreach Sent** | 2 | Ismael, Stefano |
 | **Risk** | 1 | Rod |

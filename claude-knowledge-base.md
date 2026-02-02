@@ -269,12 +269,12 @@ IF Notion sync fails:
 | Workstream | Status | Owner | Target |
 |------------|--------|-------|--------|
 | Dripify (LinkedIn) | Validation | Mike | 25-30 opps/period |
-| Lupio (RFP) | Expanding | Dalila/Jan | 100% adoption by Mar 31 |
+| Loopio (RFP) | Expanding | Dalila/Yann | 100% adoption by Mar 31 |
 | GitHub Copilot | Complete | Engineering | All 60 devs |
 | Claude Code POC | In Progress | Engineering | Legacy refactor |
 
 ### Critical Dates
-- **Feb 4, 2026** — Mandatory Lupio alignment (4:30 PM France / 10:30 AM ET)
+- **Feb 4, 2026** — Mandatory Loopio alignment (4:30 PM France / 10:30 AM ET)
 - **Feb 9, 2026** — New West BDR onboarding + Dripify training
 - **Mar 7, 2026** — Dripify Go/No-Go decision
 - **Mar 31, 2026** — Q1 hard deadline
@@ -306,13 +306,13 @@ IF Notion sync fails:
 | Name | Role | Notes |
 |------|------|-------|
 | Delia | Global Head of Presales | NAM, LatAm, Europe oversight |
-| Jan Mercier | France Presales Lead | 100% Lupio adoption, global knowledge owner |
+| Yann Mercier | France Presales Lead | 100% Loopio adoption, global knowledge owner |
 | Todd Russell | US Presales | NAM point person |
 
 ### Power Users to Watch
 | Name | Behavior | Implication |
 |------|----------|-------------|
-| Rod Schmidt | ChatGPT 100x/day instead of Lupio | Shadow IT risk; interview needed |
+| Rod Schmidt | ChatGPT 100x/day instead of Loopio | Shadow IT risk; interview needed |
 | Sean Herbert | Built custom ChatGPT agent for RFPs | Capture methodology for scaling |
 
 ### Consulting Team
@@ -326,17 +326,17 @@ IF Notion sync fails:
 
 ## Known Challenges
 
-1. **Multi-language Lupio** — No native support; 2-3x admin overhead; Mike committed to solving by February
+1. **Multi-language Loopio** — No native support; 2-3x admin overhead; Mike committed to solving by February
 2. **West Territory** — No rep has ever hit quota (ServiceNow HQ competition in San Jose)
 3. **Shadow IT** — Rod, Sean using personal ChatGPT/Claude instead of approved tools
-4. **Regional Adoption Gaps** — France 100% vs NAM 0% on Lupio
+4. **Regional Adoption Gaps** — France 100% vs NAM 0% on Loopio
 5. **Engineering Capacity** — Too many initiatives competing for April release
 
 ---
 
 ## Proven Results (for reference)
 
-- France Lupio: 100% adoption, 2-3x faster RFP completion
+- France Loopio: 100% adoption, 2-3x faster RFP completion
 - Rod's Texas RFP: <1 hour with AI vs 4-5 hours traditional
 - Developer sentiment: Shifted from job displacement fears to active AI experimentation
 - GitHub Copilot: All 60 developers now have access

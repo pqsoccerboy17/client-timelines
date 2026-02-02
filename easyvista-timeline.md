@@ -68,7 +68,7 @@
 
 | Task | Owner | Due |
 |------|-------|-----|
-| Schedule Dalila/Jan call | Mike | 2026-01-24 |
+| Schedule Dalila/Yann call | Mike | 2026-01-24 |
 | Discovery call | Mike | 2026-01-28 |
 | Interview Rod (ChatGPT usage) | Mike | 2026-02-05 |
 | Identify blockers | Mike | 2026-02-07 |
@@ -77,18 +77,18 @@
 
 | Task | Owner | Due |
 |------|-------|-----|
-| Define Loopio usage metrics | EasyVista (Jan) | 2026-02-12 |
+| Define Loopio usage metrics | EasyVista (Yann) | 2026-02-12 |
 | Change management plan | Mike | 2026-02-14 |
-| Training materials | EasyVista (Jan) | 2026-02-19 |
+| Training materials | EasyVista (Yann) | 2026-02-19 |
 
 #### Implementation (2026-02-24 - 2026-03-21)
 
 | Task | Owner | Due |
 |------|-------|-----|
-| US pre-sales training | EasyVista (Jan) | 2026-02-28 |
-| Address Rod's workflow | EasyVista (Jan) | 2026-03-03 |
-| France training | EasyVista (Jan) | 2026-03-14 |
-| Global training complete 🎯 | EasyVista (Jan) | 2026-03-21 |
+| US pre-sales training | EasyVista (Yann) | 2026-02-28 |
+| Address Rod's workflow | EasyVista (Yann) | 2026-03-03 |
+| France training | EasyVista (Yann) | 2026-03-14 |
+| Global training complete 🎯 | EasyVista (Yann) | 2026-03-21 |
 
 #### Handoff (2026-03-24 - 2026-03-31)
 
@@ -119,7 +119,7 @@
 - **2026-01-23** — Christopher call (Germany)
 - **2026-01-24** — Tim validation call (US)
 - **2026-01-23** — Sean Herbert validation call (UK)
-- **2026-01-28** — Loopio discovery call with Dalila/Jan
+- **2026-01-28** — Loopio discovery call with Dalila/Yann
 - **2026-01-30** — AI Project Update - Patrice AI comms commitment
 - **2026-01-31** — DACH GTM plan & Seima setup
 - **2026-02-04** — 🎯 Mandatory Loopio alignment call
@@ -144,4 +144,4 @@
 
 ---
 
-*Generated 2026-02-01 18:13*
+*Generated 2026-02-01 18:42*

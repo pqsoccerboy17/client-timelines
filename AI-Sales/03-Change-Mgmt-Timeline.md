@@ -46,7 +46,7 @@ Jan 21                Feb 7    Feb 21        Mar 7         Mar 31
 
 | Week | Activity | Owner | Status |
 |------|----------|-------|--------|
-| W1 (Jan 21-24) | Schedule Dalila/Jan call | Mike | Complete |
+| W1 (Jan 21-24) | Schedule Dalila/Yann call | Mike | Complete |
 | W2 (Jan 27-31) | Discovery call | Mike | Complete |
 | W3 (Feb 3-7) | **Mandatory Loopio alignment call** | Mike | **CRITICAL** |
 | W3 (Feb 3-7) | Interview Rod (ChatGPT usage) | Mike | Pending |
@@ -85,16 +85,16 @@ Jan 21                Feb 7    Feb 21        Mar 7         Mar 31
 
 | Week | Activity | Owner | Status |
 |------|----------|-------|--------|
-| W4 (Feb 10-14) | Define Loopio usage metrics | Jan | Pending |
+| W4 (Feb 10-14) | Define Loopio usage metrics | Yann | Pending |
 | W4 (Feb 10-14) | Change management plan | Mike | Pending |
-| W5 (Feb 17-21) | Training materials | Jan | Pending |
+| W5 (Feb 17-21) | Training materials | Yann | Pending |
 
 ### Change Management Activities
 
 | Activity | Description | Owner |
 |----------|-------------|-------|
 | Champion enablement | 1:1 training with leads | Mike |
-| Quick wins identification | Early success stories | Tim/Jan |
+| Quick wins identification | Early success stories | Tim/Yann |
 | Feedback channel setup | Slack/Teams for rapid response | Mike |
 | FAQ development | Anticipate common questions | Mike |
 
@@ -119,8 +119,8 @@ Jan 21                Feb 7    Feb 21        Mar 7         Mar 31
 
 | Week | Activity | Owner | Status |
 |------|----------|-------|--------|
-| W6 (Feb 24-28) | US pre-sales training | Jan | Pending |
-| W7 (Mar 3-7) | Address Rod's workflow | Jan | Pending |
+| W6 (Feb 24-28) | US pre-sales training | Yann | Pending |
+| W7 (Mar 3-7) | Address Rod's workflow | Yann | Pending |
 
 ### Change Management Activities
 
@@ -163,8 +163,8 @@ Jan 21                Feb 7    Feb 21        Mar 7         Mar 31
 
 | Week | Activity | Owner | Status |
 |------|----------|-------|--------|
-| W8-9 (Mar 10-21) | France training | Jan | Pending |
-| W9 (Mar 21) | **Global training complete** | Jan | **MILESTONE** |
+| W8-9 (Mar 10-21) | France training | Yann | Pending |
+| W9 (Mar 21) | **Global training complete** | Yann | **MILESTONE** |
 | W10 (Mar 24-28) | Final documentation | Mike | Pending |
 
 ### Change Management Activities
@@ -191,7 +191,7 @@ Jan 21                Feb 7    Feb 21        Mar 7         Mar 31
 | Deliverable | Owner | Due |
 |-------------|-------|-----|
 | Dripify playbook | Mike | Mar 28 |
-| Loopio adoption report | Jan + Mike | Mar 28 |
+| Loopio adoption report | Yann + Mike | Mar 28 |
 | Metrics summary | Mike | Mar 28 |
 | Investor narrative draft | Mike | Mar 31 |
 | Lessons learned | Mike | Mar 31 |
