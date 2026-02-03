@@ -2,7 +2,7 @@
   "meta": {
     "template_version": "1.0",
     "created": "2026-01-21",
-    "last_updated": "2026-02-01T19:41:44.781757",
+    "last_updated": "2026-02-03T15:01:34.681256",
     "author": "Mike Duncan"
   },
   "client": {
@@ -48,17 +48,20 @@
   },
   "workstreams": [
     {
-      "id": "dripify",
-      "name": "Dripify (LinkedIn Automation)",
+      "id": "lemlist",
+      "name": "Lemlist (LinkedIn Automation)",
       "goal": "Increase BDR opportunity generation from 15-20 to 25-30 per quarter",
-      "scope": "Global BDR Team",
+      "scope": "10 BDRs globally",
       "success_metric": "25-30 opportunities per quarter",
       "budget_allocation": "~$5-8K",
       "status": "in_progress",
+      "description": "Lemlist platform from France-based company",
+      "integration": "Lemlist → HubSpot → Salesforce sync. LinkedIn Sales Navigator embedded within Salesforce for direct account/contact access.",
       "stakeholders": [
         "Tim Brouillard",
         "Seima Ishaq",
-        "Christopher T. Kuhn"
+        "Christopher T. Kuhn",
+        "Chris Holt"
       ],
       "phases": [
         {
@@ -97,7 +100,7 @@
               "status": "pending"
             },
             {
-              "task": "Confirm Dripify fit",
+              "task": "Confirm Lemlist fit",
               "owner": "Mike",
               "due": "2026-02-07",
               "status": "pending"
@@ -110,7 +113,7 @@
           "end": "2026-02-21",
           "tasks": [
             {
-              "task": "Procure Dripify licenses",
+              "task": "Procure Lemlist licenses",
               "owner": "EasyVista (Evan)",
               "due": "2026-02-10",
               "status": "pending"
@@ -197,10 +200,12 @@
       "success_metric": "100% Loopio adoption by March 31",
       "budget_allocation": "$0 (existing license)",
       "status": "in_progress",
+      "notes": "100% adoption achieved in France operations. Cross-team collaboration: Evan, Dalila, Yann.",
       "stakeholders": [
         "Dalila Souiah",
         "Yann",
-        "Rod"
+        "Rod",
+        "Evan Carlson"
       ],
       "phases": [
         {
@@ -329,6 +334,13 @@
       "notes": "Primary sponsor, budget approver"
     },
     {
+      "name": "Chris Holt",
+      "role": "Revenue Operations",
+      "group": "leadership",
+      "status": "engaged",
+      "notes": "RevOps team of one. Owns Salesforce. Coordinating Lemlist procurement with Evan."
+    },
+    {
       "name": "Alexander",
       "role": "External Consultant / AI Project Manager",
       "group": "leadership",
@@ -352,58 +364,58 @@
     {
       "name": "Tim Brouillard",
       "role": "VP Business Development",
-      "group": "dripify",
+      "group": "lemlist",
       "status": "scheduled",
       "notes": "11+ years at EasyVista, key champion"
     },
     {
       "name": "C\u00e9dric Cibot-Voisin",
       "role": "France Sales Manager",
-      "group": "dripify",
+      "group": "lemlist",
       "status": "cold",
       "notes": "France sales lead"
     },
     {
       "name": "Raphael Hugnet",
       "role": "BDR Lead - France",
-      "group": "dripify",
+      "group": "lemlist",
       "status": "scheduled",
       "notes": "France BDR coordination"
     },
     {
       "name": "Ismael Sabbagh",
       "role": "BDR Lead - Spain",
-      "group": "dripify",
+      "group": "lemlist",
       "status": "outreach_sent",
       "notes": "Spain BDR coordination"
     },
     {
       "name": "Sean Herbert",
       "role": "BDR Lead - UK",
-      "group": "dripify",
+      "group": "lemlist",
       "status": "engaged",
       "notes": "Custom ChatGPT for RFPs, Gong advocate. Yann 23 validation call complete."
     },
     {
       "name": "Stefano",
       "role": "BDR Lead - Italy",
-      "group": "dripify",
+      "group": "lemlist",
       "status": "outreach_sent",
       "notes": "Italy BDR coordination"
     },
     {
       "name": "Christopher T. Kuhn",
       "role": "COO OTRS AG",
-      "group": "dripify",
+      "group": "lemlist",
       "status": "outreach_sent",
       "notes": "Germany works council constraints"
     },
     {
       "name": "Seima Ishaq",
       "role": "BDR (OTRS)",
-      "group": "dripify",
+      "group": "lemlist",
       "status": "engaged",
-      "notes": "Multilingual, Dripify pilot"
+      "notes": "Multilingual, Lemlist pilot"
     },
     {
       "name": "Dalila Souiah",
@@ -510,7 +522,12 @@
     },
     {
       "date": "2026-01-31",
-      "event": "DACH GTM plan & Seima setup"
+      "event": "DACH GTM plan & Seima Lemlist setup"
+    },
+    {
+      "date": "2026-02-03",
+      "event": "Chris Holt intro call (RevOps)",
+      "complete": true
     },
     {
       "date": "2026-02-04",
@@ -523,15 +540,15 @@
     },
     {
       "date": "2026-02-09",
-      "event": "New West BDR onboarding + Dripify training"
+      "event": "New West BDR onboarding + Lemlist training"
     },
     {
       "date": "2026-02-21",
-      "event": "Dripify US pilot launch"
+      "event": "Lemlist US pilot launch"
     },
     {
       "date": "2026-03-07",
-      "event": "Dripify Go/No-Go decision",
+      "event": "Lemlist Go/No-Go decision",
       "critical": true
     },
     {
@@ -554,7 +571,9 @@
     "Baseline BDR metrics validated for DACH (Seima: 20-30 companies/day) - need US/France/Spain/UK/Italy metrics",
     "When can we schedule the tech DD deep-dive session?",
     "What is Laure Ruperas' role in the engagement?",
-    "When will we receive Stefano's email for Italy coordination?"
+    "When will we receive Stefano's email for Italy coordination?",
+    "Chris/Evan coordinating entity selection (US vs France) for Lemlist purchasing",
+    "Lemlist AE to generate invoice within 24 hours (pending)"
   ],
   "investor_narrative": {
     "template": "We implemented AI across BDR outbound and RFP response, leading to X% more opportunities, Y% pipeline uplift, and Z% higher efficiency, while scaling without proportional headcount increase.",

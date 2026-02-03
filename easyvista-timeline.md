@@ -1,19 +1,19 @@
 # EasyVista Engagement Timeline
-## Internal Review | February 01, 2026
+## Internal Review | February 03, 2026
 
 **Contact:** Evan Carlson (COO)
 **Deadline:** Q1 2026 (2026-03-31)
-**Days Remaining:** ~57 days
+**Days Remaining:** ~55 days
 **Budget:** $10,000-$15,000
 
 ---
 
 ## Executive Summary
 
-## Dripify (LinkedIn Automation)
+## Lemlist (LinkedIn Automation)
 
 **Goal:** Increase BDR opportunity generation from 15-20 to 25-30 per quarter
-**Scope:** Global BDR Team
+**Scope:** 10 BDRs globally
 **Success Metric:** 25-30 opportunities per quarter
 
 ### Phases
@@ -27,13 +27,13 @@
 | Tim validation call (US) | Mike | 2026-01-24 |
 | Regional validation calls (Europe) | Mike/Henry | 2026-01-31 |
 | Baseline BDR metrics | EasyVista | 2026-01-31 |
-| Confirm Dripify fit | Mike | 2026-02-07 |
+| Confirm Lemlist fit | Mike | 2026-02-07 |
 
 #### Pilot Setup (2026-02-10 - 2026-02-21)
 
 | Task | Owner | Due |
 |------|-------|-----|
-| Procure Dripify licenses | EasyVista (Evan) | 2026-02-10 |
+| Procure Lemlist licenses | EasyVista (Evan) | 2026-02-10 |
 | Configure for EasyVista | EasyVista (Tim) | 2026-02-14 |
 | Create outreach templates | EasyVista (Tim) | 2026-02-17 |
 | Train champion user | Mike | 2026-02-19 |
@@ -121,12 +121,13 @@
 - **2026-01-23** — Sean Herbert validation call (UK)
 - **2026-01-28** — Loopio discovery call with Dalila/Yann
 - **2026-01-30** — AI Project Update - Patrice AI comms commitment
-- **2026-01-31** — DACH GTM plan & Seima setup
+- **2026-01-31** — DACH GTM plan & Seima Lemlist setup
+- **2026-02-03** — Chris Holt intro call (RevOps)
 - **2026-02-04** — 🎯 Mandatory Loopio alignment call
 - **2026-02-07** — Validation phase complete
-- **2026-02-09** — New West BDR onboarding + Dripify training
-- **2026-02-21** — Dripify US pilot launch
-- **2026-03-07** — 🎯 Dripify Go/No-Go decision
+- **2026-02-09** — New West BDR onboarding + Lemlist training
+- **2026-02-21** — Lemlist US pilot launch
+- **2026-03-07** — 🎯 Lemlist Go/No-Go decision
 - **2026-03-21** — Loopio global training complete
 - **2026-03-28** — Final documentation
 - **2026-03-31** — 🎯 Q1 DEADLINE
@@ -141,7 +142,9 @@
 - [ ] When can we schedule the tech DD deep-dive session?
 - [ ] What is Laure Ruperas' role in the engagement?
 - [ ] When will we receive Stefano's email for Italy coordination?
+- [ ] Chris/Evan coordinating entity selection (US vs France) for Lemlist purchasing
+- [ ] Lemlist AE to generate invoice within 24 hours (pending)
 
 ---
 
-*Generated 2026-02-01 19:42*
+*Generated 2026-02-03 15:23*
