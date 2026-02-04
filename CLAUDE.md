@@ -67,7 +67,7 @@ Timeline visualization for tracking consulting engagement milestones, stakeholde
 - `risk` ⚠️ - Adoption resistance (e.g., Rod prefers ChatGPT over Loopio)
 
 **Regional scoping** (affects rollout strategy):
-- DACH (Germany/Austria/Switzerland): Dripify pilot, works council constraints
+- DACH (Germany/Austria/Switzerland): Lemlist pilot, works council constraints
 - US: Baseline validation
 - France: Secondary rollout phase
 
@@ -75,6 +75,6 @@ Timeline visualization for tracking consulting engagement milestones, stakeholde
 
 **Current engagement:** Q1 2026 EasyVista consulting (67 days to deadline)
 **Milestone gating:** Mar 7 Go/No-Go decision, Mar 31 hard stop
-**Budget allocation:** $10-15K across 3 workstreams (Dripify, Loopio, Tech DD)
+**Budget allocation:** $10-15K across 3 workstreams (Lemlist, Loopio, Tech DD)
 
 See [TEMPLATE-README.md](TEMPLATE-README.md) for update workflow and schema documentation.

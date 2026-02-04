@@ -169,7 +169,7 @@ BEFORE writing:
 |---------|--------|----------|
 | New person + role + company | Add to Stakeholders | No |
 | Explicit deadline ("by March 31") | Add to Critical Dates | No |
-| Status change ("Dripify is now live") | Update Workstreams | No |
+| Status change ("Lemlist is now live") | Update Workstreams | No |
 | Decision made ("We decided to...") | Log in Session Log | No |
 | Budget number mentioned | Update Budget tracking | No |
 
@@ -268,15 +268,15 @@ IF Notion sync fails:
 
 | Workstream | Status | Owner | Target |
 |------------|--------|-------|--------|
-| Dripify (LinkedIn) | Validation | Mike | 25-30 opps/period |
+| Lemlist (LinkedIn) | Validation | Mike | 25-30 opps/period |
 | Loopio (RFP) | Expanding | Dalila/Yann | 100% adoption by Mar 31 |
 | GitHub Copilot | Complete | Engineering | All 60 devs |
 | Claude Code POC | In Progress | Engineering | Legacy refactor |
 
 ### Critical Dates
 - **Feb 4, 2026** — Mandatory Loopio alignment (4:30 PM France / 10:30 AM ET)
-- **Feb 9, 2026** — New West BDR onboarding + Dripify training
-- **Mar 7, 2026** — Dripify Go/No-Go decision
+- **Feb 9, 2026** — New West BDR onboarding + Lemlist training
+- **Mar 7, 2026** — Lemlist Go/No-Go decision
 - **Mar 31, 2026** — Q1 hard deadline
 - **April 2026** — Non-negotiable product release
 
@@ -299,7 +299,7 @@ IF Notion sync fails:
 | Sean Herbert | VP Sales | Northern Europe | Custom ChatGPT for RFPs, Gong advocate |
 | Rafael Munyes | Sales Director | France | 3 SEs, 6 AMs, 3 BDRs |
 | Christopher | COO | OTRS/DACH | Germany works council constraints |
-| Sima | BDR | OTRS | Multilingual, Dripify pilot |
+| Sima | BDR | OTRS | Multilingual, Lemlist pilot |
 | Cédric | Sales Lead | France | Parallel dialing consideration |
 
 ### Presales/RFP Team
