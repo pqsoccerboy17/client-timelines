@@ -7,24 +7,24 @@
  */
 
 /* ================================
-   COLOR TOKENS - Anthropic Inspired
+   COLOR TOKENS - Anthropic Actual Palette
    ================================ */
 :root {
-    /* Primary Palette - Warm & Inviting */
-    --color-bg-primary: #faf9f5;          /* Warm cream - NOT harsh white */
-    --color-bg-secondary: #f4f2eb;        /* Slightly darker cream */
-    --color-bg-card: #ffffff;             /* Cards can be white for contrast */
-    --color-bg-elevated: #ffffff;
+    /* Primary Palette - Anthropic's Warm Cream (from Claude UI) */
+    --color-bg-primary: #F5EDE3;          /* Anthropic warm cream - easy on eyes */
+    --color-bg-secondary: #EBE3D9;        /* Slightly darker warm cream */
+    --color-bg-card: #FAF7F2;             /* Soft cream for cards - NOT pure white */
+    --color-bg-elevated: #FFFCF7;         /* Lightest cream for elevated elements */
 
-    /* Text Colors - Soft but readable */
-    --color-text-primary: #1a1a1a;        /* Deep charcoal - NOT pure black */
-    --color-text-secondary: #5c5c5c;      /* Warm gray */
-    --color-text-muted: #8a8a8a;          /* Light gray for hints */
-    --color-text-inverse: #faf9f5;        /* For dark backgrounds */
+    /* Text Colors - Anthropic's Charcoal (soft contrast) */
+    --color-text-primary: #131314;        /* Anthropic's exact dark - rgb(19,19,20) */
+    --color-text-secondary: #4a4a4a;      /* Warm medium gray */
+    --color-text-muted: #7a7a7a;          /* Soft gray for hints */
+    --color-text-inverse: #F5EDE3;        /* Warm cream for dark backgrounds */
 
-    /* Accent Colors - EasyVista Brand + Warm Tones */
-    --color-accent-primary: #c96442;      /* Warm rust/terracotta - primary CTA */
-    --color-accent-primary-hover: #b85638;
+    /* Accent Colors - Anthropic's Rust/Terracotta */
+    --color-accent-primary: #D97757;      /* Anthropic's exact accent - rgb(217,119,87) */
+    --color-accent-primary-hover: #c86646;
     --color-accent-secondary: #d4a574;    /* Soft gold/sand */
     --color-accent-tertiary: #7c9885;     /* Sage green */
 
@@ -44,15 +44,15 @@
     --color-danger: #b85a5a;              /* Muted coral red */
     --color-danger-bg: rgba(184, 90, 90, 0.1);
 
-    /* Borders & Dividers */
-    --color-border: rgba(26, 26, 26, 0.1);
-    --color-border-strong: rgba(26, 26, 26, 0.2);
-    --color-divider: rgba(26, 26, 26, 0.06);
+    /* Borders & Dividers - Warm tinted */
+    --color-border: rgba(19, 19, 20, 0.08);
+    --color-border-strong: rgba(19, 19, 20, 0.15);
+    --color-divider: rgba(19, 19, 20, 0.05);
 
-    /* Shadows - Soft and subtle */
-    --shadow-sm: 0 1px 2px rgba(26, 26, 26, 0.04);
-    --shadow-md: 0 4px 12px rgba(26, 26, 26, 0.06);
-    --shadow-lg: 0 8px 24px rgba(26, 26, 26, 0.08);
+    /* Shadows - Warm and subtle (brown-tinted) */
+    --shadow-sm: 0 1px 2px rgba(139, 90, 43, 0.05);
+    --shadow-md: 0 4px 12px rgba(139, 90, 43, 0.08);
+    --shadow-lg: 0 8px 24px rgba(139, 90, 43, 0.1);
 
     /* Typography Scale */
     --font-family-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
@@ -106,9 +106,9 @@
     --color-bg-elevated: #3a3a3c;
 
     /* Text - Cream tones, NOT pure white */
-    --color-text-primary: #f5f4f0;        /* Warm off-white */
-    --color-text-secondary: #a8a8a8;      /* Medium gray */
-    --color-text-muted: #6e6e6e;          /* Darker gray */
+    --color-text-primary: #F5E6D3;        /* Anthropic cream for dark mode text */
+    --color-text-secondary: #b8a89a;      /* Warm medium gray */
+    --color-text-muted: #7a6f63;          /* Warm dark gray */
     --color-text-inverse: #1c1c1e;
 
     /* Accent - Slightly brighter for dark mode */
@@ -166,6 +166,17 @@ body {
     color: var(--color-text-primary);
     background-color: var(--color-bg-primary);
     transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+/* Anthropic-style text selection */
+::selection {
+    background-color: rgba(204, 120, 92, 0.3);  /* Warm rust selection */
+    color: var(--color-text-primary);
+}
+
+::-moz-selection {
+    background-color: rgba(204, 120, 92, 0.3);
+    color: var(--color-text-primary);
 }
 
 /* ================================
@@ -235,8 +246,7 @@ body {
 
 .nav__link--active {
     color: var(--color-accent-primary);
-    background-color: var(--color-accent-primary);
-    background-color: rgba(201, 100, 66, 0.1);
+    background-color: rgba(217, 119, 87, 0.1);  /* Anthropic rust tint */
 }
 
 /* ================================
