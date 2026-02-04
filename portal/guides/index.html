@@ -201,34 +201,6 @@
             border: 1px solid var(--color-border);
         }
 
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: var(--space-4) var(--space-6);
-        }
-
-        .nav-brand {
-            font-size: var(--font-size-lg);
-            font-weight: 600;
-            color: var(--color-ev-teal);
-        }
-
-        .nav-links { display: flex; gap: var(--space-6); }
-        .nav-links a {
-            color: var(--color-text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: var(--font-size-sm);
-            padding: var(--space-2) var(--space-4);
-            border-radius: var(--radius-md);
-            transition: all var(--transition-fast);
-        }
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--color-ev-teal);
-            background: rgba(77, 192, 199, 0.1);
-        }
-
         .hero {
             text-align: center;
             padding: var(--space-16) var(--space-6);
@@ -265,23 +237,11 @@
             border-radius: 2px;
         }
 
-        footer {
-            text-align: center;
-            padding: var(--space-10);
-            color: var(--color-text-secondary);
-            font-size: var(--font-size-sm);
-            border-top: 1px solid var(--color-border);
-            margin-top: var(--space-12);
-        }
-
-        footer a { color: var(--color-ev-teal); text-decoration: none; }
-
         @media (max-width: 768px) {
             .hero h1 { font-size: var(--font-size-2xl); }
             .guides-grid { grid-template-columns: 1fr; }
             .tips-grid { grid-template-columns: 1fr; }
             .cta-buttons { flex-direction: column; }
-            .nav-links { display: none; }
         }
     </style>
 </head>
@@ -289,13 +249,16 @@
     <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
 
     <nav class="nav">
-        <div class="nav-brand">EasyVista AI Enablement</div>
-        <div class="nav-links">
-            <a href="../index.html">Home</a>
-            <a href="../progress.html">Progress</a>
-            <a href="index.html" class="active">Guides</a>
-            <a href="../roi.html">ROI</a>
-            <a href="../../index.html">Full Dashboard</a>
+        <div class="nav__inner">
+            <a href="../index.html" class="nav__brand">EasyVista AI Enablement</a>
+            <button class="nav__toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+            <div class="nav__links" id="nav-links">
+                <a href="../index.html" class="nav__link">Home</a>
+                <a href="../progress.html" class="nav__link">Progress</a>
+                <a href="index.html" class="nav__link nav__link--active">Guides</a>
+                <a href="../roi.html" class="nav__link">ROI</a>
+                <a href="../../index.html" class="nav__link">Full Dashboard</a>
+            </div>
         </div>
     </nav>
 
@@ -396,9 +359,9 @@
         </section>
     </main>
 
-    <footer>
+    <footer class="footer">
         <p>EasyVista AI Sales Enablement | Powered by <a href="https://yelin.io">Yelin.io</a></p>
-        <p style="margin-top: 8px;">Last updated: Feb 4, 2026</p>
+        <p style="margin-top: var(--space-2);">Last updated: Feb 4, 2026</p>
     </footer>
 
     <script>
@@ -416,6 +379,12 @@
             setTheme(current === 'dark' ? 'light' : 'dark');
         }
         setTheme(getPreferredTheme());
+
+        // Mobile nav toggle
+        function toggleNav() {
+            const navLinks = document.getElementById('nav-links');
+            navLinks.classList.toggle('active');
+        }
     </script>
 </body>
 </html>

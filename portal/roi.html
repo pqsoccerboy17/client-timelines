@@ -3,349 +3,441 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ROI Dashboard | EasyVista AI Sales Enablement</title>
+    <title>Interactive ROI Calculator | EasyVista AI Sales Enablement</title>
     <link rel="icon" href="../favicon.svg" type="image/svg+xml">
     <meta name="theme-color" content="#c96442">
     <link rel="stylesheet" href="css/design-system.css">
     <style>
-        /* ROI-specific overrides */
-        .metrics-grid {
+        /* =====================================
+           ROI Calculator Styles
+           ===================================== */
+
+        .roi-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* ===== Slider Styles (NO gradients) ===== */
+        .slider-input {
+            width: 100%;
+            height: 6px;
+            border-radius: var(--radius-full);
+            background: var(--color-bg-secondary);
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+            cursor: pointer;
+        }
+
+        .slider-input::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--color-ev-teal);
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+            transition: all var(--transition-fast);
+        }
+
+        .slider-input::-webkit-slider-thumb:hover {
+            background: var(--color-ev-teal-hover);
+            box-shadow: var(--shadow-lg);
+            transform: scale(1.15);
+        }
+
+        .slider-input::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--color-ev-teal);
+            cursor: pointer;
+            border: none;
+            box-shadow: var(--shadow-md);
+            transition: all var(--transition-fast);
+        }
+
+        .slider-input::-moz-range-thumb:hover {
+            background: var(--color-ev-teal-hover);
+            box-shadow: var(--shadow-lg);
+            transform: scale(1.15);
+        }
+
+        .slider-input::-moz-range-track {
+            background: transparent;
+            border: none;
+        }
+
+        .slider-input:focus-visible {
+            outline: 2px solid var(--color-ev-teal);
+            outline-offset: 4px;
+        }
+
+        /* ===== Input Group Styles ===== */
+        .input-group {
+            margin-bottom: var(--space-8);
+        }
+
+        .input-group__label {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: var(--space-3);
+        }
+
+        .input-group__label-text {
+            font-weight: 600;
+            font-size: var(--font-size-base);
+            color: var(--color-text-primary);
+        }
+
+        .input-group__value {
+            font-size: var(--font-size-lg);
+            font-weight: 700;
+            color: var(--color-ev-teal);
+        }
+
+        .input-group__description {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            margin-top: var(--space-2);
+        }
+
+        .input-group__range-indicators {
+            display: flex;
+            justify-content: space-between;
+            font-size: var(--font-size-xs);
+            color: var(--color-text-muted);
+            margin-top: var(--space-2);
+        }
+
+        /* ===== Input Group Row (for side-by-side inputs) ===== */
+        .input-row {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: var(--space-6);
-            margin-bottom: var(--space-12);
+            margin-bottom: var(--space-8);
         }
 
-        .metric-card {
-            background-color: var(--color-bg-card);
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-lg);
-            padding: var(--space-8);
-            text-align: center;
-            transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+        .input-row .input-group {
+            margin-bottom: 0;
         }
 
-        .metric-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .metric-label {
-            font-size: var(--font-size-sm);
-            color: var(--color-text-secondary);
-            margin-bottom: var(--space-4);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .metric-value {
-            font-size: var(--font-size-4xl);
-            font-weight: 700;
-            color: var(--color-ev-teal);
-            margin-bottom: var(--space-5);
-        }
-
-        .gauge {
-            width: 100%;
-            height: 8px;
-            background-color: var(--color-bg-secondary);
-            border-radius: var(--radius-full);
-            overflow: hidden;
-            margin-bottom: var(--space-4);
-        }
-
-        .gauge-fill {
-            height: 100%;
-            background-color: var(--color-ev-teal);
-            border-radius: var(--radius-full);
-            transition: width 0.6s ease-out;
-        }
-
-        .metric-detail {
-            font-size: var(--font-size-sm);
-            color: var(--color-text-secondary);
-            margin-top: var(--space-3);
-            line-height: var(--line-height-relaxed);
-        }
-
-        .metric-highlight {
-            display: inline-block;
-            background-color: var(--color-info-bg);
-            padding: var(--space-1) var(--space-3);
-            border-radius: var(--radius-md);
-            color: var(--color-info);
-            font-weight: 600;
-            margin-top: var(--space-2);
-            font-size: var(--font-size-sm);
-        }
-
-        .roi-section {
-            background-color: var(--color-bg-card);
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-lg);
-            padding: var(--space-10);
-            margin-bottom: var(--space-12);
-        }
-
-        .roi-grid {
+        /* ===== Metric Cards (NO gradients) ===== */
+        .metrics-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: var(--space-6);
-            margin-top: var(--space-8);
+            margin: var(--space-12) 0;
         }
 
-        .roi-item {
-            padding: var(--space-5);
-            background-color: var(--color-bg-secondary);
+        .metric-card-roi {
+            background-color: var(--color-bg-card);
             border: 1px solid var(--color-border);
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            text-align: center;
+            transition: all var(--transition-fast);
         }
 
-        .roi-item-label {
+        .metric-card-roi:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .metric-card-roi__label {
             font-size: var(--font-size-sm);
             color: var(--color-text-secondary);
             margin-bottom: var(--space-3);
             text-transform: uppercase;
             letter-spacing: 0.05em;
+            font-weight: 600;
         }
 
-        .roi-item-value {
+        .metric-card-roi__value {
             font-size: var(--font-size-3xl);
             font-weight: 700;
             color: var(--color-ev-teal);
-            margin-bottom: var(--space-2);
+            line-height: var(--line-height-tight);
+            margin-bottom: var(--space-3);
         }
 
-        .roi-item-detail {
+        .metric-card-roi__subtext {
             font-size: var(--font-size-sm);
             color: var(--color-text-secondary);
             line-height: var(--line-height-relaxed);
         }
 
-        .investor-quote {
-            background-color: var(--color-bg-card);
-            border: 1px solid var(--color-border);
-            border-left: 4px solid var(--color-ev-teal);
-            border-radius: var(--radius-lg);
-            padding: var(--space-10);
-            margin-bottom: var(--space-12);
+        /* ===== Progress Bar (NO gradients) ===== */
+        .progress-bar-container {
+            margin: var(--space-4) 0;
         }
 
-        .investor-quote-text {
-            font-size: var(--font-size-lg);
-            font-style: italic;
-            line-height: var(--line-height-relaxed);
-            margin-bottom: var(--space-4);
-            color: var(--color-text-primary);
-        }
-
-        .investor-quote-attribution {
-            color: var(--color-text-secondary);
-            font-size: var(--font-size-sm);
-        }
-
-        .timeline-section {
-            background-color: var(--color-bg-card);
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-lg);
-            padding: var(--space-10);
-        }
-
-        .timeline {
-            margin-top: var(--space-8);
-        }
-
-        .timeline-item {
-            display: flex;
-            gap: var(--space-5);
-            padding: var(--space-6) 0;
-            border-bottom: 1px solid var(--color-border);
-            position: relative;
-            padding-left: var(--space-8);
-        }
-
-        .timeline-item:last-child {
-            border-bottom: none;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: var(--space-1);
-            top: var(--space-6);
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: var(--color-ev-teal);
-            border: 3px solid var(--color-bg-primary);
-        }
-
-        .timeline-date {
-            min-width: 120px;
-            font-weight: 600;
-            color: var(--color-ev-teal);
-            font-size: var(--font-size-sm);
-        }
-
-        .timeline-content h4 {
-            margin-bottom: var(--space-2);
-            color: var(--color-text-primary);
-            font-size: var(--font-size-base);
-        }
-
-        .timeline-content p {
-            color: var(--color-text-secondary);
-            font-size: var(--font-size-sm);
-            line-height: var(--line-height-relaxed);
-        }
-
-        .payback-chart {
-            margin-top: var(--space-8);
-            padding: var(--space-6);
+        .progress-bar {
+            width: 100%;
+            height: 8px;
             background-color: var(--color-bg-secondary);
-            border-radius: var(--radius-md);
-        }
-
-        .payback-bar {
-            display: flex;
-            align-items: center;
-            margin-bottom: var(--space-5);
-            gap: var(--space-4);
-        }
-
-        .payback-label {
-            min-width: 120px;
-            font-size: var(--font-size-sm);
-            color: var(--color-text-secondary);
-        }
-
-        .payback-track {
-            flex: 1;
-            height: 6px;
-            background-color: var(--color-border);
             border-radius: var(--radius-full);
             overflow: hidden;
+            margin: var(--space-3) 0 var(--space-2) 0;
         }
 
-        .payback-progress {
+        .progress-bar__fill {
             height: 100%;
             background-color: var(--color-ev-teal);
             border-radius: var(--radius-full);
             transition: width var(--transition-normal);
         }
 
-        .payback-value {
-            min-width: 60px;
-            text-align: right;
-            font-weight: 600;
-            color: var(--color-ev-teal);
-            font-size: var(--font-size-sm);
-        }
-
-        .card {
+        /* ===== Comparison Section ===== */
+        .comparison-section {
             background-color: var(--color-bg-card);
             border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-8);
+            margin-bottom: var(--space-12);
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-6);
+        }
+
+        .comparison-item {
+            padding: var(--space-5);
+            background-color: var(--color-bg-secondary);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-border);
+        }
+
+        .comparison-item__label {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-2);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        .comparison-item__before {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-2);
+        }
+
+        .comparison-item__after {
+            font-size: var(--font-size-2xl);
+            font-weight: 700;
+            color: var(--color-ev-teal);
+        }
+
+        .comparison-item__arrow {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            margin: var(--space-2) 0;
+        }
+
+        /* ===== Calculation Details ===== */
+        .calculation-details {
+            background-color: var(--color-info-bg);
+            border: 1px solid var(--color-info);
+            border-left: 4px solid var(--color-info);
             border-radius: var(--radius-lg);
             padding: var(--space-6);
-            transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+            margin: var(--space-8) 0;
         }
 
-        .card:hover {
-            box-shadow: var(--shadow-md);
-        }
-
-        .cta-section {
-            text-align: center;
-            padding: var(--space-12);
-            margin-top: var(--space-12);
-            background-color: var(--color-bg-card);
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--color-border);
-        }
-
-        .cta-section h2 {
-            font-size: var(--font-size-2xl);
-            margin-bottom: var(--space-4);
+        .calculation-details h4 {
             color: var(--color-text-primary);
-        }
-
-        .cta-section p {
-            color: var(--color-text-secondary);
-            margin-bottom: var(--space-6);
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: var(--space-4);
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        /* Card content styling */
-        .card h3 {
-            color: var(--color-ev-teal);
             margin-bottom: var(--space-3);
             font-size: var(--font-size-lg);
         }
 
-        .card p {
-            color: var(--color-text-secondary);
-            margin-bottom: var(--space-4);
-            line-height: var(--line-height-relaxed);
-        }
-
-        .card ul {
+        .calculation-details p {
             color: var(--color-text-secondary);
             font-size: var(--font-size-sm);
             line-height: var(--line-height-relaxed);
-            margin-left: var(--space-4);
-        }
-
-        .card li {
             margin-bottom: var(--space-2);
         }
 
-        footer {
-            text-align: center;
-            padding: var(--space-10);
-            color: var(--color-text-muted);
+        .calculation-details p:last-child {
+            margin-bottom: 0;
+        }
+
+        .formula {
+            background-color: var(--color-bg-secondary);
+            padding: var(--space-3) var(--space-4);
+            border-radius: var(--radius-md);
+            font-family: 'Courier New', monospace;
             font-size: var(--font-size-sm);
-            border-top: 1px solid var(--color-border);
-            margin-top: var(--space-12);
+            color: var(--color-text-primary);
+            margin: var(--space-2) 0;
+            overflow-x: auto;
         }
 
-        footer a {
+        /* ===== Assumptions & Transparency ===== */
+        .assumptions-section {
+            background-color: var(--color-warning-bg);
+            border: 1px solid var(--color-warning);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            margin-bottom: var(--space-12);
+        }
+
+        .assumptions-section h3 {
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-4);
+            font-size: var(--font-size-lg);
+        }
+
+        .assumptions-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-4);
+        }
+
+        .assumption-item {
+            background-color: var(--color-bg-card);
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-border);
+        }
+
+        .assumption-item__label {
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-2);
+            font-size: var(--font-size-sm);
+        }
+
+        .assumption-item__value {
+            font-size: var(--font-size-base);
+            color: var(--color-text-secondary);
+        }
+
+        /* ===== Controls Section ===== */
+        .controls-section {
+            background-color: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-8);
+            margin-bottom: var(--space-12);
+        }
+
+        .controls-section h3 {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-6);
+        }
+
+        /* ===== Results Section ===== */
+        .results-section {
+            background-color: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-8);
+            margin: var(--space-12) 0;
+        }
+
+        .results-section h3 {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-6);
+        }
+
+        /* ===== Payback Period Display ===== */
+        .payback-display {
+            background-color: var(--color-bg-card);
+            border-left: 4px solid var(--color-ev-teal);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            margin-top: var(--space-6);
+        }
+
+        .payback-display__label {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+            margin-bottom: var(--space-2);
+        }
+
+        .payback-display__value {
+            font-size: var(--font-size-3xl);
+            font-weight: 700;
             color: var(--color-ev-teal);
-            text-decoration: none;
+            margin-bottom: var(--space-2);
         }
 
-        footer a:hover {
-            text-decoration: underline;
+        .payback-display__description {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            line-height: var(--line-height-relaxed);
         }
 
+        /* ===== Reset Button ===== */
+        .btn-group {
+            display: flex;
+            gap: var(--space-4);
+            margin-top: var(--space-8);
+            justify-content: center;
+        }
+
+        /* ===== Info Box ===== */
+        .info-box {
+            background-color: var(--color-info-bg);
+            border: 1px solid var(--color-info);
+            border-radius: var(--radius-md);
+            padding: var(--space-4);
+            margin: var(--space-6) 0;
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            line-height: var(--line-height-relaxed);
+        }
+
+        /* ===== Responsive Design ===== */
         @media (max-width: 768px) {
-            .hero__title {
-                font-size: var(--font-size-2xl);
+            .roi-container {
+                padding: 0 var(--space-4);
             }
 
-            .metrics-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .roi-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-            }
-
-            .investor-quote {
+            .controls-section,
+            .results-section,
+            .comparison-section,
+            .assumptions-section,
+            .calculation-details {
                 padding: var(--space-6);
             }
 
-            .investor-quote-text {
-                font-size: var(--font-size-base);
+            .metrics-container {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .input-row {
+                grid-template-columns: 1fr;
+            }
+
+            .metric-card-roi__value {
+                font-size: var(--font-size-2xl);
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
             }
         }
     </style>
@@ -369,344 +461,319 @@
     </nav>
 
     <section class="hero">
-        <h1 class="hero__title">ROI Dashboard</h1>
-        <p class="hero__subtitle">Comprehensive metrics and financial projections for AI-powered sales enablement program.</p>
+        <h1 class="hero__title">Interactive ROI Calculator</h1>
+        <p class="hero__subtitle">Customize assumptions and see real-time financial projections for your AI-powered sales enablement program.</p>
     </section>
 
-    <main class="container" style="padding-top: var(--space-10); padding-bottom: var(--space-10);">
-        <!-- Key Performance Metrics -->
+    <main class="container roi-container" style="padding-top: var(--space-10); padding-bottom: var(--space-10);">
+
+        <!-- Information Section -->
         <section>
-            <h2 class="section-title">Key Performance Metrics</h2>
-            <div class="metrics-grid">
-                <div class="metric-card">
-                    <div class="metric-label">BDR Opportunities</div>
-                    <div class="metric-value" id="bdr-value">22</div>
-                    <div class="gauge">
-                        <div class="gauge-fill" id="bdr-gauge" style="width: 50%"></div>
+            <div class="info-box">
+                <strong>About this calculator:</strong> This is an interactive projection tool designed to help you understand the potential financial impact of AI sales enablement. Adjust the sliders below to see how different scenarios affect your ROI, payback period, and key business metrics. All calculations are based on standard assumptions listed below.
+            </div>
+        </section>
+
+        <!-- Interactive Controls Section -->
+        <section class="controls-section">
+            <h3>Customize Your Scenario</h3>
+
+            <div class="input-row">
+                <div class="input-group">
+                    <div class="input-group__label">
+                        <span class="input-group__label-text">Current Opportunities per Quarter</span>
+                        <span class="input-group__value" id="val-current-opps">18</span>
                     </div>
-                    <div class="metric-detail">
-                        Baseline: 15-20<br>
-                        Target: 25-30
+                    <input type="range" class="slider-input" id="slider-current-opps" min="10" max="25" value="18" step="1">
+                    <div class="input-group__range-indicators">
+                        <span>10</span>
+                        <span>25</span>
                     </div>
-                    <div class="metric-highlight">+50-66% Increase</div>
+                    <div class="input-group__description">Baseline BDR qualified opportunities</div>
                 </div>
 
-                <div class="metric-card">
-                    <div class="metric-label">Pipeline Value Impact</div>
-                    <div class="metric-value" id="pipeline-value">45%</div>
-                    <div class="gauge">
-                        <div class="gauge-fill" id="pipeline-gauge" style="width: 45%"></div>
+                <div class="input-group">
+                    <div class="input-group__label">
+                        <span class="input-group__label-text">Target Opportunities per Quarter</span>
+                        <span class="input-group__value" id="val-target-opps">28</span>
                     </div>
-                    <div class="metric-detail">
-                        Projected pipeline uplift from increased opportunities and deal velocity
+                    <input type="range" class="slider-input" id="slider-target-opps" min="20" max="40" value="28" step="1">
+                    <div class="input-group__range-indicators">
+                        <span>20</span>
+                        <span>40</span>
                     </div>
-                    <div class="metric-highlight">$2M+ Additional Revenue</div>
+                    <div class="input-group__description">Target with AI enablement</div>
+                </div>
+            </div>
+
+            <div class="input-row">
+                <div class="input-group">
+                    <div class="input-group__label">
+                        <span class="input-group__label-text">Average Deal Size</span>
+                        <span class="input-group__value">$<span id="val-deal-size">50000</span></span>
+                    </div>
+                    <input type="range" class="slider-input" id="slider-deal-size" min="25000" max="150000" value="50000" step="5000">
+                    <div class="input-group__range-indicators">
+                        <span>$25K</span>
+                        <span>$150K</span>
+                    </div>
+                    <div class="input-group__description">Average contract value</div>
                 </div>
 
-                <div class="metric-card">
-                    <div class="metric-label">RFP Turnaround Reduction</div>
-                    <div class="metric-value" id="efficiency-value">38%</div>
-                    <div class="gauge">
-                        <div class="gauge-fill" id="efficiency-gauge" style="width: 38%"></div>
+                <div class="input-group">
+                    <div class="input-group__label">
+                        <span class="input-group__label-text">Win Rate</span>
+                        <span class="input-group__value" id="val-win-rate">12</span><span style="font-size: var(--font-size-base); color: var(--color-text-secondary);">%</span>
                     </div>
-                    <div class="metric-detail">
-                        Time saved through AI-assisted response standardization with Loopio
+                    <input type="range" class="slider-input" id="slider-win-rate" min="5" max="25" value="12" step="1">
+                    <div class="input-group__range-indicators">
+                        <span>5%</span>
+                        <span>25%</span>
                     </div>
-                    <div class="metric-highlight">From 3-5 days to 2 days</div>
+                    <div class="input-group__description">Opportunity to closed deal conversion</div>
+                </div>
+            </div>
+
+            <div class="input-row">
+                <div class="input-group">
+                    <div class="input-group__label">
+                        <span class="input-group__label-text">RFP Response Time Saved</span>
+                        <span class="input-group__value" id="val-rfp-hours">16</span><span style="font-size: var(--font-size-base); color: var(--color-text-secondary);"> hours</span>
+                    </div>
+                    <input type="range" class="slider-input" id="slider-rfp-hours" min="8" max="40" value="16" step="2">
+                    <div class="input-group__range-indicators">
+                        <span>8 hrs</span>
+                        <span>40 hrs</span>
+                    </div>
+                    <div class="input-group__description">Time saved per RFP through AI automation</div>
                 </div>
 
-                <div class="metric-card">
-                    <div class="metric-label">Team Adoption Rate</div>
-                    <div class="metric-value" id="adoption-value">62%</div>
-                    <div class="gauge">
-                        <div class="gauge-fill" id="adoption-gauge" style="width: 62%"></div>
+                <div class="input-group">
+                    <div class="input-group__label">
+                        <span class="input-group__label-text">Team Size Affected</span>
+                        <span class="input-group__value" id="val-team-size">13</span><span style="font-size: var(--font-size-base); color: var(--color-text-secondary);"> people</span>
                     </div>
-                    <div class="metric-detail">
-                        Percentage of BDR and pre-sales teams actively using AI tools
+                    <input type="range" class="slider-input" id="slider-team-size" min="5" max="30" value="13" step="1">
+                    <div class="input-group__range-indicators">
+                        <span>5</span>
+                        <span>30</span>
                     </div>
-                    <div class="metric-highlight">Target: 85% by Q2 2026</div>
+                    <div class="input-group__description">Total BDR and pre-sales team members</div>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn--primary" onclick="calculateROI()">Calculate ROI</button>
+                <button class="btn btn--secondary" onclick="resetCalculator()">Reset to Defaults</button>
+            </div>
+        </section>
+
+        <!-- Key Results Section -->
+        <section class="results-section">
+            <h3>Financial Projections</h3>
+
+            <div class="metrics-container">
+                <div class="metric-card-roi">
+                    <div class="metric-card-roi__label">Pipeline Value Increase</div>
+                    <div class="metric-card-roi__value">$<span id="result-pipeline">150000</span></div>
+                    <div class="metric-card-roi__subtext">
+                        Additional qualified pipeline from increased opportunities
+                    </div>
+                </div>
+
+                <div class="metric-card-roi">
+                    <div class="metric-card-roi__label">Annual Revenue Uplift</div>
+                    <div class="metric-card-roi__value">$<span id="result-revenue">18000</span></div>
+                    <div class="metric-card-roi__subtext">
+                        New closed revenue (opportunities × win rate × deal size)
+                    </div>
+                </div>
+
+                <div class="metric-card-roi">
+                    <div class="metric-card-roi__label">Time Savings per Year</div>
+                    <div class="metric-card-roi__value"><span id="result-hours">832</span></div>
+                    <div class="metric-card-roi__subtext">
+                        RFP response hours saved annually
+                    </div>
+                </div>
+
+                <div class="metric-card-roi">
+                    <div class="metric-card-roi__label">Annual Cost Savings</div>
+                    <div class="metric-card-roi__value">$<span id="result-savings">62400</span></div>
+                    <div class="metric-card-roi__subtext">
+                        Value of team time savings (at $75/hour)
+                    </div>
+                </div>
+
+                <div class="metric-card-roi">
+                    <div class="metric-card-roi__label">Total Investment</div>
+                    <div class="metric-card-roi__value">$<span id="result-investment">11500</span></div>
+                    <div class="metric-card-roi__subtext">
+                        Lemlist + implementation + training
+                    </div>
+                </div>
+
+                <div class="metric-card-roi">
+                    <div class="metric-card-roi__label">Year 1 ROI</div>
+                    <div class="metric-card-roi__value"><span id="result-roi">697</span>%</div>
+                    <div class="metric-card-roi__subtext">
+                        Total returns ÷ investment × 100
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payback Period Highlight -->
+            <div class="payback-display">
+                <div class="payback-display__label">Payback Period</div>
+                <div class="payback-display__value"><span id="result-payback">5</span> Days</div>
+                <div class="payback-display__description">
+                    Time to recover your initial investment through incremental revenue. This assumes opportunity conversion happens within the year.
                 </div>
             </div>
         </section>
 
-        <!-- ROI Calculator -->
-        <section>
-            <h2 class="section-title">Financial Analysis</h2>
-            <div class="roi-section">
-                <h3 style="margin-bottom: var(--space-2); color: var(--color-text-primary);">Investment & Return Summary</h3>
-                <p style="color: var(--color-text-secondary); margin-bottom: var(--space-6);">Detailed breakdown of program costs, expected returns, and payback period projections.</p>
+        <!-- Before & After Comparison -->
+        <section class="comparison-section">
+            <h2 style="color: var(--color-text-primary); margin-bottom: var(--space-4);">Before & After Comparison</h2>
 
-                <div class="roi-grid">
-                    <div class="roi-item">
-                        <div class="roi-item-label">Total Investment</div>
-                        <div class="roi-item-value">$8-15K</div>
-                        <div class="roi-item-detail">
-                            Lemlist: $5-8K<br>
-                            Implementation: $3-7K<br>
-                            Training: Included
-                        </div>
-                    </div>
-
-                    <div class="roi-item">
-                        <div class="roi-item-label">Expected Annual Return</div>
-                        <div class="roi-item-value">$180K-240K</div>
-                        <div class="roi-item-detail">
-                            New pipeline: $2M+<br>
-                            At 10-12% close rate
-                        </div>
-                    </div>
-
-                    <div class="roi-item">
-                        <div class="roi-item-label">Payback Period</div>
-                        <div class="roi-item-value">18-30 Days</div>
-                        <div class="roi-item-detail">
-                            Time to recover initial investment through incremental revenue
-                        </div>
-                    </div>
-
-                    <div class="roi-item">
-                        <div class="roi-item-label">Year 1 ROI</div>
-                        <div class="roi-item-value">1400-2400%</div>
-                        <div class="roi-item-detail">
-                            Return on total investment over 12 months
-                        </div>
-                    </div>
-
-                    <div class="roi-item">
-                        <div class="roi-item-label">Efficiency Savings</div>
-                        <div class="roi-item-value">$45K-60K</div>
-                        <div class="roi-item-detail">
-                            Team time savings from faster RFP responses (38% reduction)
-                        </div>
-                    </div>
-
-                    <div class="roi-item">
-                        <div class="roi-item-label">Net Benefit (Year 1)</div>
-                        <div class="roi-item-value">$225K-300K</div>
-                        <div class="roi-item-detail">
-                            Total returns minus investment and operational costs
-                        </div>
-                    </div>
+            <div class="comparison-grid">
+                <div class="comparison-item">
+                    <div class="comparison-item__label">Opportunities per Quarter</div>
+                    <div class="comparison-item__before"><span id="comp-curr-before">18</span></div>
+                    <div class="comparison-item__arrow">↓</div>
+                    <div class="comparison-item__after"><span id="comp-curr-after">28</span></div>
                 </div>
 
-                <div class="payback-chart">
-                    <h4 style="margin-bottom: var(--space-5); color: var(--color-text-primary);">Revenue Recognition Timeline</h4>
-                    <div class="payback-bar">
-                        <div class="payback-label">Month 1</div>
-                        <div class="payback-track">
-                            <div class="payback-progress" style="width: 15%"></div>
-                        </div>
-                        <div class="payback-value">$25K</div>
-                    </div>
-                    <div class="payback-bar">
-                        <div class="payback-label">Month 2-3</div>
-                        <div class="payback-track">
-                            <div class="payback-progress" style="width: 40%"></div>
-                        </div>
-                        <div class="payback-value">$75K</div>
-                    </div>
-                    <div class="payback-bar">
-                        <div class="payback-label">Month 4-6</div>
-                        <div class="payback-track">
-                            <div class="payback-progress" style="width: 70%"></div>
-                        </div>
-                        <div class="payback-value">$140K</div>
-                    </div>
-                    <div class="payback-bar">
-                        <div class="payback-label">Month 7-12</div>
-                        <div class="payback-track">
-                            <div class="payback-progress" style="width: 100%"></div>
-                        </div>
-                        <div class="payback-value">$240K</div>
-                    </div>
+                <div class="comparison-item">
+                    <div class="comparison-item__label">Annual Revenue Impact</div>
+                    <div class="comparison-item__before">$0</div>
+                    <div class="comparison-item__arrow">↓</div>
+                    <div class="comparison-item__after">$<span id="comp-revenue">18000</span></div>
+                </div>
+
+                <div class="comparison-item">
+                    <div class="comparison-item__label">RFP Response Time</div>
+                    <div class="comparison-item__before">5 days</div>
+                    <div class="comparison-item__arrow">↓</div>
+                    <div class="comparison-item__after">2 days</div>
+                </div>
+
+                <div class="comparison-item">
+                    <div class="comparison-item__label">Annual Team Efficiency</div>
+                    <div class="comparison-item__before">Baseline</div>
+                    <div class="comparison-item__arrow">↓</div>
+                    <div class="comparison-item__after">+<span id="comp-percent">19</span>%</div>
                 </div>
             </div>
         </section>
 
-        <!-- Investor Narrative -->
+        <!-- Calculation Details & Transparency -->
         <section>
-            <h2 class="section-title">Investor Narrative</h2>
-            <div class="investor-quote">
-                <p class="investor-quote-text">
-                    "We implemented AI across BDR outbound through Lemlist and RFP response automation via Loopio standardization, leading to a 50-66% increase in qualified opportunities, 45% projected pipeline uplift, and 38% improvement in RFP turnaround efficiency. With a minimal investment of $8-15K and adoption rates approaching 65%, we project Year 1 net returns of $225K-300K and a payback period of just 18-30 days. This positions EasyVista to capture significantly more market opportunities while simultaneously improving operational efficiency and team velocity."
+            <h2 class="section-title">How We Calculate These Numbers</h2>
+
+            <div class="calculation-details">
+                <h4>Pipeline Value Increase</h4>
+                <p>Shows the additional qualified opportunities created by moving from current to target opportunities per quarter, annualized.</p>
+                <div class="formula">
+                    (Target Opps - Current Opps) × 4 quarters = Annual Opportunity Increase
+                </div>
+                <p style="margin-top: var(--space-4);">
+                    <strong>Example:</strong> (28 - 18) × 4 = 40 additional opportunities per year
                 </p>
-                <p class="investor-quote-attribution">
-                    EasyVista AI Sales Enablement Program | Q1 2026
+            </div>
+
+            <div class="calculation-details">
+                <h4>Revenue Uplift</h4>
+                <p>Calculates the closed revenue expected from additional opportunities, based on your win rate and average deal size.</p>
+                <div class="formula">
+                    (Annual Opportunity Increase) × (Win Rate %) × (Average Deal Size) = Revenue Uplift
+                </div>
+                <p style="margin-top: var(--space-4);">
+                    <strong>Example:</strong> 40 opportunities × 12% win rate × $50,000 deal size = $240,000
+                </p>
+            </div>
+
+            <div class="calculation-details">
+                <h4>Time Savings & Cost Savings</h4>
+                <p>Multiplies time saved per RFP by the number of RFPs handled annually by your team, then converts to dollar value using $75/hour labor cost.</p>
+                <div class="formula">
+                    (RFP Hours Saved) × (Estimated RFPs per Year) × ($75/hour) = Annual Cost Savings
+                </div>
+                <p style="margin-top: var(--space-4);">
+                    <strong>Assumption:</strong> 4 RFPs per BDR per quarter × team size = ~52 RFPs/year for typical team
+                </p>
+            </div>
+
+            <div class="calculation-details">
+                <h4>ROI Percentage</h4>
+                <p>Shows total returns (revenue uplift + cost savings) as a percentage of your investment.</p>
+                <div class="formula">
+                    ((Revenue Uplift + Cost Savings) ÷ Investment) × 100 = ROI %
+                </div>
+                <p style="margin-top: var(--space-4);">
+                    <strong>Example:</strong> (($240K + $62.4K) ÷ $11.5K) × 100 = 2,629% ROI
+                </p>
+            </div>
+
+            <div class="calculation-details">
+                <h4>Payback Period</h4>
+                <p>Calculates how many days of incremental revenue are needed to recover your initial investment.</p>
+                <div class="formula">
+                    (Investment ÷ Daily Revenue Uplift) = Days to Break Even
+                </div>
+                <p style="margin-top: var(--space-4);">
+                    <strong>Note:</strong> Assumes revenue generation begins immediately (in practice, sales cycles vary). This is an optimistic scenario.
                 </p>
             </div>
         </section>
 
-        <!-- Metrics Collection Timeline -->
-        <section>
-            <h2 class="section-title">Metrics Collection Timeline</h2>
-            <div class="timeline-section">
-                <p style="color: var(--color-text-secondary); margin-bottom: var(--space-6);">
-                    Planned collection points for key performance indicators throughout the program lifecycle.
-                </p>
+        <!-- Assumptions & Transparency -->
+        <section class="assumptions-section">
+            <h3>Key Assumptions & Caveats</h3>
+            <div class="assumptions-list">
+                <div class="assumption-item">
+                    <div class="assumption-item__label">Labor Cost</div>
+                    <div class="assumption-item__value">$75 per hour for team members</div>
+                </div>
 
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-date">Feb 21, 2026</div>
-                        <div class="timeline-content">
-                            <h4>Lemlist Pilot Launch (US)</h4>
-                            <p>Baseline opportunity tracking begins. Initial BDR team adoption metrics established.</p>
-                        </div>
-                    </div>
+                <div class="assumption-item">
+                    <div class="assumption-item__label">RFP Frequency</div>
+                    <div class="assumption-item__value">~4 RFPs per BDR per quarter</div>
+                </div>
 
-                    <div class="timeline-item">
-                        <div class="timeline-date">Mar 7, 2026</div>
-                        <div class="timeline-content">
-                            <h4>Lemlist Go/No-Go Decision</h4>
-                            <p>First month performance review. Collection of early opportunity and engagement metrics.</p>
-                        </div>
-                    </div>
+                <div class="assumption-item">
+                    <div class="assumption-item__label">Base Investment</div>
+                    <div class="assumption-item__value">$8-15K (Lemlist $5-8K + implementation $2-4K + training $1-3K)</div>
+                </div>
 
-                    <div class="timeline-item">
-                        <div class="timeline-date">Mar 15, 2026</div>
-                        <div class="timeline-content">
-                            <h4>Loopio English Translation Complete</h4>
-                            <p>Pre-sales team adoption begins. RFP turnaround time baseline measurements initiated.</p>
-                        </div>
-                    </div>
+                <div class="assumption-item">
+                    <div class="assumption-item__label">Sales Cycle</div>
+                    <div class="assumption-item__value">Revenue recognition within 12 months</div>
+                </div>
 
-                    <div class="timeline-item">
-                        <div class="timeline-date">Apr 1, 2026</div>
-                        <div class="timeline-content">
-                            <h4>Q1 Performance Review</h4>
-                            <p>Full month of data from both workstreams. Adoption rates, opportunity metrics, and efficiency gains measured.</p>
-                        </div>
-                    </div>
+                <div class="assumption-item">
+                    <div class="assumption-item__label">Adoption Rate</div>
+                    <div class="assumption-item__value">60-85% of eligible team members</div>
+                </div>
 
-                    <div class="timeline-item">
-                        <div class="timeline-date">May 31, 2026</div>
-                        <div class="timeline-content">
-                            <h4>Mid-Year ROI Checkpoint</h4>
-                            <p>Pipeline velocity and close rate impact assessment. Team adoption goals review (target: 85%).</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-date">Aug 31, 2026</div>
-                        <div class="timeline-content">
-                            <h4>Q3 Program Expansion Review</h4>
-                            <p>Evaluation of global rollout readiness. 6-month financial impact analysis and scaling decisions.</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-date">Dec 31, 2026</div>
-                        <div class="timeline-content">
-                            <h4>Year 1 Full Impact Assessment</h4>
-                            <p>Complete financial close on Year 1 program. Total opportunity count, pipeline contribution, efficiency savings, and ROI validation.</p>
-                        </div>
-                    </div>
+                <div class="assumption-item">
+                    <div class="assumption-item__label">RFP Time Savings</div>
+                    <div class="assumption-item__value">38% reduction in turnaround time (3-5 days → 2 days)</div>
                 </div>
             </div>
-        </section>
 
-        <!-- Supporting Metrics Detail -->
-        <section style="margin-top: var(--space-12);">
-            <h2 class="section-title">Supporting Metrics Details</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-6);">
-                <div class="card">
-                    <h3 style="color: var(--color-ev-teal); margin-bottom: var(--space-3);">BDR Opportunity Growth</h3>
-                    <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">
-                        Current state: 15-20 qualified opportunities per quarter from BDR team.
-                    </p>
-                    <div style="padding: var(--space-3); background-color: var(--color-info-bg); border-radius: var(--radius-md); margin-bottom: var(--space-3);">
-                        <strong style="color: var(--color-ev-teal);">Mechanism:</strong>
-                        <p style="margin-top: var(--space-1); font-size: var(--font-size-sm); color: var(--color-text-secondary);">
-                            Lemlist AI-powered personalization enables higher outreach volume and engagement rates, converting more conversations to pipeline.
-                        </p>
-                    </div>
-                    <div style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">
-                        <strong>Expected target:</strong> 25-30 opportunities/quarter
-                    </div>
-                </div>
-
-                <div class="card">
-                    <h3 style="color: var(--color-ev-teal); margin-bottom: var(--space-3);">Pipeline Value Impact</h3>
-                    <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">
-                        Cumulative effect of more opportunities and faster deal progression through pipeline.
-                    </p>
-                    <div style="padding: var(--space-3); background-color: var(--color-info-bg); border-radius: var(--radius-md); margin-bottom: var(--space-3);">
-                        <strong style="color: var(--color-ev-teal);">Mechanism:</strong>
-                        <p style="margin-top: var(--space-1); font-size: var(--font-size-sm); color: var(--color-text-secondary);">
-                            +50% more BDR opportunities at typical conversion rates + 38% faster RFP response = accelerated sales cycle.
-                        </p>
-                    </div>
-                    <div style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">
-                        <strong>Projected impact:</strong> $2M+ new pipeline
-                    </div>
-                </div>
-
-                <div class="card">
-                    <h3 style="color: var(--color-ev-teal); margin-bottom: var(--space-3);">Efficiency Gains</h3>
-                    <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">
-                        Time savings from AI-assisted RFP response standardization with Loopio.
-                    </p>
-                    <div style="padding: var(--space-3); background-color: var(--color-info-bg); border-radius: var(--radius-md); margin-bottom: var(--space-3);">
-                        <strong style="color: var(--color-ev-teal);">Mechanism:</strong>
-                        <p style="margin-top: var(--space-1); font-size: var(--font-size-sm); color: var(--color-text-secondary);">
-                            Unified response library and AI suggestions reduce manual research and writing. Concurrent response drafting across regions enabled.
-                        </p>
-                    </div>
-                    <div style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">
-                        <strong>Expected:</strong> RFP turnaround from 3-5 days → 2 days
-                    </div>
-                </div>
-
-                <div class="card">
-                    <h3 style="color: var(--color-ev-teal); margin-bottom: var(--space-3);">Team Adoption Rate</h3>
-                    <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">
-                        Percentage of eligible team members actively using AI tools in their workflows.
-                    </p>
-                    <div style="padding: var(--space-3); background-color: var(--color-info-bg); border-radius: var(--radius-md); margin-bottom: var(--space-3);">
-                        <strong style="color: var(--color-ev-teal);">Current:</strong>
-                        <p style="margin-top: var(--space-1); font-size: var(--font-size-sm); color: var(--color-text-secondary);">
-                            ~62% adoption during ramp-up phase (5 BDRs, 8 pre-sales team members active)
-                        </p>
-                    </div>
-                    <div style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">
-                        <strong>Target by Q2:</strong> 85% adoption across expanded team
-                    </div>
-                </div>
-
-                <div class="card">
-                    <h3 style="color: var(--color-ev-teal); margin-bottom: var(--space-3);">Investment Breakdown</h3>
-                    <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">
-                        Total capital allocation across program components.
-                    </p>
-                    <ul style="font-size: var(--font-size-sm); color: var(--color-text-secondary); line-height: var(--line-height-relaxed); margin-left: var(--space-4);">
-                        <li>Lemlist licensing (annual): $5-8K</li>
-                        <li>Implementation & setup: $2-3K</li>
-                        <li>Training & enablement: $1-2K</li>
-                        <li>Loopio: $0 (existing license)</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <h3 style="color: var(--color-ev-teal); margin-bottom: var(--space-3);">Return Timeline</h3>
-                    <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">
-                        When incremental revenue from AI enablement reaches payback threshold.
-                    </p>
-                    <ul style="font-size: var(--font-size-sm); color: var(--color-text-secondary); line-height: var(--line-height-relaxed); margin-left: var(--space-4);">
-                        <li><strong>Payback:</strong> 18-30 days</li>
-                        <li><strong>Break-even:</strong> First month</li>
-                        <li><strong>Year 1 net:</strong> $225K-300K</li>
-                        <li><strong>3-year cumulative:</strong> $500K+</li>
-                    </ul>
-                </div>
+            <div class="info-box" style="margin-top: var(--space-6);">
+                <strong>Important disclaimer:</strong> This calculator is a projection tool based on typical performance metrics and assumptions. Actual results will vary based on your specific implementation, team adoption, market conditions, and sales processes. These numbers should be used for planning purposes and validated against your actual performance metrics once the program is live.
             </div>
         </section>
 
         <!-- CTA Section -->
-        <section class="cta-section">
-            <h2>Want to Learn More?</h2>
-            <p>Explore detailed guides, track project progress, or review full implementation details.</p>
+        <section class="cta-section" style="margin-top: var(--space-12);">
+            <h2>Want to See Live Results?</h2>
+            <p>Track real program performance, view implementation guides, or explore the full dashboard.</p>
             <div class="cta-buttons">
-                <a href="progress.html" class="btn btn--primary">View Progress</a>
-                <a href="guides/index.html" class="btn btn--secondary">View Guides</a>
+                <a href="progress.html" class="btn btn--primary">View Progress Tracking</a>
+                <a href="guides/index.html" class="btn btn--secondary">Implementation Guides</a>
                 <a href="../index.html" class="btn btn--secondary">Full Dashboard</a>
             </div>
         </section>
@@ -718,7 +785,9 @@
     </footer>
 
     <script>
-        // Theme handling
+        // =====================================
+        // Theme Handling
+        // =====================================
         function getPreferredTheme() {
             const saved = localStorage.getItem('portal-theme');
             if (saved) return saved;
@@ -736,50 +805,170 @@
             setTheme(current === 'dark' ? 'light' : 'dark');
         }
 
-        // Initialize theme
         setTheme(getPreferredTheme());
 
-        // Animate metrics on page load
-        function animateValue(element, start, end, duration) {
-            let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                const value = Math.floor(progress * (end - start) + start);
-                element.textContent = value + (element.id.includes('value') && !element.id.includes('bdr') ? '%' : '');
-                if (progress < 1) {
-                    window.requestAnimationFrame(step);
-                }
-            };
-            window.requestAnimationFrame(step);
+        // =====================================
+        // Default Values & State
+        // =====================================
+        const defaults = {
+            currentOpps: 18,
+            targetOpps: 28,
+            dealSize: 50000,
+            winRate: 12,
+            rfpHours: 16,
+            teamSize: 13
+        };
+
+        // =====================================
+        // Slider Event Listeners
+        // =====================================
+        document.getElementById('slider-current-opps').addEventListener('input', function() {
+            document.getElementById('val-current-opps').textContent = this.value;
+            calculateROI();
+        });
+
+        document.getElementById('slider-target-opps').addEventListener('input', function() {
+            document.getElementById('val-target-opps').textContent = this.value;
+            calculateROI();
+        });
+
+        document.getElementById('slider-deal-size').addEventListener('input', function() {
+            document.getElementById('val-deal-size').textContent = parseInt(this.value).toLocaleString();
+            calculateROI();
+        });
+
+        document.getElementById('slider-win-rate').addEventListener('input', function() {
+            document.getElementById('val-win-rate').textContent = this.value;
+            calculateROI();
+        });
+
+        document.getElementById('slider-rfp-hours').addEventListener('input', function() {
+            document.getElementById('val-rfp-hours').textContent = this.value;
+            calculateROI();
+        });
+
+        document.getElementById('slider-team-size').addEventListener('input', function() {
+            document.getElementById('val-team-size').textContent = this.value;
+            calculateROI();
+        });
+
+        // =====================================
+        // Main ROI Calculator
+        // =====================================
+        function calculateROI() {
+            // Get values from sliders
+            const currentOpps = parseInt(document.getElementById('slider-current-opps').value);
+            const targetOpps = parseInt(document.getElementById('slider-target-opps').value);
+            const dealSize = parseInt(document.getElementById('slider-deal-size').value);
+            const winRate = parseInt(document.getElementById('slider-win-rate').value);
+            const rfpHours = parseInt(document.getElementById('slider-rfp-hours').value);
+            const teamSize = parseInt(document.getElementById('slider-team-size').value);
+
+            // ===== CALCULATIONS =====
+
+            // 1. Pipeline value increase (annualized)
+            const opportunityIncrease = (targetOpps - currentOpps) * 4; // 4 quarters
+            const pipelineValue = opportunityIncrease * dealSize;
+
+            // 2. Revenue uplift (opportunities × win rate × deal size, annualized)
+            const revenueUplift = opportunityIncrease * (winRate / 100) * dealSize;
+
+            // 3. Time savings calculations
+            // Estimate RFPs per year: ~4 RFPs per person per quarter
+            const rfpsPerYear = Math.round((teamSize * 4 * 4) / 12); // ~13 people × 4 RFPs/quarter
+            const totalHoursSaved = rfpsPerYear * rfpHours;
+            const hourlyRate = 75; // Standard burdened labor cost
+            const costSavings = totalHoursSaved * hourlyRate;
+
+            // 4. Investment (base + scaled by team size percentage)
+            const baseInvestment = 11500; // Average of 8K-15K range
+            const investment = baseInvestment; // Fixed investment regardless of team size
+
+            // 5. Total returns
+            const totalReturns = revenueUplift + costSavings;
+
+            // 6. ROI Percentage
+            const roiPercent = investment > 0 ? ((totalReturns / investment) * 100) : 0;
+
+            // 7. Payback period (days)
+            const dailyRevenue = revenueUplift > 0 ? revenueUplift / 365 : 0;
+            const paybackDays = dailyRevenue > 0 ? Math.round(investment / dailyRevenue) : 365;
+
+            // ===== UPDATE DOM =====
+
+            // Results metrics
+            document.getElementById('result-pipeline').textContent = formatCurrency(pipelineValue);
+            document.getElementById('result-revenue').textContent = formatCurrency(revenueUplift);
+            document.getElementById('result-hours').textContent = totalHoursSaved.toLocaleString();
+            document.getElementById('result-savings').textContent = formatCurrency(costSavings);
+            document.getElementById('result-investment').textContent = formatCurrency(investment);
+            document.getElementById('result-roi').textContent = Math.round(roiPercent).toLocaleString();
+            document.getElementById('result-payback').textContent = Math.max(1, Math.min(paybackDays, 365)); // Cap at 1 day min, 1 year max
+
+            // Comparison section
+            document.getElementById('comp-curr-before').textContent = currentOpps;
+            document.getElementById('comp-curr-after').textContent = targetOpps;
+            document.getElementById('comp-revenue').textContent = formatCurrency(revenueUplift);
+            const efficiencyGain = teamSize > 0 ? ((totalHoursSaved / (teamSize * 1920)) * 100) : 0; // 1920 = hours per person per year
+            document.getElementById('comp-percent').textContent = Math.round(efficiencyGain);
+
+            // Animate changes with smooth transitions
+            animateMetrics();
         }
 
-        function animateGauge(gaugeElement, targetPercent, duration) {
-            let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                const value = progress * targetPercent;
-                gaugeElement.style.width = value + '%';
-                if (progress < 1) {
-                    window.requestAnimationFrame(step);
-                }
-            };
-            window.requestAnimationFrame(step);
+        // =====================================
+        // Reset Calculator
+        // =====================================
+        function resetCalculator() {
+            document.getElementById('slider-current-opps').value = defaults.currentOpps;
+            document.getElementById('slider-target-opps').value = defaults.targetOpps;
+            document.getElementById('slider-deal-size').value = defaults.dealSize;
+            document.getElementById('slider-win-rate').value = defaults.winRate;
+            document.getElementById('slider-rfp-hours').value = defaults.rfpHours;
+            document.getElementById('slider-team-size').value = defaults.teamSize;
+
+            // Update display values
+            document.getElementById('val-current-opps').textContent = defaults.currentOpps;
+            document.getElementById('val-target-opps').textContent = defaults.targetOpps;
+            document.getElementById('val-deal-size').textContent = defaults.dealSize.toLocaleString();
+            document.getElementById('val-win-rate').textContent = defaults.winRate;
+            document.getElementById('val-rfp-hours').textContent = defaults.rfpHours;
+            document.getElementById('val-team-size').textContent = defaults.teamSize;
+
+            calculateROI();
         }
 
-        // Start animations when page loads
+        // =====================================
+        // Utility Functions
+        // =====================================
+        function formatCurrency(value) {
+            const abs = Math.abs(value);
+            if (abs >= 1000000) {
+                return '$' + (value / 1000000).toFixed(1) + 'M';
+            } else if (abs >= 1000) {
+                return '$' + (value / 1000).toFixed(0) + 'K';
+            }
+            return '$' + Math.round(value).toLocaleString();
+        }
+
+        function animateMetrics() {
+            // Add a subtle visual feedback when values update
+            const metrics = document.querySelectorAll('.metric-card-roi');
+            metrics.forEach(metric => {
+                metric.style.opacity = '0.8';
+                setTimeout(() => {
+                    metric.style.opacity = '1';
+                }, 100);
+            });
+        }
+
+        // =====================================
+        // Initialize on page load
+        // =====================================
         window.addEventListener('load', () => {
+            // Initial calculation
             setTimeout(() => {
-                animateValue(document.getElementById('bdr-value'), 0, 22, 1000);
-                animateValue(document.getElementById('pipeline-value'), 0, 45, 1000);
-                animateValue(document.getElementById('efficiency-value'), 0, 38, 1000);
-                animateValue(document.getElementById('adoption-value'), 0, 62, 1000);
-
-                animateGauge(document.getElementById('bdr-gauge'), 50, 1000);
-                animateGauge(document.getElementById('pipeline-gauge'), 45, 1000);
-                animateGauge(document.getElementById('efficiency-gauge'), 38, 1000);
-                animateGauge(document.getElementById('adoption-gauge'), 62, 1000);
+                calculateROI();
             }, 100);
         });
     </script>

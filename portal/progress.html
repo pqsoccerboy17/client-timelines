@@ -439,7 +439,8 @@
     <nav class="nav">
         <div class="nav__inner">
             <a href="index.html" class="nav__brand">EasyVista AI Enablement</a>
-            <div class="nav__links">
+            <button class="nav__toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+            <div class="nav__links" id="nav-links">
                 <a href="index.html" class="nav__link">Home</a>
                 <a href="progress.html" class="nav__link nav__link--active">Progress</a>
                 <a href="guides/index.html" class="nav__link">Guides</a>
@@ -807,7 +808,7 @@
         </section>
     </main>
 
-    <footer>
+    <footer class="footer">
         <p>EasyVista AI Sales Enablement | Powered by <a href="https://yelin.io">Yelin.io</a></p>
         <p style="margin-top: var(--space-2);">Last updated: Feb 4, 2026</p>
     </footer>
@@ -833,6 +834,12 @@
 
         // Initialize theme
         setTheme(getPreferredTheme());
+
+        // Mobile nav toggle
+        function toggleNav() {
+            const navLinks = document.getElementById('nav-links');
+            navLinks.classList.toggle('active');
+        }
     </script>
 </body>
 </html>
