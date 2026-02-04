@@ -2,6 +2,19 @@
 
 Timeline visualization for tracking consulting engagement milestones, stakeholders, and deliverables.
 
+## Tool Preferences (Yelin.io / EasyVista)
+
+**Default Connectors:**
+- **Email:** Microsoft 365 (Outlook) — `michael@yelin.io`
+- **Calendar:** Microsoft 365 (Outlook) — `michael@yelin.io`
+- **Database/CRM:** Notion — "AI Sales Enablement Assessment" workspace
+- **Chat:** Microsoft Teams (for EasyVista communications)
+
+**When running sales skills (daily-briefing, call-prep, account-research, etc.):**
+- Always use O365 tools (`outlook_email_search`, `outlook_calendar_search`) instead of Gmail/GCal
+- Pull pipeline data from Notion when available
+- Search Teams chat for EasyVista-related threads
+
 ## Architecture
 
 **Static-first, config-driven design:**

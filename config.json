@@ -2,7 +2,7 @@
   "meta": {
     "template_version": "1.0",
     "created": "2026-01-21",
-    "last_updated": "2026-02-03T15:34:30.119822",
+    "last_updated": "2026-02-04T20:30:00.000000",
     "author": "Mike Duncan"
   },
   "client": {
@@ -232,6 +232,18 @@
               "status": "pending"
             },
             {
+              "task": "French → English translation (700 questions)",
+              "owner": "Jon & Todd",
+              "due": "2026-02-13",
+              "status": "in_progress"
+            },
+            {
+              "task": "Loopio office hours launch",
+              "owner": "Dalila/Yann",
+              "due": "2026-02-10",
+              "status": "pending"
+            },
+            {
               "task": "Identify blockers",
               "owner": "Mike",
               "due": "2026-02-07",
@@ -421,15 +433,15 @@
       "name": "Dalila Souiah",
       "role": "Global Presales Lead",
       "group": "loopio",
-      "status": "cold",
-      "notes": "NAM, LatAm, Europe oversight. Yann 28 call confirmed 100% Loopio adoption target."
+      "status": "engaged",
+      "notes": "NAM, LatAm, Europe oversight. Feb 4 Loopio alignment call. Coordinating office hours with Yann."
     },
     {
-      "name": "Yann",
+      "name": "Yann Mercier",
       "role": "Global Head / Product Owner, Loopio",
       "group": "loopio",
-      "status": "scheduled",
-      "notes": "100% Loopio adoption, global knowledge owner. Feb target for English content structure."
+      "status": "engaged",
+      "notes": "100% Loopio adoption, global knowledge owner. Designated global Loopio manager. French library = 700 questions. Jon & Todd translating to English by Feb 13."
     },
     {
       "name": "Rod",
@@ -531,12 +543,27 @@
     },
     {
       "date": "2026-02-04",
-      "event": "Mandatory Loopio alignment call",
-      "critical": true
+      "event": "Mandatory Loopio alignment call - COMPLETE. Translation to English by Feb 13 (Jon & Todd). Office hours launching.",
+      "critical": true,
+      "complete": true
+    },
+    {
+      "date": "2026-02-05",
+      "event": "EasyVista | Yelin.io Sync (Loopio office hours kickoff, Lemlist quote review)"
     },
     {
       "date": "2026-02-07",
       "event": "Validation phase complete"
+    },
+    {
+      "date": "2026-02-13",
+      "event": "Loopio English translation deadline (Jon & Todd)",
+      "critical": true
+    },
+    {
+      "date": "2026-02-25",
+      "event": "AI at EasyVista: Project Update (Evan/Patrice)",
+      "critical": true
     },
     {
       "date": "2026-02-09",
@@ -566,14 +593,13 @@
     }
   ],
   "open_questions": [
-    "Why does Rod prefer ChatGPT over Loopio? (Need detailed understanding)",
-    "What specific metrics does Loopio track that we can use for adoption measurement?",
+    "Why does Rod prefer ChatGPT over Loopio? (Need detailed understanding) - Interview pending",
+    "What specific metrics does Loopio track? RESOLVED: France achieving 3x time savings (3-day RFP reduced to 1 day)",
     "Baseline BDR metrics validated for DACH (Seima: 20-30 companies/day) - need US/France/Spain/UK/Italy metrics",
     "When can we schedule the tech DD deep-dive session?",
     "What is Laure Ruperas' role in the engagement?",
     "When will we receive Stefano's email for Italy coordination?",
-    "Chris/Evan coordinating entity selection (US vs France) for Lemlist purchasing",
-    "Lemlist AE to generate invoice within 24 hours (pending)"
+    "RESOLVED: Lemlist pricing deck received Feb 4. EasyVista SA, 10 licenses, annual pricing selected."
   ],
   "investor_narrative": {
     "template": "We implemented AI across BDR outbound and RFP response, leading to X% more opportunities, Y% pipeline uplift, and Z% higher efficiency, while scaling without proportional headcount increase.",

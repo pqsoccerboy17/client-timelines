@@ -1,9 +1,9 @@
 # EasyVista Engagement Timeline
-## Internal Review | February 03, 2026
+## Internal Review | February 04, 2026
 
 **Contact:** Evan Carlson (COO)
 **Deadline:** Q1 2026 (2026-03-31)
-**Days Remaining:** ~55 days
+**Days Remaining:** ~54 days
 **Budget:** $10,000-$15,000
 
 ---
@@ -71,6 +71,8 @@
 | Schedule Dalila/Yann call | Mike | 2026-01-24 |
 | Discovery call | Mike | 2026-01-28 |
 | Interview Rod (ChatGPT usage) | Mike | 2026-02-05 |
+| French → English translation (700 questions) | Jon & Todd | 2026-02-13 |
+| Loopio office hours launch | Dalila/Yann | 2026-02-10 |
 | Identify blockers | Mike | 2026-02-07 |
 
 #### Solution Design (2026-02-10 - 2026-02-21)
@@ -123,8 +125,11 @@
 - **2026-01-30** — AI Project Update - Patrice AI comms commitment
 - **2026-01-31** — DACH GTM plan & Seima Lemlist setup
 - **2026-02-03** — Chris Holt intro call (RevOps)
-- **2026-02-04** — 🎯 Mandatory Loopio alignment call
+- **2026-02-04** — 🎯 Mandatory Loopio alignment call - COMPLETE. Translation to English by Feb 13 (Jon & Todd). Office hours launching.
+- **2026-02-05** — EasyVista | Yelin.io Sync (Loopio office hours kickoff, Lemlist quote review)
 - **2026-02-07** — Validation phase complete
+- **2026-02-13** — 🎯 Loopio English translation deadline (Jon & Todd)
+- **2026-02-25** — 🎯 AI at EasyVista: Project Update (Evan/Patrice)
 - **2026-02-09** — New West BDR onboarding + Lemlist training
 - **2026-02-21** — Lemlist US pilot launch
 - **2026-03-07** — 🎯 Lemlist Go/No-Go decision
@@ -136,15 +141,14 @@
 
 ## Open Questions
 
-- [ ] Why does Rod prefer ChatGPT over Loopio? (Need detailed understanding)
-- [ ] What specific metrics does Loopio track that we can use for adoption measurement?
+- [ ] Why does Rod prefer ChatGPT over Loopio? (Need detailed understanding) - Interview pending
+- [ ] What specific metrics does Loopio track? RESOLVED: France achieving 3x time savings (3-day RFP reduced to 1 day)
 - [ ] Baseline BDR metrics validated for DACH (Seima: 20-30 companies/day) - need US/France/Spain/UK/Italy metrics
 - [ ] When can we schedule the tech DD deep-dive session?
 - [ ] What is Laure Ruperas' role in the engagement?
 - [ ] When will we receive Stefano's email for Italy coordination?
-- [ ] Chris/Evan coordinating entity selection (US vs France) for Lemlist purchasing
-- [ ] Lemlist AE to generate invoice within 24 hours (pending)
+- [ ] RESOLVED: Lemlist pricing deck received Feb 4. EasyVista SA, 10 licenses, annual pricing selected.
 
 ---
 
-*Generated 2026-02-03 15:34*
+*Generated 2026-02-04 21:15*
