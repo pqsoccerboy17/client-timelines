@@ -496,6 +496,30 @@
                     </div>
                 </div>
 
+                <!-- Labor Cost Input (Editable) -->
+                <div class="labor-cost-group" style="margin-top: var(--space-4); padding: var(--space-4); background: var(--color-ev-teal-soft); border: 1px solid var(--color-ev-teal); border-radius: var(--radius-md);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-2);">
+                        <span style="font-weight: 600; font-size: var(--font-size-sm); color: var(--color-text-primary);">Labor Cost</span>
+                        <span style="font-size: var(--font-size-xs); color: var(--color-text-muted);">Key assumption</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: var(--space-3);">
+                        <div style="display: flex; align-items: center; gap: var(--space-1);">
+                            <span style="color: var(--color-text-secondary);">$</span>
+                            <input type="number" id="input-labor-rate" value="75" min="25" max="200" step="5"
+                                   style="width: 70px; padding: var(--space-2); border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: var(--font-size-base); font-weight: 600; text-align: center; background: var(--color-bg-card); color: var(--color-ev-teal);">
+                            <span style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">/hr</span>
+                        </div>
+                        <span style="color: var(--color-text-muted);">=</span>
+                        <div style="background: var(--color-bg-card); padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
+                            <span style="font-weight: 700; color: var(--color-ev-teal); font-size: var(--font-size-base);">$<span id="val-labor-yearly">156K</span></span>
+                            <span style="color: var(--color-text-muted); font-size: var(--font-size-xs);">/year</span>
+                        </div>
+                    </div>
+                    <div style="font-size: var(--font-size-xs); color: var(--color-text-muted); margin-top: var(--space-2);">
+                        Based on 2,080 work hours/year (40 hrs × 52 weeks)
+                    </div>
+                </div>
+
                 <div class="info-tip">
                     💡 Results update automatically as you adjust sliders
                 </div>
@@ -597,9 +621,9 @@
                     <div class="formula">40 opps × 12% × $50K = $240K revenue</div>
 
                     <p style="margin: var(--space-4) 0 var(--space-3); color: var(--color-text-secondary); font-size: var(--font-size-sm);">
-                        <strong>Cost Savings:</strong> RFP Hours Saved × RFPs/Year × $75/hour
+                        <strong>Cost Savings:</strong> RFP Hours Saved × RFPs/Year × Labor Rate
                     </p>
-                    <div class="formula">16 hrs × 52 RFPs × $75 = $62.4K savings</div>
+                    <div class="formula">16 hrs × 52 RFPs × $<span id="formula-labor-rate">75</span>/hr = $<span id="formula-savings">62.4K</span> savings</div>
 
                     <p style="margin: var(--space-4) 0 var(--space-3); color: var(--color-text-secondary); font-size: var(--font-size-sm);">
                         <strong>ROI:</strong> (Revenue + Savings) ÷ Investment × 100
@@ -616,9 +640,9 @@
                 </div>
                 <div class="collapsible__content">
                     <div class="assumptions-grid">
-                        <div class="assumption-pill">
-                            <div class="assumption-pill__label">Labor Cost</div>
-                            <div class="assumption-pill__value">$75/hour</div>
+                        <div class="assumption-pill" style="border-color: var(--color-ev-teal); background: var(--color-ev-teal-soft);">
+                            <div class="assumption-pill__label">Labor Cost <span style="font-weight: 400;">(editable above)</span></div>
+                            <div class="assumption-pill__value">$<span id="assumption-labor-rate">75</span>/hr → $<span id="assumption-labor-yearly">156K</span>/yr</div>
                         </div>
                         <div class="assumption-pill">
                             <div class="assumption-pill__label">RFP Frequency</div>
@@ -710,7 +734,8 @@
             dealSize: 50000,
             winRate: 12,
             rfpHours: 16,
-            teamSize: 13
+            teamSize: 13,
+            laborRate: 75
         };
 
         // =====================================
@@ -746,6 +771,11 @@
             calculateROI();
         });
 
+        document.getElementById('input-labor-rate').addEventListener('input', function() {
+            updateLaborYearly();
+            calculateROI();
+        });
+
         // =====================================
         // Format Helpers
         // =====================================
@@ -759,6 +789,20 @@
             if (value >= 1000000) return (value / 1000000).toFixed(1) + 'M';
             if (value >= 1000) return Math.round(value / 1000) + 'K';
             return Math.round(value).toLocaleString();
+        }
+
+        // =====================================
+        // Labor Rate → Yearly Calculation
+        // =====================================
+        function updateLaborYearly() {
+            const hourlyRate = parseInt(document.getElementById('input-labor-rate').value) || defaults.laborRate;
+            const yearlyRate = hourlyRate * 2080; // 40 hrs × 52 weeks
+            document.getElementById('val-labor-yearly').textContent = formatCurrency(yearlyRate);
+            // Also update the assumptions section
+            document.getElementById('assumption-labor-rate').textContent = hourlyRate;
+            document.getElementById('assumption-labor-yearly').textContent = formatCurrency(yearlyRate);
+            // Update formula display
+            document.getElementById('formula-labor-rate').textContent = hourlyRate;
         }
 
         // =====================================
@@ -777,9 +821,10 @@
             const pipelineValue = opportunityIncrease * dealSize;
             const revenueUplift = opportunityIncrease * (winRate / 100) * dealSize;
 
+            const laborRate = parseInt(document.getElementById('input-labor-rate').value) || defaults.laborRate;
             const rfpsPerYear = Math.round((teamSize * 4 * 4) / 12);
             const totalHoursSaved = rfpsPerYear * rfpHours;
-            const costSavings = totalHoursSaved * 75;
+            const costSavings = totalHoursSaved * laborRate;
 
             const investment = 11500;
             const totalReturns = revenueUplift + costSavings;
@@ -816,6 +861,7 @@
             document.getElementById('slider-win-rate').value = defaults.winRate;
             document.getElementById('slider-rfp-hours').value = defaults.rfpHours;
             document.getElementById('slider-team-size').value = defaults.teamSize;
+            document.getElementById('input-labor-rate').value = defaults.laborRate;
 
             document.getElementById('val-current-opps').textContent = defaults.currentOpps;
             document.getElementById('val-target-opps').textContent = defaults.targetOpps;
@@ -824,12 +870,14 @@
             document.getElementById('val-rfp-hours').textContent = defaults.rfpHours;
             document.getElementById('val-team-size').textContent = defaults.teamSize;
 
+            updateLaborYearly();
             calculateROI();
         }
 
         // Initialize
         window.addEventListener('load', () => {
             document.getElementById('val-deal-size').textContent = formatK(defaults.dealSize);
+            updateLaborYearly();
             setTimeout(calculateROI, 100);
         });
     </script>
