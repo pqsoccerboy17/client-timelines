@@ -721,6 +721,28 @@ body {
     color: var(--color-text-primary);
 }
 
+/* Breadcrumb Navigation */
+.breadcrumb {
+    padding: var(--space-3) var(--space-6);
+    background: var(--color-bg-card);
+    border-bottom: 1px solid var(--color-border);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+}
+
+.breadcrumb a {
+    color: var(--color-ev-teal);
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb span {
+    color: var(--color-text-muted);
+}
+
 /* Footer Component */
 .footer {
     text-align: center;
