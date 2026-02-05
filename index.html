@@ -1192,15 +1192,22 @@ gantt
     Implementation :loopio_p2, after loopio_p1, 2026-03-21
     Handoff :loopio_p3, after loopio_p2, 2026-03-31
 
-    section Technical Due Diligence Support
-    Assessment :active, tech_dd_p0, 2026-01-21, 2026-02-14
-
     section Milestones
     Christopher/Seima call (DACH/OTRS) - Complete :milestone, 2026-01-22, 0d
     Ludovic/Loic prioritization review :milestone, 2026-01-23, 0d
+    Christopher call (Germany) :milestone, 2026-01-23, 0d
     Tim validation call (US) :milestone, 2026-01-24, 0d
-    DACH GTM plan & Seima setup :milestone, 2026-01-31, 0d
+    Sean Herbert validation call (UK) :milestone, 2026-01-23, 0d
+    Loopio discovery call with Dalila/Yann :milestone, 2026-01-28, 0d
+    AI Project Update - Patrice AI comms commitment :milestone, 2026-01-30, 0d
+    DACH GTM plan & Seima Lemlist setup :milestone, 2026-01-31, 0d
+    Chris Holt intro call (RevOps) :milestone, 2026-02-03, 0d
+    Mandatory Loopio alignment call - COMPLETE. Translation to English by Feb 13 (Jon & Todd). Office hours launching. :crit, milestone, 2026-02-04, 0d
+    EasyVista | Yelin.io Sync (Loopio office hours kickoff, Lemlist quote review) :milestone, 2026-02-05, 0d
     Validation phase complete :milestone, 2026-02-07, 0d
+    Loopio English translation deadline (Jon & Todd) :crit, milestone, 2026-02-13, 0d
+    AI at EasyVista: Project Update (Evan/Patrice) :crit, milestone, 2026-02-25, 0d
+    New West BDR onboarding + Lemlist training :milestone, 2026-02-09, 0d
     Lemlist US pilot launch :milestone, 2026-02-21, 0d
     Lemlist Go/No-Go decision :crit, milestone, 2026-03-07, 0d
     Loopio global training complete :milestone, 2026-03-21, 0d
@@ -1216,66 +1223,44 @@ gantt
                 <button class="zoom-button" onclick="openStakeholderZoom()" aria-label="Open stakeholder map fullscreen">🔍 Zoom In</button>
                 <div class="mermaid" id="stakeholder-map">
 flowchart TB
-    subgraph Leadership["🎯 Leadership"]
-        Patrice_Barbedette["Patrice Barbedette<br/>CEO & President ✓"]
-        Evan_Carlson["Evan Carlson<br/>COO ✓"]
-        Alexander["Alexander<br/>AI PM/Consultant ✓"]
+    subgraph Leadership
+        Patrice_Barbedette["Patrice Barbedette<br/>CEO & President "]
+        Evan_Carlson["Evan Carlson<br/>Chief Operating Officer "]
+        Chris_Holt["Chris Holt<br/>Revenue Operations ✓"]
+        Alexander["Alexander<br/>External Consultant / AI Project Manager 📧"]
     end
-    subgraph Engineering["⚙️ Engineering"]
-        Ludovic["Ludovic<br/>CTO "]
-        Loic["Loic<br/>Engineering Lead "]
+    subgraph Engineering
+        Ludovic["Ludovic<br/>CTO 📧"]
+        Loic["Loic<br/>Engineering Leadership 📧"]
     end
-    subgraph Lemlist["📱 Lemlist Team"]
+    subgraph Lemlist
         Tim_Brouillard["Tim Brouillard<br/>VP Business Development "]
-        Cédric_Cibot_Voisin["Cédric Cibot-Voisin<br/>SVP Sales Europe 📧"]
-        Raphael_Hugnet["Raphael Hugnet<br/>BDR Lead - France 📧"]
+        Cédric_Cibot-Voisin["Cédric Cibot-Voisin<br/>France Sales Manager "]
+        Raphael_Hugnet["Raphael Hugnet<br/>BDR Lead - France "]
         Ismael_Sabbagh["Ismael Sabbagh<br/>BDR Lead - Spain 📧"]
-        Sean_Herbert["Sean Herbert<br/>BDR Lead - UK 📧"]
+        Sean_Herbert["Sean Herbert<br/>BDR Lead - UK ✓"]
         Stefano["Stefano<br/>BDR Lead - Italy 📧"]
-        Christopher_T._Kuhn["Christopher T. Kuhn<br/>COO OTRS AG ✓"]
+        Christopher_T._Kuhn["Christopher T. Kuhn<br/>COO OTRS AG 📧"]
         Seima_Ishaq["Seima Ishaq<br/>BDR (OTRS) ✓"]
     end
-    subgraph Loopio["📝 Loopio Team"]
-        Dalila_Souiah["Dalila Souiah<br/>Global Presales Lead 📧"]
-        Jan["Jan<br/>Loopio Owner 📧"]
-        Rod["Rod<br/>US AE ⚠️"]
+    subgraph Loopio
+        Dalila_Souiah["Dalila Souiah<br/>Global Presales Lead "]
+        Yann_Mercier["Yann Mercier<br/>Global Head / Product Owner, Loopio "]
+        Rod["Rod<br/>US Sales 📧"]
     end
-    subgraph Other["🔗 Other Contacts"]
+    subgraph Other
         Laure_Ruperas["Laure Ruperas<br/>TBD "]
     end
-
-    %% Leadership hierarchy
-    Patrice_Barbedette --> Evan_Carlson
-    Evan_Carlson --> Alexander
-
-    %% Reporting to Leadership
-    Evan_Carlson --> Ludovic
-    Ludovic --> Loic
-    Evan_Carlson --> Tim_Brouillard
-    Evan_Carlson --> Cédric_Cibot_Voisin
-    Evan_Carlson --> Dalila_Souiah
-
-    %% Lemlist team hierarchy
-    Christopher_T._Kuhn --> Seima_Ishaq
-    Cédric_Cibot_Voisin --> Raphael_Hugnet
-    Cédric_Cibot_Voisin --> Ismael_Sabbagh
-    Cédric_Cibot_Voisin --> Sean_Herbert
-    Cédric_Cibot_Voisin --> Stefano
-
-    %% Loopio team hierarchy
-    Dalila_Souiah --> Jan
-    Dalila_Souiah --> Rod
 
     classDef engaged fill:#2ecc71,stroke:#27ae60,color:#fff
     classDef scheduled fill:#4dc0c7,stroke:#3aa8af,color:#fff
     classDef outreach fill:#f1c40f,stroke:#d4ac0d,color:#333
     classDef cold fill:#95a5a6,stroke:#7f8c8d,color:#fff
     classDef risk fill:#f8568b,stroke:#e04477,color:#fff
-
     class Chris_Holt,Sean_Herbert,Seima_Ishaq engaged
     class Patrice_Barbedette,Evan_Carlson,Tim_Brouillard,Raphael_Hugnet,Yann_Mercier scheduled
     class Alexander,Ludovic,Loic,Ismael_Sabbagh,Stefano,Christopher_T._Kuhn,Rod outreach
-    class Laure_Ruperas cold
+    class Cédric_Cibot-Voisin,Dalila_Souiah,Laure_Ruperas cold
                 </div>
                 <p style="margin-top: 16px; color: var(--text-muted); font-size: 0.9rem;">
                     <span style="display:inline-block;width:12px;height:12px;background:#2ecc71;border-radius:3px;margin-right:4px;"></span> Engaged |

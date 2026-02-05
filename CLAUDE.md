@@ -63,10 +63,14 @@ When updating project status, sync ALL THREE systems:
 - Target: "AI Sales Enablement Assessment" workspace
 - Pattern: GitHub = source of truth, Notion = daily-use interface
 
-**Git workflow:**
-- Remote: https://github.com/pqsoccerboy17/client-timelines.git
+**Git workflow (dual-remote setup):**
+- **origin** (dev): `git@github.com:pqsoccerboy17/EasyVista.git` — Mike's personal dev repo
+- **production**: `git@github.com:yelin-io/EasyVista.git` — Client-facing org repo
+- Default push: `git push` → pushes to **origin** (dev)
+- Production deploy: `git push production main` → pushes to **yelin-io** org
 - Auto-commit enabled via Claude Code settings
-- Single branch per client (currently: main for EasyVista)
+- Branch: main
+- **Mike is not a developer** — always run git commands for him, don't just show them
 
 ## Data Model Constraints
 

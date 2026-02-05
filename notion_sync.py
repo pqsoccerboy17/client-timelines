@@ -273,7 +273,7 @@ def main():
         print("Set it in GitHub Secrets or export NOTION_API_KEY=ntn_...")
         sys.exit(1)
 
-    data_source_id = os.environ.get("NOTION_STAKEHOLDERS_ID", DEFAULT_STAKEHOLDERS_ID)
+    data_source_id = os.environ.get("NOTION_STAKEHOLDERS_ID") or DEFAULT_STAKEHOLDERS_ID
 
     print(f"Data source: {data_source_id}")
     print()

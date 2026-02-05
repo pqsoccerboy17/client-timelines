@@ -81,6 +81,31 @@ When gathering context for briefings or research:
 | **Yelin.io** | Henry Yelin, Russell Beggs | @yelin.io |
 | **Lemlist** | Eduardo | @lemlist.com, @lempire.co |
 
+## MS365 MCP Workflow Patterns
+
+These are interactive workflows (Claude Code sessions), not headless automation — the correct security model for MS365 OAuth.
+
+### Daily Briefing
+1. `outlook_email_search` — Unread from @easyvista.com + Sent Items (last 3 days)
+2. `outlook_calendar_search` — Today's EasyVista meetings
+3. `notion-search` — Recent Granola Notes for meeting transcripts
+4. Review config.json stakeholders against email activity
+5. Suggest status updates if warranted
+
+### Call Prep
+1. `outlook_email_search` — Thread history with stakeholder
+2. `notion-fetch` — Stakeholder details from Notion DB
+3. Read config.json for current status/notes
+4. Generate prep brief
+
+### Post-Meeting Update
+1. `notion-search` — Find Granola meeting note
+2. Extract status changes, action items, dates
+3. Update config.json
+4. Run `python3 generate_timeline.py`
+5. Update Notion via MCP
+6. Commit & push
+
 ## Lessons Learned
 
 1. **Always check Sent Items** — Critical decisions (like Dripify→Lemlist pivot) are often in emails I sent, not received

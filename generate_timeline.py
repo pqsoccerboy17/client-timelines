@@ -110,6 +110,80 @@ def calculate_metrics(cfg: dict) -> dict:
         'risk_count': risk_count
     }
 
+def update_index_html_mermaid(cfg: dict, index_path: str = "index.html"):
+    """Update Mermaid diagram source code in index.html from config data"""
+    import re
+
+    with open(index_path, 'r') as f:
+        html = f.read()
+
+    # Generate fresh diagram content and strip ```mermaid / ``` fences
+    gantt_raw = generate_gantt(cfg)
+    gantt_content = gantt_raw.replace("```mermaid\n", "").rstrip("`").strip()
+
+    stakeholder_raw = generate_stakeholder_map(cfg)
+    stakeholder_content = stakeholder_raw.replace("```mermaid\n", "").rstrip("`").strip()
+
+    # Append classDef definitions and class assignments to stakeholder content
+    classdefs = [
+        "",
+        "    classDef engaged fill:#2ecc71,stroke:#27ae60,color:#fff",
+        "    classDef scheduled fill:#4dc0c7,stroke:#3aa8af,color:#fff",
+        "    classDef outreach fill:#f1c40f,stroke:#d4ac0d,color:#333",
+        "    classDef cold fill:#95a5a6,stroke:#7f8c8d,color:#fff",
+        "    classDef risk fill:#f8568b,stroke:#e04477,color:#fff",
+        ""
+    ]
+
+    # Group stakeholders by status for class assignments
+    status_groups = {
+        'engaged': [], 'scheduled': [], 'outreach': [], 'cold': [], 'risk': []
+    }
+    for s in cfg['stakeholders']:
+        name_key = s['name'].replace(' ', '_')
+        status = s['status']
+        if status == 'engaged':
+            status_groups['engaged'].append(name_key)
+        elif status == 'scheduled':
+            status_groups['scheduled'].append(name_key)
+        elif status == 'outreach_sent':
+            status_groups['outreach'].append(name_key)
+        elif status in ('pending', 'cold'):
+            status_groups['cold'].append(name_key)
+        elif status == 'risk':
+            status_groups['risk'].append(name_key)
+
+    class_lines = []
+    for css_class, names in status_groups.items():
+        if names:
+            class_lines.append(f"    class {','.join(names)} {css_class}")
+
+    stakeholder_content += '\n' + '\n'.join(classdefs) + '\n'.join(class_lines)
+
+    # Replace Gantt chart: first <div class="mermaid"> that does NOT have id="stakeholder-map"
+    # Match: <div class="mermaid"> ... </div> (the first one, which is the gantt)
+    html = re.sub(
+        r'(<div class="mermaid">)\n.*?\n(                </div>)',
+        r'\1\n' + gantt_content + r'\n\2',
+        html,
+        count=1,
+        flags=re.DOTALL
+    )
+
+    # Replace Stakeholder map: <div class="mermaid" id="stakeholder-map"> ... </div>
+    html = re.sub(
+        r'(<div class="mermaid" id="stakeholder-map">)\n.*?\n(                </div>)',
+        r'\1\n' + stakeholder_content + r'\n\2',
+        html,
+        count=1,
+        flags=re.DOTALL
+    )
+
+    with open(index_path, 'w') as f:
+        f.write(html)
+
+    print(f"✓ Updated Mermaid diagrams in {index_path}")
+
 def update_index_html_classes(cfg: dict, index_path: str = "index.html"):
     """Update stakeholder class assignments and progress metrics in index.html"""
     import re
@@ -286,14 +360,15 @@ def main():
     (output_dir / f"{client}-stakeholders.mermaid").write_text(stakeholders)
     (output_dir / f"{client}-timeline.md").write_text(md)
 
-    # Update index.html stakeholder class assignments
+    # Update index.html Mermaid diagrams and stakeholder class assignments
+    update_index_html_mermaid(cfg, output_dir / "index.html")
     update_index_html_classes(cfg, output_dir / "index.html")
 
     print(f"✓ Generated files for {cfg['client']['name']}")
     print(f"  - {client}-gantt.mermaid")
     print(f"  - {client}-stakeholders.mermaid")
     print(f"  - {client}-timeline.md")
-    print(f"  - index.html (stakeholder classes updated)")
+    print(f"  - index.html (Mermaid diagrams + stakeholder classes updated)")
 
 if __name__ == "__main__":
     main()
