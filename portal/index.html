@@ -182,6 +182,104 @@
 
         /* CTA and Footer now use design-system.css classes */
 
+        /* Support & Resources */
+        .support-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-4);
+            margin-bottom: var(--space-5);
+        }
+
+        .support-card {
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-5);
+            transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+        }
+
+        .support-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .support-card__icon {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-3);
+        }
+
+        .support-card__title {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-2);
+        }
+
+        .support-card__description {
+            color: var(--color-text-secondary);
+            font-size: var(--font-size-sm);
+            margin-bottom: var(--space-4);
+            line-height: var(--line-height-relaxed);
+        }
+
+        .support-card__links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .support-card__links li {
+            padding: var(--space-2) 0;
+            border-top: 1px solid var(--color-border);
+            font-size: var(--font-size-sm);
+        }
+
+        .support-card__links li:first-child {
+            border-top: none;
+            padding-top: 0;
+        }
+
+        .support-card__links a {
+            color: var(--color-ev-teal);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .support-card__links a:hover {
+            text-decoration: underline;
+        }
+
+        .support-highlight {
+            background: var(--color-ev-teal-soft);
+            border: 1px solid var(--color-ev-teal);
+            border-radius: var(--radius-lg);
+            padding: var(--space-5) var(--space-6);
+        }
+
+        .support-highlight__title {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--color-ev-teal);
+            margin-bottom: var(--space-3);
+        }
+
+        .support-highlight__items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-3);
+        }
+
+        .support-highlight__item {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+        }
+
+        .support-highlight__item strong {
+            color: var(--color-text-primary);
+            display: block;
+            margin-bottom: var(--space-1);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .hero-stats {
@@ -196,6 +294,10 @@
                 flex-direction: column;
                 gap: var(--space-4);
                 text-align: center;
+            }
+
+            .support-grid {
+                grid-template-columns: 1fr;
             }
 
             .milestone-item {
@@ -257,6 +359,62 @@
             </div>
             <div class="status-badge">On Track</div>
         </div>
+
+        <section style="margin-bottom: var(--space-8);">
+            <h2 class="section-title">Support & Resources</h2>
+            <div class="support-grid">
+                <div class="support-card">
+                    <div class="support-card__icon">🤝</div>
+                    <h3 class="support-card__title">Need Help?</h3>
+                    <p class="support-card__description">Questions about the program, timelines, or your role? Here's how to get support.</p>
+                    <ul class="support-card__links">
+                        <li>Slack: <strong>#lemlist-pilot</strong> · <strong>#loopio-rollout</strong></li>
+                        <li>Office Hours: <strong>Thursdays 2pm ET</strong></li>
+                        <li>Contact: BDR Manager (announced at kickoff)</li>
+                    </ul>
+                </div>
+
+                <div class="support-card">
+                    <div class="support-card__icon">📱</div>
+                    <h3 class="support-card__title">Lemlist Resources</h3>
+                    <p class="support-card__description">Official training, documentation, and playbooks for LinkedIn automation.</p>
+                    <ul class="support-card__links">
+                        <li><a href="https://university.lemlist.com/" target="_blank" rel="noopener">Lemlist University</a> — Video courses</li>
+                        <li><a href="https://help.lemlist.com/en/" target="_blank" rel="noopener">Help Center</a> — Full documentation</li>
+                        <li><a href="https://www.lemlist.com/playbooks" target="_blank" rel="noopener">Playbooks</a> — Proven strategies</li>
+                    </ul>
+                </div>
+
+                <div class="support-card">
+                    <div class="support-card__icon">📝</div>
+                    <h3 class="support-card__title">Loopio Resources</h3>
+                    <p class="support-card__description">Help center, demos, and admin guides for RFP response management.</p>
+                    <ul class="support-card__links">
+                        <li><a href="https://support.loopio.com/hc/en-us" target="_blank" rel="noopener">Help Center</a> — Full documentation</li>
+                        <li><a href="https://loopio.com/rfp-demo-video/" target="_blank" rel="noopener">Demo Video</a> — Platform walkthrough</li>
+                        <li><a href="https://support.loopio.com/hc/en-us/articles/360024366874-Getting-Started-Admin" target="_blank" rel="noopener">Admin Guide</a> — Setup & config</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="support-highlight">
+                <h3 class="support-highlight__title">👥 EasyVista Internal Support</h3>
+                <div class="support-highlight__items">
+                    <div class="support-highlight__item">
+                        <strong>Slack Channels</strong>
+                        #lemlist-pilot · #loopio-rollout
+                    </div>
+                    <div class="support-highlight__item">
+                        <strong>Weekly Office Hours</strong>
+                        Thursdays 2pm ET
+                    </div>
+                    <div class="support-highlight__item">
+                        <strong>Primary Contact</strong>
+                        BDR Manager (to be announced at pilot kickoff)
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <section>
             <h2 class="section-title">Workstreams</h2>
