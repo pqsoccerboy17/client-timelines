@@ -13,7 +13,10 @@ Timeline visualization for tracking consulting engagement milestones, stakeholde
 - **Chat:** Microsoft Teams (for EasyVista communications)
 - **Meeting Notes:** Granola → auto-syncs to Notion "Granola Notes" database
 
-**When running sales skills (daily-briefing, call-prep, account-research, etc.):**
+**Custom Skills:**
+- **`/next-steps`** — Automatically discovers recent conversations across MS365 calendar, MS365 email, Notion Granola Notes, and Teams. Identifies who Mike spoke with, pulls action items, and drafts follow-up next steps. No name required — it reasons from the data. Also runs weekday mornings as a daily briefing.
+
+**When running sales skills (daily-briefing, call-prep, account-research, next-steps, etc.):**
 - Always use O365 tools (`outlook_email_search`, `outlook_calendar_search`) instead of Gmail/GCal
 - **CRITICAL: Search Sent Items too** — Critical decisions are often in emails I sent
 - Pull pipeline data from Notion when available
@@ -25,6 +28,22 @@ When updating project status, sync ALL THREE systems:
 1. **Notion** (EasyVista Main) → Primary UI
 2. **config.json** → Source of truth for timeline
 3. **GitHub Pages** → `git push` to update dashboard
+
+## Key People
+
+| Who | Role | Notes |
+|-----|------|-------|
+| **Evan** | Evan Carlson, COO @ EasyVista | Primary exec sponsor, weekly 1:1s with Mike |
+| **Patrice** | Patrice Barbedette, CEO @ EasyVista | Board-level updates, travels London/Paris |
+| **Chris Holt** | RevOps/Procurement @ EasyVista | Handles NetSuite POs, based in Colorado |
+| **Henry** | Henry Yelin, Yelin.io founder | Mike's consulting partner |
+| **Russell** | Russell Beggs, Yelin.io | Co-delivers project reports |
+| **Jan** | EasyVista (France) | Translation/Lupio library work |
+| **Todd Russell** | EasyVista (Minnesota) | US Lupio point person |
+| **Ismail** | EasyVista stakeholder | Final LinkedIn automation stakeholder call |
+| **Eduardo** | Lemlist account manager | Enterprise tier contact |
+
+→ Full profiles: memory/people/
 
 ## Architecture
 
