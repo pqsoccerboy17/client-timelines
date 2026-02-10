@@ -71,7 +71,7 @@
 | Schedule Dalila/Yann call | Mike | 2026-01-24 |
 | Discovery call | Mike | 2026-01-28 |
 | Interview Rod (ChatGPT usage) | Mike | 2026-02-05 |
-| French → English translation (700 questions) | Jon & Todd | 2026-02-13 |
+| French → English translation (700 questions) | Yann Mercier | 2026-02-13 |
 | Loopio office hours launch | Dalila/Yann | 2026-02-10 |
 | Identify blockers | Mike | 2026-02-07 |
 
@@ -128,11 +128,12 @@
 - **2026-02-04** — 🎯 Mandatory Loopio alignment call - COMPLETE. Translation to English by Feb 13 (Jon & Todd). Office hours launching.
 - **2026-02-05** — EasyVista | Yelin.io Sync (Loopio office hours kickoff, Lemlist quote review)
 - **2026-02-07** — Validation phase complete
-- **2026-02-13** — 🎯 Loopio English translation deadline (Jon & Todd)
+- **2026-02-10** — 🎯 Loopio 700Q English translation complete (3 days early)
 - **2026-02-25** — 🎯 AI at EasyVista: Project Update (Evan/Patrice)
+- **2026-02-08** — Lemlist Enterprise plan selected ($11,009/yr, 10 seats)
 - **2026-02-09** — New West BDR onboarding + Lemlist training
 - **2026-02-21** — Lemlist US pilot launch
-- **2026-03-07** — 🎯 Lemlist Go/No-Go decision
+- **2026-03-07** — 🎯 Lemlist Pilot Results Review
 - **2026-03-21** — Loopio global training complete
 - **2026-03-28** — Final documentation
 - **2026-03-31** — 🎯 Q1 DEADLINE
@@ -151,4 +152,4 @@
 
 ---
 
-*Generated 2026-02-10 07:04*
+*Generated 2026-02-10 19:41*
