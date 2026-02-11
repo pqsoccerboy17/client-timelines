@@ -193,6 +193,7 @@ body {
     color: var(--color-text-primary);
     background-color: var(--color-bg-primary);
     transition: background-color var(--transition-normal), color var(--transition-normal);
+    zoom: 1.1;
 }
 
 /* Text selection - amber tinted */
