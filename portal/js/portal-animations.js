@@ -188,7 +188,7 @@
             // Apply progress-based color (skip Days ring — it's a countdown, not progress)
             if (circle.id !== 'days-ring' && percent > 0) {
                 var color = getProgressColor(percent);
-                circle.style.stroke = color;
+                circle.setAttribute('stroke', color);
                 var wrapper = circle.closest('.hero-stat__ring-wrapper');
                 if (wrapper) {
                     var valueEl = wrapper.querySelector('.hero-stat__value');
